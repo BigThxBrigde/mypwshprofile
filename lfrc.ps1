@@ -1,0 +1,103 @@
+# Icons for lf
+# $env:LF_ICONS="tw=`u{e5ff}:st=`u{e5ff}:ow=`u{e5ff}:di=`u{e5ff}:fi=`u{f15b}
+# :ln=`u{f481}:or=`u{f481}:ex=`u{f465}:*.c=`u{e61e}:*.cc=`u{e61d}:*.clj=`u{e768}
+# :*.coffee=`u{e751}:*.cpp=`u{e61d}:*.css=`u{e614}:*.less=`u{e614}:*.dart=`u{e798}
+# :*.fs=`u{e7a7}:*.go=`u{e724}:*.h=`u{f773}:*.hh=`u{f773}:*.html=`u{e60e}:*.java=`u{e738}
+# :*.js=`u{e74e}:*.json=`u{e60b}:*.lua=`u{e620}:*.md=`u{f853}:*.php=`u{e73d}
+# :*.py=`u{f820}:*.pyc=`u{f82f}:*.rs=`u{e7a8}:*.ts=`u{e628}:*.vim=`u{e7c5}
+# :vimrc=`u{e62b}:*.cmd=`u{fcb5}:*.bat=`u{fcb5}:*.ps1=`u{f489}:*.sh=`u{f120}
+# :*.bash=`u{f120}:*.zsh=`u{f120}:*.tar=`u{f410}:*.tgz=`u{f410}:*.zip=`u{f410}
+# :*.gz=`u{f410}:*.jar=`u{f410}:*.war=`u{f410}:*.rar=`u{f410}:*.7z=`u{f410}:*.cab=`u{f410}
+# :*.jpg=`u{f1c5}:*.jpeg=`u{f1c5}:*.gif=`u{f1c5}:*.bmp=`u{f1c5}:*.pbm=`u{f1c5}
+# :*.pgm=`u{f1c5}:*.ppm=`u{f1c5}:*.tga=`u{f1c5}:*.xbm=`u{f1c5}:*.xpm=`u{f1c5}
+# :*.tif=`u{f1c5}:*.png=`u{f1c5}:*.svg=`u{fc1f}:*.mp4=`u{f1c8}:*.vob=`u{f1c8}
+# :*.qt=`u{f1c8}:*.nuv=`u{fa66}:*.wmv=`u{fa66}:*.asf=`u{fa66}:*.avi=`u{fa66}:*.flv=`u{fa66}
+# :*.aac=`u{f884}:*.au=`u{f884}:*.flac=`u{f884}:*.m3a=`u{f884}:*.mp2=`u{f884}
+# :*.wav=`u{f884}:*.sln=`u{e70c}:*.cs=`u{f81a}:*.csproj=`u{fb25}:*.ini=`u{e615}
+# :*.git=`u{f09b}:*.gitignore=`u{e702}:*.exe=`u{f471}"
+
+$icons_map = @("tw=`u{e5ff}", `
+    "st=`u{e5ff}", `
+    "ow=`u{e5ff}", `
+    "di=`u{e5ff}", `
+    "fi=`u{f15b}", `
+    "ln=`u{f481}", `
+    "or=`u{f481}", `
+    "ex=`u{f465}", `
+    "*.c=`u{e61e}", `
+    "*.cc=`u{e61d}", `
+    "*.clj=`u{e768}", `
+    "*.coffee=`u{e751}", `
+    "*.cpp=`u{e61d}", `
+    "*.css=`u{e614}", `
+    "*.less=`u{e614}", `
+    "*.dart=`u{e798}", `
+    "*.fs=`u{e7a7}", `
+    "*.go=`u{e724}", `
+    "*.h=`u{f773}", `
+    "*.hh=`u{f773}", `
+    "*.html=`u{e60e}", `
+    "*.java=`u{e738}", `
+    "*.js=`u{e74e}", `
+    "*.json=`u{e60b}", `
+    "*.lua=`u{e620}", `
+    "*.md=`u{f853}", `
+    "*.php=`u{e73d}", `
+    "*.py=`u{f820}", `
+    "*.pyc=`u{f82f}", `
+    "*.rs=`u{e7a8}", `
+    "*.ts=`u{e628}", `
+    "*.vim=`u{e7c5}", `
+    "vimrc=`u{e62b}", `
+    "*.cmd=`u{fcb5}", `
+    "*.bat=`u{fcb5}", `
+    "*.ps1=`u{f489}", `
+    "*.sh=`u{f120}", `
+    "*.bash=`u{f120}", `
+    "*.zsh=`u{f120}", `
+    "*.tar=`u{f410}", `
+    "*.tgz=`u{f410}", `
+    "*.zip=`u{f410}", `
+    "*.gz=`u{f410}", `
+    "*.jar=`u{f410}", `
+    "*.war=`u{f410}", `
+    "*.rar=`u{f410}", `
+    "*.7z=`u{f410}", `
+    "*.cab=`u{f410}", `
+    "*.jpg=`u{f1c5}", `
+    "*.jpeg=`u{f1c5}", `
+    "*.gif=`u{f1c5}", `
+    "*.bmp=`u{f1c5}", `
+    "*.pbm=`u{f1c5}", `
+    "*.pgm=`u{f1c5}", `
+    "*.ppm=`u{f1c5}", `
+    "*.tga=`u{f1c5}", `
+    "*.xbm=`u{f1c5}", `
+    "*.xpm=`u{f1c5}", `
+    "*.tif=`u{f1c5}", `
+    "*.png=`u{f1c5}", `
+    "*.svg=`u{fc1f}", `
+    "*.mp4=`u{f1c8}", `
+    "*.vob=`u{f1c8}", `
+    "*.qt=`u{f1c8}", `
+    "*.nuv=`u{fa66}", `
+    "*.wmv=`u{fa66}", `
+    "*.asf=`u{fa66}", `
+    "*.avi=`u{fa66}", `
+    "*.flv=`u{fa66}", `
+    "*.aac=`u{f884}", `
+    "*.au=`u{f884}", `
+    "*.flac=`u{f884}", `
+    "*.m3a=`u{f884}", `
+    "*.mp2=`u{f884}", `
+    "*.wav=`u{f884}", `
+    "*.sln=`u{e70c}", `
+    "*.cs=`u{f81a}", `
+    "*.csproj=`u{fb25}", `
+    "*.ini=`u{e615}", `
+    "*.git=`u{f09b}", `
+    "*.gitignore=`u{e702}", `
+    "*.exe=`u{f471}" `
+    )
+
+$env:LF_ICONS = join-string -inputobject $icons_map -separator ':'
