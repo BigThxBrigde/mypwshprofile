@@ -160,14 +160,6 @@ function cmatrix {
   wsl cmatrix
 }
 
-function te { 
-  D:\Application\emacs-28.2\bin\emacs.exe -nw 
-}
-
-function emacs {
-  D:\Application\emacs-28.2\bin\runemacs.exe 
-}
-
 function csi {
   wt -w 0 nt --title "C# REPL" csharprepl 
 }
