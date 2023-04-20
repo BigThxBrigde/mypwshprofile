@@ -164,6 +164,20 @@ function csi {
   wt -w 0 nt --title "C# REPL" csharprepl 
 }
 
+function grep {
+  param(
+    [parameter(mandatory, position=0)]
+    [alias('f')]
+    [string]$file,
+    [parameter(mandatory, position=1)]
+    [alias('p')]
+    [string]$pattern
+  )
+  gci -recurse -file $file | %{ 
+    sls -literalpath @($_.fullname) -pattern "$pattern" -erroraction silentlycontinue } `
+  | bat -l meminfo --theme base16 --style plain 
+}
+
 function wc {
   param(
     [parameter(position = 0)]
