@@ -1,8 +1,10 @@
 # Import Terminal Icons modules and oh-my-posh
 Import-Module -Name Terminal-Icons
+
 # Tried to use EMACS Keybindings
 Set-PSReadLineOption -EditMode Emacs
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+
 # oh-my-posh init pwsh --config $env:POSH_THEMES_PATH\neko.omp.json | Invoke-Expression
 # meow.json is based on `neko.omp.json`
 oh-my-posh init pwsh --config $env:USERPROFILE\Documents\PowerShell\meow.json | Invoke-Expression

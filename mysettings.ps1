@@ -20,7 +20,9 @@ function touch([string]$File) {
 
 # Win fetch
 function winfetch {
-  pwshfetch-test-1 -a -l -cpustyle bartext -memorystyle bartext -diskstyle bartext -batterystyle bartext
+  pwshfetch-test-1 -a -l -cpustyle bartext `
+  -memorystyle bartext -diskstyle bartext `
+  -batterystyle bartext
 }
 
 # Reboot PC
@@ -62,9 +64,9 @@ function switch-gitconfig {
   } elseif ($modified.IsPresent) {
     cp ~/.config/git/config.modified ~/.gitconfig -Force
   } else {
-    Write-Host 'Usage: switch-gitconfig [option]'  -f Green             
-    Write-Host '       -m,-modified    Use modified gitconfig'  -f Green
-    Write-Host '       -o,-original    Use original gitconfig'  -f Green
+    write-host 'Usage: switch-gitconfig [option]'  -f Green
+    write-host '       -m,-modified    Use modified gitconfig'  -f Green
+    write-host '       -o,-original    Use original gitconfig'  -f Green
   }
 }
 
@@ -196,6 +198,35 @@ function wc {
   if ($line) { (gc $input | measure -l).lines } 
   elseif ($word) { (gc $input | measure -w).words }
   elseif ($char) { (gc $input | measure -c).characters }
+}
+
+
+$script:init_file = "e:/Jermaine/simplevim/init.lua"
+
+function ged {
+  param(
+	  [parameter(valuefromremainingarguments = $true,
+		  valuefrompipeline = $true)]
+	  [string[]][alias('p')]$path
+  )
+  if ($path.length -eq 0) {
+    neovide -- -u "$script:init_file"
+  } else {
+    neovide -- -u "$script:init_file" @path
+  }
+}
+
+function ed {
+  param(
+	  [parameter(valuefromremainingarguments = $true,
+		  valuefrompipeline = $true)]
+	  [string[]][alias('p')]$path
+  )
+  if ($path.length -eq 0) {
+    nvim -u "$script:init_file"
+  } else {
+    nvim -u "$script:init_file" @path
+  }
 }
 
 
