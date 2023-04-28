@@ -148,7 +148,8 @@ function edit {
     }
   } | fzf | % {
     $live_searching = $false
-    hx $_
+    # hx $_
+	ed $_
   }
 }
 
@@ -201,7 +202,7 @@ function wc {
 }
 
 
-$script:init_file = "e:/Jermaine/simplevim/init.lua"
+$script:init_file = $env:PSDOCHOME + "/simplevim/init.lua" 
 
 function ged {
   param(
