@@ -33,6 +33,14 @@ vim.o.tabstop        = 4
 vim.o.shiftwidth     = 4
 vim.o.smarttab       = true
 vim.o.cursorline     = true
+vim.o.completeopt    = 'menu,menuone,noselect'
+vim.o.expandtab      = true
+vim.o.ignorecase     = true
+vim.o.smartcase      = true
+vim.o.smartindent    = true
+vim.o.termguicolors  = true
+vim.o.wildmode       = 'longest:full,full'
+vim.o.wrap           = false
     
 if vim.g.neovide then
     -- Put anything you want to happen only in Neovide here
@@ -47,11 +55,36 @@ end
 
 require('lazy').setup(
 {
+  {
+    'tpope/vim-surround'
+  },
+  {
+    'justinmk/vim-sneak',
+    keys = {
+      { 'f', '<Plug>Sneak_s'},
+      { 'F', '<Plug>Sneak_S'},
+      { 't', '<Plug>Sneak_t'},
+      { 'T', '<Plug>Sneak_T'}
+    },
+    config = function()
+        vim.cmd([[
+         highlight Sneak guifg=red guibg=NONE ctermfg=red ctermbg=NONE
+         highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
+        ]])
+    end
+  },
+  {
+    'jiangmiao/auto-pairs',
+  },
+  { 
+    'gcmt/wildfire.vim',
+  },
   { "junegunn/fzf" },
   { 
 	"junegunn/fzf.vim",
 	keys = {
       { "<leader>ff", "<cmd>Files<cr>", desc = "Find files" },
+      { "<leader>fb", "<cmd>Buffers<cr>", desc = "Find buffers" },
 	},
 
   },
@@ -131,12 +164,12 @@ require('lazy').setup(
   --   opts = { use_default_keymaps = false, max_join_length = 150 },
   -- },
 
-  {
-    "monaqa/dial.nvim",
-    -- lazy-load on keys
-    -- mode is `n` by default. For more advanced options, check the section on key mappings
-    keys = { "<C-a>", { "<C-x>", mode = "n" } },
-  },
+  -- {
+  --   "monaqa/dial.nvim",
+  --   -- lazy-load on keys
+  --   -- mode is `n` by default. For more advanced options, check the section on key mappings
+  --   keys = { "<C-a>", { "<C-x>", mode = "n" } },
+  -- },
 
 
   -- local plugins can also be configure with the dev option.
@@ -193,7 +226,7 @@ require('lazy').setup(
     -- install missing plugins on startup. This doesn't increase startup time.
     missing = true,
     -- try to load one of these colorschemes when starting an installation during startup
-    colorscheme = { "habamax" },
+    colorscheme = { "catppuccin-macchiato" },
   },
   ui = {
     -- a number <1 is a percentage., >1 is a fixed size
