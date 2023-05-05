@@ -91,6 +91,7 @@ function open_shr {
   open $env:TM_SHR_FOLDER
 }
 
+
 # Use for fzf search 
 $script:FZF_EXCLUDE_DIR = @(".git", 
   ".gitlab", 
@@ -227,6 +228,21 @@ function ed {
     nvim -u "$script:init_file"
   } else {
     nvim -u "$script:init_file" @path
+  }
+}
+
+function which {
+  param(
+	  [parameter(position = 0,
+		  valuefrompipeline = $true)]
+	  [string][alias('c')]$cmd
+  )
+
+  $cmdinfo = get-command $cmd -erroraction silentlycontinue
+  if ($cmdinfo) {
+      $cmdinfo
+  } else {
+      write-host "ERROR: No command [$cmd] found!" -f red
   }
 }
 
