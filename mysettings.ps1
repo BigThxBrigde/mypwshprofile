@@ -1,8 +1,3 @@
-# List all files in directory and sub direcotries
-function lsfl([string]$Path, [string]$Filter) {
-    Get-ChildItem -Path $Path -Filter $Filter -Recurse
-}
-
 # Monitoring file dynamically
 function tail([string]$Path, [int]$Line = 30) {
     Get-Content -Path $Path -Tail $Line -Wait
@@ -40,8 +35,6 @@ function kill-trashes {
   $sb = {
       while ($true) {
         sudo taskkill /F /IM MBCloudEA.exe /T 2>&1 1>$null;
-        # sudo taskkill /F /IM MsMpEng.exe /T 2>&1 1>$null;
-        # sudo taskkill /F /IM MsMpEngCp.exe /T 2>&1 1>$null;
         Start-Sleep 2;
       }
     }
@@ -98,10 +91,7 @@ $script:FZF_EXCLUDE_DIR = @(".git",
   ".vs", 
   "bin", 
   "obj", 
-  "node_modules", 
-  "samples",
-  "mydocbook",
-  "external")
+  "node_modules") 
 
 $script:exclude_dir = @()
 
