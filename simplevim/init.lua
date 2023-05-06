@@ -92,15 +92,15 @@ require('lazy').setup(
   { 
     'gcmt/wildfire.vim',
   },
-  { "junegunn/fzf" },
-  { 
-	"junegunn/fzf.vim",
-	keys = {
-      { "<leader>ff", "<cmd>Files<cr>", desc = "Find files" },
-      { "<leader>fb", "<cmd>Buffers<cr>", desc = "Find buffers" },
-	},
+  -- { "junegunn/fzf" },
+  -- { 
+  --   "junegunn/fzf.vim",
+  --   keys = {
+  --     { "<leader>ff", "<cmd>Files<cr>", desc = "Find files" },
+  --     { "<leader>fb", "<cmd>Buffers<cr>", desc = "Find buffers" },
+  --   },
 
-  },
+  -- },
   {
     "nvim-neo-tree/neo-tree.nvim",
       keys = {
