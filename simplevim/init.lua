@@ -55,6 +55,7 @@ end
 
 require('lazy').setup(
 {
+  { 'mhinz/vim-startify' },
   {
     'tpope/vim-surround'
   },
