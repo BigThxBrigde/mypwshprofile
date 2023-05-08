@@ -5,12 +5,12 @@ return {{
         require('lualine').setup {
             options = {
                 component_separators = {
-                    left = '|',
-                    right = '|'
+                    -- left = '|',
+                    -- right = '|'
                 },
                 section_separators = {
-                    left = '',
-                    right = ''
+                    -- left = '',
+                    -- right = ''
                 },
                 theme = 'catppuccin'
             }
@@ -23,7 +23,7 @@ return {{
     config = function()
         require('bufferline').setup {
             options = {
-                buffer_close_icon = ''
+                -- buffer_close_icon = ''
             }
         }
     end
@@ -99,7 +99,8 @@ return {{
     init = function()
         vim.g.startuptime_tries = 10
     end
-}, {
+}, 
+{
     "hrsh7th/nvim-cmp",
     -- load cmp on InsertEnter
     event = "InsertEnter",
