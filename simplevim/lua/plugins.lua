@@ -1,22 +1,23 @@
-return {{
+return { {
+    'junegunn/vim-easy-align'
+}, {
     'nvim-lualine/lualine.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
         require('lualine').setup {
             options = {
                 component_separators = {
-                    -- left = '|',
-                    -- right = '|'
+                    left = '',
+                    right = ''
                 },
                 section_separators = {
-                    -- left = '',
-                    -- right = ''
+                    left = '',
+                    right = ''
                 },
                 theme = 'catppuccin'
             }
         }
     end
-
 }, {
     'akinsho/bufferline.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -42,22 +43,29 @@ return {{
     dependencies = {{'nvim-tree/nvim-web-devicons'}}
 }, {'tpope/vim-surround'}, {
     'justinmk/vim-sneak',
-    keys = {{'f', '<Plug>Sneak_s'}, {'F', '<Plug>Sneak_S'}, {'t', '<Plug>Sneak_t'}, {'T', '<Plug>Sneak_T'}},
+    keys = {
+        {'f', '<Plug>Sneak_s'}, 
+        {'F', '<Plug>Sneak_S'}, 
+        {'t', '<Plug>Sneak_t'}, 
+        {'T', '<Plug>Sneak_T'}
+    },
     config = function()
         vim.cmd([[
          highlight Sneak guifg=red guibg=NONE ctermfg=red ctermbg=NONE
          highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
         ]])
     end
-}, {'jiangmiao/auto-pairs'}, {'gcmt/wildfire.vim'}, -- { "junegunn/fzf" },
--- { 
---   "junegunn/fzf.vim",
---   keys = {
---     { "<leader>ff", "<cmd>Files<cr>", desc = "Find files" },
---     { "<leader>fb", "<cmd>Buffers<cr>", desc = "Find buffers" },
---   },
--- },
-{
+}, {
+    'jiangmiao/auto-pairs',
+    config = function()
+    end
+}, {
+    'gcmt/wildfire.vim'
+}, {
+    "junegunn/fzf"
+}, {
+    "junegunn/fzf.vim"
+}, {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {{
         "<leader>ft",
@@ -99,8 +107,7 @@ return {{
     init = function()
         vim.g.startuptime_tries = 10
     end
-}, 
-{
+}, {
     "hrsh7th/nvim-cmp",
     -- load cmp on InsertEnter
     event = "InsertEnter",

@@ -1,4 +1,3 @@
-
 --
 -- Set the lua package path
 --
@@ -18,7 +17,6 @@ require('lazy_inst').install()
 -- Load vim settings
 --
 require('options').setup()
-
 --
 -- Setup lazynvim
 --

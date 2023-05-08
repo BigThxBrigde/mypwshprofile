@@ -44,10 +44,17 @@ return {
           ]])
         end
 
-        keymap({'n', 'i'}, '<leader>lg', show_lazygit)
-        keymap({'n', 'i'}, '<leader>tp', show_term_pwsh)
-        keymap({'n', 'i'}, '<leader>tc', show_term_cmd)
-
+        -- 
+        -- https://superuser.com/questions/945329/how-to-disable-the-leader-key-in-vim-insert-mode 
+        -- :verbose imap <leader>
+        --
+        keymap('n', '<leader>lg', show_lazygit)
+        keymap('n', '<leader>tp', show_term_pwsh)
+        keymap('n', '<leader>tc', show_term_cmd)
+        keymap('v', '<leader>xa', '<Plug>(EasyAlign)')
+        keymap('n', '<leader>ff', '<cmd>Files<cr>')
+        keymap('n', '<leader>fb', '<cmd>Buffers<cr>')
+        keymap('n', '<leader>d', '<cmd>Dashboard<cr>')
 
     end
 }
