@@ -1,3 +1,19 @@
+local float_term = require('lazy.util').float_term
+local keymap     = vim.keymap.set
+
+
+local show_lazygit = function()
+    float_term({'pwsh', '--nologo',  '-c',  'lg' })
+end 
+
+local show_term_pwsh = function()
+    float_term({'pwsh', '--nologo'})
+end
+
+local show_term_cmd = function()
+    float_term({'cmd'})
+end
+
 return {
     setup =  function()
         vim.o.guifont        = 'agave NFM r:h12'
@@ -27,6 +43,11 @@ return {
               autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
           ]])
         end
+
+        keymap({'n', 'i'}, '<leader>lg', show_lazygit)
+        keymap({'n', 'i'}, '<leader>tp', show_term_pwsh)
+        keymap({'n', 'i'}, '<leader>tc', show_term_cmd)
+
 
     end
 }
