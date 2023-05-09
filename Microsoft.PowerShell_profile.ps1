@@ -72,4 +72,4 @@ $env:FZF_DEFAULT_OPTS = @"
 . $outbanner
 . $mysettings
 . $autocompl
-. $lfrc
+# . $lfrc
