@@ -1,0 +1,41 @@
+# interpreter for shell commands
+set shell pwsh 
+
+# cmd to edit file
+cmd editfile ${{
+    $f = $env:f.replace('"','')
+    ed $f
+}}
+
+cmd viewfile ${{
+    $f = $env:f.replace('"','')
+    ed -R $f
+}}
+# cmd to open file
+cmd openfile &{{
+    $f = $env:f.replace('"','')
+    open $f
+}}
+
+map o openfile 
+map e editfile 
+map i viewfile 
+
+# change the shell used in default shell keybinding
+# map w shell
+
+# change 'doc' command to use a different pager
+cmd doc ${{
+    lf -doc | more
+}}
+
+# leave some space at the top and the bottom of the screen
+set scrolloff 10
+
+# use enter for shell commands
+map <enter> shell
+
+# set icons on
+set icons true
+
+
