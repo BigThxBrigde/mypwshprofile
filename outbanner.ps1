@@ -1,6 +1,5 @@
 
-if("$env:TERM_PROGRAM" -ne 'vscode'`
-    -and "$env:TERM_PROGRAM" -ne "") {
+if("$env:TERM_PROGRAM" -ne 'vscode') {
   $banner = "
                                                                                            `
 ▄▄▄▄▄ ▄▄▄· ▄▄▌  ▄ •▄     ▪  .▄▄ ·      ▄▄·  ▄ .▄▄▄▄ . ▄▄▄·  ▄▄▄·                           `
