@@ -33,6 +33,7 @@ return {
         vim.o.wildmode       = 'longest:full,full'
         vim.o.wrap           = false
             
+
         if vim.g.neovide then
             -- Put anything you want to happen only in Neovide here
           vim.g.neovide_fullscreen       = false
@@ -43,6 +44,11 @@ return {
               autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
           ]])
         end
+
+        vim.cmd([[
+            let g:loaded_perl_provider = 0
+            let g:loaded_ruby_provider = 0
+        ]])
 
         -- 
         -- https://superuser.com/questions/945329/how-to-disable-the-leader-key-in-vim-insert-mode 
