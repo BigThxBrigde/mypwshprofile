@@ -8,7 +8,7 @@ return { {
             options = {
                 component_separators = {
                     left = '',
-                    right = ''
+                    right = '|'
                 },
                 section_separators = {
                     left = '',
