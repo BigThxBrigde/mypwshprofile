@@ -17,6 +17,7 @@ $env:PATH      = $env:PATH + ";C:\Go\bin"
 $env:PATH      = $env:PATH + ";" + $GOLIBPATH
 $env:DOCUMENTS = "$env:USERPROFILE\Documents\"
 $env:PSDOCHOME = "$env:DOCUMENTS" + "PowerShell"
+$env:SIMPLEVIM = "$env:PSDOCHOME" + "\simplevim"
 $env:PATH      = $env:PATH + ";$env:DOCUMENTS\PowerShell\Scripts"
 $env:PATH      = $env:PATH + ";$env:USERPROFILE\.local\bin"
 $env:PATH      = $env:PATH + ";D:\Program Files\textadept_11.0.win32"

@@ -1,5 +1,5 @@
 
-local root         = os.getenv('PSDOCHOME') .. '/simplevim'
+local root         = os.getenv('SIMPLEVIM')
 local datapath     = root .. '/data'
 local lazypath     = datapath .. '/lazy/lazy.nvim'
 local configpath   = root .. '/config'

@@ -2,7 +2,7 @@
 -- Set the lua package path
 --
 
-local pkgpath = os.getenv('PSDOCHOME') .. '/simplevim/lua/?.lua'
+local pkgpath = os.getenv('SIMPLEVIM') .. '/lua/?.lua'
 package.path  = package.path ..  pkgpath
 
 -- print(package.path)
