@@ -31,7 +31,7 @@ return { {
 }, -- { 'mhinz/vim-startify' },
 {
     'glepnir/dashboard-nvim',
-    event = 'VimEnter',
+    -- event = 'VimEnter',
     config = function()
         require('dashboard').setup {
             -- config

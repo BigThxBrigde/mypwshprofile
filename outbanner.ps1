@@ -1,5 +1,15 @@
 
-if("$env:TERM_PROGRAM" -ne 'vscode') {
+# Banner only show once at startup
+$script:show_banner = $false
+
+if ($env:current_session -ne $env:WT_SESSION) {
+    $env:current_session = $env:WT_SESSION
+    $script:show_banner = $true
+}
+
+
+if("$env:TERM_PROGRAM" -ne 'vscode'`
+    -and $script:show_banner) {
   $banner = "
                                                                                            `
 ▄▄▄▄▄ ▄▄▄· ▄▄▌  ▄ •▄     ▪  .▄▄ ·      ▄▄·  ▄ .▄▄▄▄ . ▄▄▄·  ▄▄▄·                           `
