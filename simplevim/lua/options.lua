@@ -58,6 +58,7 @@ return {
         keymap('n', '<leader>bc', '<cmd>bd!<cr>')
         keymap('n', '<leader>pq', '<cmd>qa!<cr>')
         keymap('n', '<leader>ps', '<cmd>wa!<cr>')
+        keymap('n', '<leader>xl', '<cmd>Lazy<cr>')
 
     end
 }
