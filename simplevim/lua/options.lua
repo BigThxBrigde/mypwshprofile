@@ -55,6 +55,9 @@ return {
         keymap('n', '<leader>ff', '<cmd>Files<cr>')
         keymap('n', '<leader>fb', '<cmd>Buffers<cr>')
         keymap('n', '<leader>d', '<cmd>Dashboard<cr>')
+        keymap('n', '<leader>bc', '<cmd>bd!<cr>')
+        keymap('n', '<leader>pq', '<cmd>qa!<cr>')
+        keymap('n', '<leader>ps', '<cmd>wa!<cr>')
 
     end
 }
