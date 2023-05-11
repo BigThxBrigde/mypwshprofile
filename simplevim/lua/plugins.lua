@@ -1,4 +1,10 @@
 return { {
+    'terryma/vim-multiple-cursors'
+},
+{
+    'preservim/nerdcommenter'
+},
+{
     'junegunn/vim-easy-align'
 }, {
     'nvim-lualine/lualine.nvim',
