@@ -3,15 +3,24 @@ local keymap     = vim.keymap.set
 
 
 local show_lazygit = function()
-    float_term({'pwsh', '--nologo',  '-c',  'lg' })
+    float_term({ 'pwsh', '--nologo',  '-c',  'lg' })
 end 
 
 local show_term_pwsh = function()
-    float_term({'pwsh', '--nologo'})
+    float_term({ 'pwsh', '--nologo' })
 end
 
 local show_term_cmd = function()
-    float_term({'cmd'})
+    float_term({ 'cmd' })
+end
+
+--
+-- https://stackoverflow.com/questions/7207697/vim-split-buffer-and-have-it-open-at-the-bottom
+--
+local show_term_int = function()
+    vim.cmd([[
+        belowright split term://pwsh | resize -20
+    ]])
 end
 
 return {
@@ -32,6 +41,8 @@ return {
         vim.o.termguicolors  = true
         vim.o.wildmode       = 'longest:full,full'
         vim.o.wrap           = false
+        vim.o.splitbelow     = true
+        vim.o.splitright     = true
             
 
         if vim.g.neovide then
@@ -66,6 +77,7 @@ return {
         keymap('n', '<leader>pq', '<cmd>qa!<cr>')
         keymap('n', '<leader>ps', '<cmd>wa!<cr>')
         keymap('n', '<leader>xl', '<cmd>Lazy<cr>')
+        keymap('n', '<leader>tt', show_term_int)
 
     end
 }
