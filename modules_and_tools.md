@@ -2,12 +2,13 @@
 
 | Module Name    | Repo URL                                      |
 | --             | --                                            |
+| PowerShellGet  | https://github.com/PowerShell/PowerShellGet   |
 | PSCalendar     | https://github.com/jdhitsolutions/PSCalendar  |
 | PSProfiler     | https://github.com/IISResetMe/PSProfiler      |
+| PSReadLine     | https://github.com/PowerShell/PSReadLine      |
 | Terminal-Icons | https://github.com/devblackops/Terminal-Icons |
 | z              | https://github.com/badmotorfinger/z           |
 | winfetch       | https://github.com/lptstr/winfetch            |
-
 
 
 # Tools
@@ -16,4 +17,7 @@
 | --         | --                                       |
 | gsudo      | https://github.com/gerardog/gsudo        |
 | oh-my-posh | https://ohmyposh.dev/                    |
-| oh-my-posh | https://github.com/dylantientcheu/nbacli |
+| nba-cli    | https://github.com/dylantientcheu/nbacli |
+| bat        | https://github.com/sharkdp/bat           |
+| btop       | https://github.com/aristocratos/btop     |
+| lf         | https://github.com/gokcehan/lf           |
