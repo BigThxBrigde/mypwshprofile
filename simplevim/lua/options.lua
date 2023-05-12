@@ -17,9 +17,15 @@ end
 --
 -- https://stackoverflow.com/questions/7207697/vim-split-buffer-and-have-it-open-at-the-bottom
 --
-local show_term_int = function()
+local show_hterm = function()
     vim.cmd([[
-        belowright split term://pwsh | resize -20
+        split term://pwsh | resize -15
+    ]])
+end
+
+local show_vterm = function()
+    vim.cmd([[
+        vsplit term://pwsh
     ]])
 end
 
@@ -69,6 +75,8 @@ return {
         keymap('n', '<leader>lg', show_lazygit)
         keymap('n', '<leader>tp', show_term_pwsh)
         keymap('n', '<leader>tc', show_term_cmd)
+        keymap('n', '<leader>th', show_hterm)
+        keymap('n', '<leader>tv', show_vterm)
         keymap('v', '<leader>xa', '<Plug>(EasyAlign)')
         keymap('n', '<leader>ff', '<cmd>Files<cr>')
         keymap('n', '<leader>fb', '<cmd>Buffers<cr>')
@@ -77,7 +85,7 @@ return {
         keymap('n', '<leader>pq', '<cmd>qa!<cr>')
         keymap('n', '<leader>ps', '<cmd>wa!<cr>')
         keymap('n', '<leader>xl', '<cmd>Lazy<cr>')
-        keymap('n', '<leader>tt', show_term_int)
+
 
     end
 }
