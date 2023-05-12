@@ -51,9 +51,9 @@ $env:TM_SHR_FOLDER = "\\car-ch-1tool\Shared Folder"
 
 # `rustup` autocompletion
 $outbanner  = "$env:PSDOCHOME\outbanner.ps1"
+$aliases    = "$env:PSDOCHOME\aliases.ps1"
 $mysettings = "$env:PSDOCHOME\mysettings.ps1"
 $autocompl  = "$env:PSDOCHOME\autocompl.ps1"
-$lfrc       = "$env:PSDOCHOME\lfrc.ps1"
 
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 0
 
@@ -71,6 +71,6 @@ $env:FZF_DEFAULT_OPTS = @"
 "@
 
 . $outbanner
+. $aliases
 . $mysettings
 . $autocompl
-# . $lfrc
