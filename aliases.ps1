@@ -3,11 +3,9 @@ sal     ~           cd-home
 sal     ..          cd-parent 
 sal     lg          lazygit
 sal     vim         nvim
-sal     vi          nvim
 sal     lua         lua54
 sal     pad         proxy-auto-detect
 sal     mdp         markdown-preview
-sal     nvi         neovide
 sal     tac         textadept-curses.exe
 sal     cal         get-calendar
 sal     kkp         halt
