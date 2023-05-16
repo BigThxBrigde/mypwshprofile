@@ -22,3 +22,4 @@
 | btop       | https://github.com/aristocratos/btop     |
 | lf         | https://github.com/gokcehan/lf           |
 | lazygit    | https://github.com/jesseduffield/lazygit |
+| ripgrep    | https://github.com/BurntSushi/ripgrep    |
