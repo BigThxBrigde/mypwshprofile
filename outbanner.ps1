@@ -1,15 +1,19 @@
 
 # Banner only show once at startup
 $script:show_banner = $false
+$script:session = '' 
 
-if ($env:current_session -ne $env:WT_SESSION) {
-    $env:current_session = $env:WT_SESSION
+if ("$env:TERM_PROGRAM" -eq 'WezTerm') { $script:session = $env:WEZTERM_SESSION }
+elseif ("$env:TERM_PROGRAM" -eq '') { $script:session = $env:WT_SESSION }
+elseif ("$env:TERM_PROGRAM" -eq 'vscode') { $script:session = '' }
+
+if ($env:current_session -ne $script:session) {
+    $env:current_session = $script:session
     $script:show_banner = $true
 }
 
 
-if("$env:TERM_PROGRAM" -ne 'vscode'`
-    -and $script:show_banner) {
+if($script:show_banner) {
   $banner = "
                                                                                            `
 ▄▄▄▄▄ ▄▄▄· ▄▄▌  ▄ •▄     ▪  .▄▄ ·      ▄▄·  ▄ .▄▄▄▄ . ▄▄▄·  ▄▄▄·                           `
