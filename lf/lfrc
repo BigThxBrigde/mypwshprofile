@@ -4,12 +4,12 @@ set shell pwsh
 # cmd to edit file
 cmd editfile ${{
     $f = $env:f.replace('"','')
-    ed $f
+    vi $f
 }}
 
 cmd viewfile ${{
     $f = $env:f.replace('"','')
-    ed -R $f
+    vi -R $f
 }}
 # cmd to open file
 cmd openfile &{{
