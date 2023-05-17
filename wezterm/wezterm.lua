@@ -6,13 +6,13 @@ local config = {
     default_prog              = {'pwsh'},
     color_scheme              = "Catppuccin Mocha",
     enable_tab_bar            = false,
-    font_size                 = 11,
-    window_background_opacity = 0.9,
+    font_size                 = 10,
+    window_background_opacity = 0.95,
     initial_rows              = 40,
     initial_cols              = 120,
 }
 
-config.font = wezterm.font('Cascadia Mono', { 
+config.font = wezterm.font('JetBrains Mono', { 
     weight = 'Medium' 
 })
 
