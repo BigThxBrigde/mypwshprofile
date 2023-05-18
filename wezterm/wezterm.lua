@@ -185,6 +185,36 @@ config.keys = {
         mods   = 'CTRL|ALT',
         action = wezterm.action.ToggleFullScreen,
     },
+    {
+        key    = 'c',
+        mods   = 'CTRL|ALT',
+        action = wezterm.action.CloseCurrentTab { confirm = true },
+    },
+    {
+        key    = 'UpArrow',
+        mods   = 'CTRL',
+        action = wezterm.action.ScrollByLine(-1),
+    },
+    {
+        key    = 'DownArrow',
+        mods   = 'CTRL',
+        action = wezterm.action.ScrollByLine(1),
+    },
+    {
+        key    = '/',
+        mods   = 'CTRL',
+        action = wezterm.action.Search("CurrentSelectionOrEmptyString"),
+    },
+    {
+        key    = 'd',
+        mods   = 'CTRL|ALT',
+        action = wezterm.action.ShowDebugOverlay,
+    },
+    {
+        key    = 'n',
+        mods   = 'CTRL|ALT',
+        action = wezterm.action.ShowTabNavigator,
+    },
 }
 
 return config
