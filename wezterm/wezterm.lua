@@ -3,6 +3,8 @@ local get_uuid = require('uuid').get_uuid
 
 -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
 local function get_proc_name(file)
+    local start, finish = file:find('[%w%s!-={-|]+[_%.].+')
+    file = file:sub(start, #file)
     return file:match("(.+)%..+")
 end
 
