@@ -14,6 +14,10 @@ local show_term_cmd = function()
     float_term({ 'cmd' })
 end
 
+local show_lf = function()
+    float_term({ 'lf' })
+end
+
 --
 -- https://stackoverflow.com/questions/7207697/vim-split-buffer-and-have-it-open-at-the-bottom
 --
@@ -73,6 +77,7 @@ return {
         -- :verbose imap <leader>
         --
         keymap('n', '<leader>lg', show_lazygit)
+        keymap('n', '<leader>lf', show_lf)
         keymap('n', '<leader>tp', show_term_pwsh)
         keymap('n', '<leader>tc', show_term_cmd)
         keymap('n', '<leader>th', show_hterm)
