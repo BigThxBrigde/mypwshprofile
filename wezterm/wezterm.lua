@@ -1,6 +1,55 @@
 local wezterm = require('wezterm')
 local get_uuid = require('uuid').get_uuid
 
+-- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
+local function get_proc_name(file)
+    return file:match("(.+)%..+")
+end
+
+wezterm.on('format-window-title', 
+    function(tab, pane, tabs, panes, config)
+        local zoomed = ''
+        if tab.active_pane.is_zoomed then
+            zoomed = '[Z] '
+        end
+
+        local index = ''
+        if #tabs > 1 then
+            index = string.format('[%d/%d] ', tab.tab_index + 1, #tabs)
+        end
+
+        return zoomed .. index .. get_proc_name(tab.active_pane.title)
+    end)
+
+-- This function returns the suggested title for a tab.
+-- It prefers the title that was set via `tab:set_title()`
+-- or `wezterm cli set-tab-title`, but falls back to the
+-- title of the active pane in that tab.
+local function tab_title(tab_info)
+
+    local title = tab_info.tab_title 
+    -- if the tab title is explicitly set, take that 
+    if title and #title > 0 then
+        return get_proc_name(title)
+    end
+    -- Otherwise, use the title from the active pane
+    -- in that tab
+    return get_proc_name(tab_info.active_pane.title)
+end
+
+wezterm.on('format-tab-title', 
+    function(tab, tabs, panes, config, hover, max_width)
+        local title = tab_title(tab)
+        if tab.is_active then
+          return {
+            { Background = { Color = '#BD93F9' } },
+            { Text = ' ' .. title .. ' ' },
+          }
+        end
+        return title
+    end
+)
+
 wezterm.on("update-right-status", function(window, pane)
 
 	local cwd      = " 📁 "..pane:get_current_working_dir():sub(9).." " -- remove file:// uri prefix
@@ -44,7 +93,7 @@ wezterm.on("update-right-status", function(window, pane)
 end);
 
 wezterm.on('window-config-reloaded', function(window, pane)
-  window:toast_notification('wezterm', 'Configuration reloaded!', nil, 4000)
+  window:toast_notification('wezterm', 'Configuration reloaded!', nil, 3000)
 end)
 
 local config = {
@@ -52,9 +101,9 @@ local config = {
     color_scheme                               = "Catppuccin Mocha",
     enable_tab_bar                             = true,
     font_size                                  = 10,
-    window_background_opacity                  = 0.95,
-    initial_rows                               = 40,
-    initial_cols                               = 120,
+    window_background_opacity                  = 0.93,
+    initial_rows                               = 45,
+    initial_cols                               = 150,
     adjust_window_size_when_changing_font_size = false,
     tab_bar_at_bottom                          = true,
     use_fancy_tab_bar                          = false,
