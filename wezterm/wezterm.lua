@@ -1,4 +1,4 @@
-local wezterm = require('wezterm')
+local wezterm  = require('wezterm')
 local get_uuid = require('uuid').get_uuid
 
 -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
@@ -107,7 +107,7 @@ local config = {
     initial_rows                               = 45,
     initial_cols                               = 150,
     adjust_window_size_when_changing_font_size = false,
-    tab_bar_at_bottom                          = true,
+    tab_bar_at_bottom                          = false,
     use_fancy_tab_bar                          = false,
 }
 
