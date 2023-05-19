@@ -3,7 +3,7 @@ local wezterm = require('wezterm')
 local M = {}
 
 
-local function setup()
+local _setup = function()
 
     -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
     local function get_proc_name(file)
@@ -97,8 +97,12 @@ local function setup()
                 { Text       = bat                       },
             }));
     end);
+
+    --wezterm.on('window-config-reloaded', function(window, pane)
+      --window:toast_notification('wezterm', 'Configuration reloaded!', nil, 3000)
+    --end)
 end
 
-M.setup = setup
+M.setup = _setup
 
 return M
