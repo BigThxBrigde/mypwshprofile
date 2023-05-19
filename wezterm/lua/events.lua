@@ -1,8 +1,6 @@
-local wezterm = require('wezterm')
-
 local M = {}
 
-
+local wezterm = require('wezterm')
 local _setup = function()
 
     -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
