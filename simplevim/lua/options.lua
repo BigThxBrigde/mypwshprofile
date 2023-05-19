@@ -15,7 +15,27 @@ local show_term_cmd = function()
 end
 
 local show_lf = function()
-    float_term({ 'lf' })
+    local function open_lf()
+        local file = io.open(".lf_opened_by_vim", 'w')
+        file:write("lf opened by vim")
+        file:flush() 
+        file:close()
+        local ft = float_term({ 'lf' })
+        return ft
+    end
+
+    local lf = open_lf()
+
+    lf:on('TermClose', function(ft)
+        local file = io.open('.lf_opened_by_vim', 'r')
+        local path = file:read()
+        file:close()
+        os.execute('cmd /c del /f /q .lf_opened_by_vim')
+        if path ~= 'lf opened by vim' then
+            -- not perfect here, need type :bn to focus
+            vim.cmd.edit(path)
+        end
+    end)
 end
 
 --
