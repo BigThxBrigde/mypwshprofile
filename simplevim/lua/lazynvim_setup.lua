@@ -1,3 +1,4 @@
+local M = {}
 
 local vars          = require('vars')
 
@@ -8,7 +9,7 @@ local configpath    = vars.configpath
 local projectspath  = vars.projectspath
 local statepath     = vars.statepath
 
-local install_lazynvim = function()
+M.setup = function()
    if not vim.loop.fs_stat(lazypath) then
 
       vim.fn.system({
@@ -28,7 +29,5 @@ local install_lazynvim = function()
 
 end
 
+return M
 
-return {
-    install = install_lazynvim
-}
