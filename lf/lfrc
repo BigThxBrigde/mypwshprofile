@@ -4,7 +4,7 @@ set shell pwsh
 # cmd to edit file
 cmd editfile ${{
     $f = $env:f.replace('"','')
-    if (test-path -pathtype leaf '.lf_opened_by_vim') { 
+    if (test-path '.lf_opened_by_vim') { 
         echo $f > .lf_opened_by_vim
         & cmd /c taskkill /f /im  lf.exe 2>&1 >NUL
     } else {

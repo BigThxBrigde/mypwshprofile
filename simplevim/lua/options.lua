@@ -33,7 +33,7 @@ local show_lf = function()
         os.execute('cmd /c del /f /q .lf_opened_by_vim')
         if path ~= 'lf opened by vim' then
             -- not perfect here, need type :bn to focus
-            vim.cmd.edit(path)
+            vim.cmd.tabedit(path)
         end
     end)
 end
