@@ -4,18 +4,22 @@ local symidx  = 1
 local wezterm = require('wezterm')
 local _setup  = function()
 
-    local base = 59648 -- E900
-    -- from \uE900 to \uE9F0
-    local char_table = {}
-    for i = 1,17 do 
-        char_table[i] = utf8.char(base + i - 1)
-    end
-
     -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
     local function get_proc_name(file)
         local start, finish = file:find('[%w%s!-={-|]+[_%.].+')
         file = file:sub(start, #file)
         return file:match("(.+)%..+")
+    end
+
+    --
+    -- Setup ikun style
+    -- 
+    --
+    local base = 59648 -- E900
+    -- from \uE900 to \uE9F0
+    local char_table = {}
+    for i = 1,17 do 
+        char_table[i] = utf8.char(base + i - 1)
     end
 
     -- Draw a ikun here
@@ -29,7 +33,7 @@ local _setup  = function()
             { Attribute  = { Intensity = "Bold"    } },
             { Foreground = { Color     = "#44475A" } },
             { Background = { Color     = "#BD93F9" } },
-            { Text       =  symbol ..' '      },
+            { Text       =  symbol ..' '             },
       })
     end)
 
@@ -87,7 +91,7 @@ local _setup  = function()
                 { Text       = ' ' .. indicator         },
                 { Foreground = { Color = text_fg      } },
                 { Background = { Color = text_bg      } },
-                { Text       = ' ' .. title .. ' '      },
+                { Text       =        title .. ' '      },
             }
         end
     )
