@@ -1,13 +1,9 @@
 local M = {}
 
 local wezterm  = require('wezterm')
-local get_uuid = require('uuid').get_uuid
+local get_uuid = require('util').get_uuid
+local _merge   = require('util').table_merge
 
-local _merge = function(x, y)
-    for k,v in pairs(y) do 
-        x[k] = v 
-    end
-end
 
 local _setup = function(config)
     _merge(config, {

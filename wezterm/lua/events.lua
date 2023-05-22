@@ -1,5 +1,6 @@
 local M = {}
 
+local merge = require('util').table_merge
 local symidx  = 1
 local wezterm = require('wezterm')
 local _setup  = function()
@@ -100,7 +101,9 @@ local _setup  = function()
 
     wezterm.on("update-right-status", function(window, pane)
 
-        local cwd      = " 📁 "..pane:get_current_working_dir():sub(9).." " -- remove file:// uri prefix
+        local elements = {}
+
+        local cwd      = " 📁 " .. pane:get_current_working_dir():sub(9) .. " "
         local date     = wezterm.strftime(" 📅 %A %B %-d ")
         local time     = wezterm.strftime(" ⏲  %I:%M %p ")
         local hostname = " 💻 "..wezterm.hostname().." "
@@ -110,34 +113,35 @@ local _setup  = function()
             bat = ' 🔋' .. string.format('%.0f%%', b.state_of_charge * 100) .. ' '
         end
 
-        window:set_right_status(
-            wezterm.format({
-                -- current working directory
-                { Attribute  = { Intensity = "Bold"    } },
-                { Foreground = { Color     = "#44475A" } },
-                { Background = { Color     = "#ABE9B3" } },
-                { Text       = cwd                       },
-                -- time
-                { Attribute  = {Intensity  = "Bold"    } },
-                { Foreground = {Color      = "#44475A" } },
-                { Background = {Color      = "#F5C2E7" } },
-                { Text       = time                      },
-                -- date
-                { Attribute  = {Intensity  = "Bold"    } },
-                { Foreground = {Color      = "#44475A" } },
-                { Background = {Color      = "#96CDFB" } },
-                { Text       = date                      },
-                -- host name
-                { Attribute  = {Intensity  = "Bold"    } },
-                { Foreground = {Color      = "#44475A" } },
-                { Background = {Color      = "#F28FAD" } },
-                { Text       = hostname                  },
-                -- battery
-                { Attribute  = {Intensity  = "Bold"    } },
-                { Foreground = {Color      = "#44475A" } },
-                { Background = {Color      = "#FAE3B0" } },
-                { Text       = bat                       },
-            }));
+        merge(elements, {
+            -- cwd
+            { Attribute  = { Intensity = "Bold"    } },
+            { Foreground = { Color     = "#44475A" } },
+            { Background = { Color     = "#ABE9B3" } },
+            { Text       = cwd                       },
+            -- time
+            { Attribute  = {Intensity  = "Bold"    } },
+            { Foreground = {Color      = "#44475A" } },
+            { Background = {Color      = "#F5C2E7" } },
+            { Text       = time                      },
+            -- date
+            { Attribute  = {Intensity  = "Bold"    } },
+            { Foreground = {Color      = "#44475A" } },
+            { Background = {Color      = "#96CDFB" } },
+            { Text       = date                      },
+            -- host name
+            { Attribute  = {Intensity  = "Bold"    } },
+            { Foreground = {Color      = "#44475A" } },
+            { Background = {Color      = "#F28FAD" } },
+            { Text       = hostname                  },
+            -- battery
+            { Attribute  = {Intensity  = "Bold"    } },
+            { Foreground = {Color      = "#44475A" } },
+            { Background = {Color      = "#FAE3B0" } },
+            { Text       = bat                       },
+        })
+
+        window:set_right_status(wezterm.format(elements));
     end);
 
     --wezterm.on('window-config-reloaded', function(window, pane)

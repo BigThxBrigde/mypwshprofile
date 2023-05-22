@@ -82,5 +82,13 @@ local function get_uuid()
 	return guid
 end
 
+local _merge = function(x, y)
+    for k,v in pairs(y) do 
+        x[k] = v 
+    end
+end
+
 M.get_uuid = get_uuid
+M.table_merge = _merge
+
 return M
