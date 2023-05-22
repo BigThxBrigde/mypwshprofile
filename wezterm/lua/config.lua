@@ -19,9 +19,9 @@ local _setup = function(config)
         initial_rows                               = 45,
         initial_cols                               = 150,
         adjust_window_size_when_changing_font_size = false,
-        tab_bar_at_bottom                          = false,
+        tab_bar_at_bottom                          = true,
         use_fancy_tab_bar                          = false,
-        status_update_interval                     = 80 
+        status_update_interval                     = 100
     })
 
     config.font = wezterm.font_with_fallback{

@@ -141,6 +141,18 @@ local _setup  = function()
     --wezterm.on('window-config-reloaded', function(window, pane)
       --window:toast_notification('wezterm', 'Configuration reloaded!', nil, 3000)
     --end)
+    --
+    wezterm.on('window-resized', function(window, pane)
+       local window_dims      = window:get_dimensions()
+       local overrides_config = window:get_config_overrides() or {}
+       if window_dims.is_full_screen then
+           overrides_config.tab_bar_at_bottom = false 
+       else
+           overrides_config.tab_bar_at_bottom = true 
+       end
+
+       window:set_config_overrides(overrides_config)
+    end)
 end
 
 M.setup = _setup
