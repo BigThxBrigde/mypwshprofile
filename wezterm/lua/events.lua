@@ -7,7 +7,9 @@ local _setup  = function()
     -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
     local function get_proc_name(file)
         local start, finish = file:find('[%w%s!-={-|]+[_%.].+')
-        file = file:sub(start, #file)
+        if start ~= nil then
+            file = file:sub(start, #file)
+        end
         return file:match("(.+)%..+")
     end
 
@@ -22,7 +24,7 @@ local _setup  = function()
         char_table[i] = utf8.char(base + i - 1)
     end
 
-    -- Draw a ikun here
+    -- Draw an ikun style here
     wezterm.on('update-status', function(window, pane)
         if symidx > 17 then symidx = 1 end
         local symbol = char_table[symidx]
@@ -33,7 +35,7 @@ local _setup  = function()
             { Attribute  = { Intensity = "Bold"    } },
             { Foreground = { Color     = "#44475A" } },
             { Background = { Color     = "#BD93F9" } },
-            { Text       =  symbol ..' '             },
+            { Text       =  symbol .. ' '            },
       })
     end)
 
@@ -91,7 +93,7 @@ local _setup  = function()
                 { Text       = ' ' .. indicator         },
                 { Foreground = { Color = text_fg      } },
                 { Background = { Color = text_bg      } },
-                { Text       =        title .. ' '      },
+                { Text       = title .. ' '             },
             }
         end
     )
