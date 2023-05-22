@@ -1,7 +1,15 @@
 local M = {}
 
+local symidx  = 1
 local wezterm = require('wezterm')
-local _setup = function()
+local _setup  = function()
+
+    local base = 59648 -- E900
+    -- from \uE900 to \uE9F0
+    local char_table = {}
+    for i = 1,17 do 
+        char_table[i] = utf8.char(base + i - 1)
+    end
 
     -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
     local function get_proc_name(file)
@@ -9,6 +17,21 @@ local _setup = function()
         file = file:sub(start, #file)
         return file:match("(.+)%..+")
     end
+
+    -- Draw a ikun here
+    wezterm.on('update-status', function(window, pane)
+        if symidx > 17 then symidx = 1 end
+        local symbol = char_table[symidx]
+        symidx = symidx + 1
+
+      -- Make it italic and underlined
+      window:set_left_status(wezterm.format {
+            { Attribute  = { Intensity = "Bold"    } },
+            { Foreground = { Color     = "#44475A" } },
+            { Background = { Color     = "#BD93F9" } },
+            { Text       =  symbol ..' '      },
+      })
+    end)
 
     wezterm.on('format-window-title', 
         function(tab, pane, tabs, panes, config)
@@ -44,13 +67,28 @@ local _setup = function()
     wezterm.on('format-tab-title', 
         function(tab, tabs, panes, config, hover, max_width)
             local title = tab_title(tab)
+            local indicator, text_fg, text_bg, indicator_fg, indicator_bg = ''
             if tab.is_active then
-              return {
-                { Background = { Color = '#BD93F9' } },
-                { Text = ' ' .. title .. ' ' },
-              }
+                text_fg      = '#44475A'
+                text_bg      = '#BD93F9'
+                indicator_fg = '#00FF00'
+                indicator_bg = '#BD93F9'
+                indicator    = utf8.char(8226)
+            else
+                text_fg      = '#F8F8F2'
+                text_bg      = '#5A6374'
+                indicator_fg = '#000000'
+                indicator_bg = '#5A6374'
+                indicator    = utf8.char(9702)
             end
-            return title
+            return {
+                { Foreground = { Color = indicator_fg } },
+                { Background = { Color = indicator_bg } },
+                { Text       = ' ' .. indicator         },
+                { Foreground = { Color = text_fg      } },
+                { Background = { Color = text_bg      } },
+                { Text       = ' ' .. title .. ' '      },
+            }
         end
     )
 
