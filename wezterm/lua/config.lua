@@ -10,9 +10,9 @@ local _setup = function(config)
         default_prog                               = {'pwsh'},
         color_scheme                               = "Catppuccin Mocha",
         enable_tab_bar                             = true,
-        font_size                                  = 11,
+        font_size                                  = 10,
         window_background_opacity                  = 0.93,
-        initial_rows                               = 45,
+        initial_rows                               = 40,
         initial_cols                               = 150,
         adjust_window_size_when_changing_font_size = false,
         tab_bar_at_bottom                          = true,
@@ -21,9 +21,9 @@ local _setup = function(config)
     })
 
     config.font = wezterm.font_with_fallback{
+--        { family = 'Hurmit Nerd Font Mono', weight = 'Bold' },
         { family = 'Noto Sans Mono', weight = 'Medium' },
         { family = 'Zhiyin', weight = 'Medium' },
-        'Noto Color Emoji',
     }
 
     -- Set Environment Variables
