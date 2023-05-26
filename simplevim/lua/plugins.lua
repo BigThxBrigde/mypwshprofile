@@ -123,6 +123,16 @@ return { {
     dependencies = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"},
     config = function()
         -- ...
+        require('cmp').setup {
+            sources = {
+                { 
+                    name = 'buffer',
+                    option = {
+                        keyword_pattern = [[\k\+]],
+                    },
+                }
+            }
+        }
     end
 }, -- you can use the VeryLazy event for things that can
 -- load later and are not important for the initial UI
