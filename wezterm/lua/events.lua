@@ -1,5 +1,5 @@
 local M = {}
-
+local toggle_tabbar_position = require('config').toggle_tabbar_position
 local symidx  = 1
 local wezterm = require('wezterm')
 local _setup  = function()
@@ -152,13 +152,16 @@ local _setup  = function()
     --end)
     --
     wezterm.on('window-resized', function(window, pane)
-       local window_dims      = window:get_dimensions()
-       local overrides_config = window:get_config_overrides() or {}
-       if window_dims.is_full_screen then
-           overrides_config.tab_bar_at_bottom = false 
-       else
-           overrides_config.tab_bar_at_bottom = true 
-       end
+        if not toggle_tabbar_position then
+            return
+        end
+        local window_dims      = window:get_dimensions()
+        local overrides_config = window:get_config_overrides() or {}
+        if window_dims.is_full_screen then 
+            overrides_config.tab_bar_at_bottom = false 
+        else 
+            overrides_config.tab_bar_at_bottom = true 
+        end
 
        window:set_config_overrides(overrides_config)
     end)

@@ -3,7 +3,7 @@ local M = {}
 local wezterm  = require('wezterm')
 local get_uuid = require('util').get_uuid
 local _merge   = require('util').table_merge
-
+local toggle_tabbar_position = false
 
 local _setup = function(config)
     _merge(config, {
@@ -15,9 +15,10 @@ local _setup = function(config)
         initial_rows                               = 40,
         initial_cols                               = 150,
         adjust_window_size_when_changing_font_size = false,
-        tab_bar_at_bottom                          = true,
+        tab_bar_at_bottom                          = toggle_tabbar_position,
         use_fancy_tab_bar                          = false,
-        status_update_interval                     = 100
+        status_update_interval                     = 100,
+        window_decorations                         = 'RESIZE'
     })
 
     config.font = wezterm.font_with_fallback{
@@ -33,5 +34,6 @@ local _setup = function(config)
 end
 
 M.setup = _setup
+M.toggle_tabbar_position = toggle_tabbar_position
 
 return M
