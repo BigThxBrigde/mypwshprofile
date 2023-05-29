@@ -140,7 +140,7 @@ function edit {
   } | fzf | % {
     $live_searching = $false
     # hx $_
-	ed $_
+	vi $_
   }
 }
 

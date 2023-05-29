@@ -24,3 +24,4 @@
 | lazygit    | https://github.com/jesseduffield/lazygit  |
 | ripgrep    | https://github.com/BurntSushi/ripgrep     |
 | wezterm    | https://wezfurlong.org/wezterm/index.html |
+| C# REPL    | https://fuqua.io/CSharpRepl/              |
