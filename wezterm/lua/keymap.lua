@@ -88,14 +88,14 @@ local _setup = function(config)
             action = wezterm.action.Search("CurrentSelectionOrEmptyString"),
         },
         {
-            key    = 'd',
-            mods   = 'CTRL|ALT',
-            action = wezterm.action.ShowDebugOverlay,
-        },
-        {
             key    = 'n',
             mods   = 'CTRL|ALT',
             action = wezterm.action.ShowTabNavigator,
+        },
+        {
+            key    = 'q',
+            mods   = 'ALT',
+            action = wezterm.action.QuitApplication,
         },
     }
 end

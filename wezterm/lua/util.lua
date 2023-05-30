@@ -88,7 +88,25 @@ local _merge = function(x, y)
     end
 end
 
+local function define_class(class_name, super)
+    local class = { __cname = class_name, super = super }
+    if super then
+        setmetatable(class, { __index = super })
+    end
+    class.new = function(...)
+        local instance = {}
+        setmetatable(instance, { __index = class })
+        if class.init then
+            class.init(instance, ...)
+        end
+        return instance
+    end
+    return class
+end
+
 M.get_uuid = get_uuid
 M.table_merge = _merge
+M.define_class = define_class
+
 
 return M
