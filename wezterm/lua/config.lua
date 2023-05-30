@@ -18,7 +18,9 @@ local _setup = function(config)
         tab_bar_at_bottom                          = toggle_tabbar_position,
         use_fancy_tab_bar                          = false,
         status_update_interval                     = 100,
-        window_decorations                         = 'RESIZE'
+        window_decorations                         = 'RESIZE',
+        command_palette_font_size                  = 10.0,
+        command_palette_bg_color                   = "#1E1D2E",
     })
 
     config.font = wezterm.font_with_fallback{
