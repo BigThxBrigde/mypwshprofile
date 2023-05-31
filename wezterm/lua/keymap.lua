@@ -97,6 +97,11 @@ local _setup = function(config)
             mods   = 'ALT',
             action = wezterm.action.QuitApplication,
         },
+        {
+            key    = 'w',
+            mods   = 'ALT',
+            action = wezterm.action.CloseCurrentTab { confirm = false },
+        },
     }
 end
 
