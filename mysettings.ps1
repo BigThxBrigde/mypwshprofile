@@ -154,8 +154,12 @@ function cmatrix {
   wsl cmatrix
 }
 
-function csi {
-  wt -w 0 nt --title "C# REPL" csharprepl 
+function csi { 
+    wt -w 0 nt --title "C# REPL" csharprepl --useTerminalPaletteTheme
+}
+
+function csr {
+    csharprepl --useTerminalPaletteTheme
 }
 
 #

@@ -15,5 +15,4 @@ sal     sg          switch-gitconfig
 sal     kt          kill-trashes
 sal     python3     'D:\Program Files\python38\python.exe'
 sal     python2     'D:\Program Files\python2.7\python.exe'
-sal     csr         csharprepl
 sal     grep        rg
