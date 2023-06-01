@@ -73,7 +73,7 @@ local _setup  = function()
     wezterm.on('format-tab-title', 
         function(tab, tabs, panes, config, hover, max_width)
             local title = tab_title(tab)
-            local indicator, text_fg, text_bg, indicator_fg, indicator_bg = ''
+            local indicator, text_fg, text_bg, indicator_fg, indicator_bg;
             if tab.is_active then
                 text_fg      = '#44475A'
                 text_bg      = '#BD93F9'
@@ -101,7 +101,7 @@ local _setup  = function()
     wezterm.on("update-right-status", function(window, pane)
 
         local elements = {}
-        local cwd, date, time, hostname, bat = ''
+        local cwd, date, time, hostname, bat;
         local cwd_uri = pane:get_current_working_dir()
 
         if cwd_uri then
