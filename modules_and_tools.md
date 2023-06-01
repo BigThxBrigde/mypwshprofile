@@ -4,7 +4,7 @@
 | --             | --                                            |
 | PowerShellGet  | https://github.com/PowerShell/PowerShellGet   |
 | PSCalendar     | https://github.com/jdhitsolutions/PSCalendar  |
-| PSProfiler     | https://github.com/IISResetMe/PSProfiler      |
+| Profiler       | https://github.com/nohwnd/Profiler            |
 | PSReadLine     | https://github.com/PowerShell/PSReadLine      |
 | Terminal-Icons | https://github.com/devblackops/Terminal-Icons |
 | z              | https://github.com/badmotorfinger/z           |

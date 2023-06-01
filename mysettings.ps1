@@ -162,6 +162,13 @@ function csr {
     csharprepl --useTerminalPaletteTheme
 }
 
+function do-profiling {
+    $trace =  trace-script -scriptblock { . $profile }
+    # $trace.top50functionduration
+    $trace.top50functionselfduration
+}
+
+
 #
 #  If not installed ripgrep use this function 
 #
