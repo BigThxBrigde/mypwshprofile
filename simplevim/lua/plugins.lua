@@ -29,9 +29,9 @@ return { {
     'akinsho/bufferline.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
-        require('bufferline').setup {
+        require('bufferline').setup{
             options = {
-                -- buffer_close_icon = ''
+                separator_style = {' ', ' '} 
             }
         }
     end
@@ -79,21 +79,16 @@ return { {
         "<cmd>Neotree toggle<cr>",
         desc = "NeoTree"
     }},
-    dependencies = {"nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended 
-    "MunifTanjim/nui.nvim"},
+    dependencies = {
+        "nvim-lua/plenary.nvim", 
+        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended 
+        "MunifTanjim/nui.nvim"
+    },
     config = function()
         require("neo-tree").setup()
     end
 }, -- the colorscheme should be available when starting Neovim
 {
-    "folke/tokyonight.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-        -- load the colorscheme here
-        -- vim.cmd([[colorscheme tokyonight]])
-    end
-}, {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000, -- make sure to load this before all the other start plugins
@@ -103,10 +98,11 @@ return { {
     end
 }, -- I have a separate config.mappings file where I require which-key.
 -- With lazy the plugin will be automatically loaded when it is required somewhere
+--{
+    --"folke/which-key.nvim",
+    --lazy = true
+--}, 
 {
-    "folke/which-key.nvim",
-    lazy = true
-}, {
     "dstein64/vim-startuptime",
     -- lazy-load on a command
     cmd = "StartupTime",
@@ -136,10 +132,11 @@ return { {
     end
 }, -- you can use the VeryLazy event for things that can
 -- load later and are not important for the initial UI
-{
-    "stevearc/dressing.nvim",
-    event = "VeryLazy"
-} -- {
+--{
+    --"stevearc/dressing.nvim",
+    --event = "VeryLazy"
+--}
+-- {
 --   "Wansmer/treesj",
 --   keys = {
 --     { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
