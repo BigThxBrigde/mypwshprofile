@@ -29,9 +29,19 @@ return { {
     'akinsho/bufferline.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
-        require('bufferline').setup{
+        local bufferline = require('bufferline')
+        bufferline.setup{
             options = {
-                separator_style = {' ', ' '} 
+                separator_style = {'|', '|'},
+                buffer_close_icon = '✖',
+                style_preset = {
+                    bufferline.style_preset.no_italic,
+                    --bufferline.style_preset.no_bold
+                },
+                indicator = {
+                    icon = '', -- this should be omitted if indicator style is not 'icon'
+                    style = 'none',
+                },
             }
         }
     end
