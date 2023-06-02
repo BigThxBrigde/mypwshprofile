@@ -73,7 +73,7 @@ local _setup = function()
     _setkey('n', '<leader>pq', '<cmd>qa!<cr>')
     _setkey('n', '<leader>ps', '<cmd>wa!<cr>')
     _setkey('n', '<leader>xl', '<cmd>Lazy<cr>')
-
+    _setkey('n', '<leader>fn', '<cmd>nohlsearch<cr>')
 end
 
 M.setup = _setup

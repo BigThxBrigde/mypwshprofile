@@ -19,6 +19,7 @@ M.setup = function()
     vim.o.wrap           = false
     vim.o.splitbelow     = true
     vim.o.splitright     = true
+    vim.o.textwidth      = 80
   
 
     if vim.g.neovide then
@@ -34,6 +35,7 @@ M.setup = function()
 
     -- disable perl and ruby provider
         vim.cmd([[
+          set colorcolumn            =+1
           let g:loaded_perl_provider = 0
           let g:loaded_ruby_provider = 0
         ]])
