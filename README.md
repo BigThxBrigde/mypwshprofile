@@ -2,6 +2,30 @@
 
 This is only for my own use.
 
+# Create links
+
+1. Links for wezterm
+
+```batch
+@echo off
+pushd "%USERPROFILE%"
+if exist .wezterm.lua del /f /q .wezterm.lua
+if exist .wezterm rmdir /q .wezterm
+mklink .wezterm.lua "%USERPROFILE%\Documents\Powershell\wezterm\wezterm.lua"
+mklink /D .wezterm "%USERPROFILE%\Documents\PowerShell\wezterm\lua"
+popd
+```
+
+2. Links for vim
+   
+```batch
+@echo off
+pushd "%LOCALAPPDATA%"
+if exist nvim rmdir /q nvim
+mklink /D nvim "%USERPROFILE%\Documents\PowerShell\simplevim"
+popd
+```
+
 # Package Manager
 - [winget](https://github.com/microsoft/winget-cli)
 - [chocolatey](https://chocolatey.org/)
@@ -35,3 +59,4 @@ Refer to [modules and tools](modules_and_tools.md)
 ![](screenshot/st1.png)
 ![](screenshot/st2.png)
 ![](screenshot/st3.png)
+```
