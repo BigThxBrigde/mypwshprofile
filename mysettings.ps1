@@ -207,33 +207,33 @@ function wc {
 }
 
 
-$script:init_file = $env:PSDOCHOME + "/simplevim/init.lua" 
-
-function nvi {
-  param(
-	  [parameter(valuefromremainingarguments = $true,
-		  valuefrompipeline = $true)]
-	  [string[]][alias('p')]$path
-  )
-  if ($path.length -eq 0) {
-    neovide -- -u "$script:init_file"
-  } else {
-    neovide -- -u "$script:init_file" @path
-  }
-}
-
-function vi {
-  param(
-	  [parameter(valuefromremainingarguments = $true,
-		  valuefrompipeline = $true)]
-	  [string[]][alias('p')]$path
-  )
-  if ($path.length -eq 0) {
-    nvim -u "$script:init_file"
-  } else {
-    nvim -u "$script:init_file" @path
-  }
-}
+# $script:init_file = $env:PSDOCHOME + "/simplevim/init.lua" 
+# 
+# function nvi {
+#   param(
+# 	  [parameter(valuefromremainingarguments = $true,
+# 		  valuefrompipeline = $true)]
+# 	  [string[]][alias('p')]$path
+#   )
+#   if ($path.length -eq 0) {
+#     neovide -- -u "$script:init_file"
+#   } else {
+#     neovide -- -u "$script:init_file" @path
+#   }
+# }
+# 
+# function vi {
+#   param(
+# 	  [parameter(valuefromremainingarguments = $true,
+# 		  valuefrompipeline = $true)]
+# 	  [string[]][alias('p')]$path
+#   )
+#   if ($path.length -eq 0) {
+#     nvim -u "$script:init_file"
+#   } else {
+#     nvim -u "$script:init_file" @path
+#   }
+# }
 
 function which {
   param(

@@ -3,6 +3,8 @@ sal     ~           cd-home
 sal     ..          cd-parent 
 sal     lg          lazygit
 sal     vim         nvim
+sal     vi          nvim
+sal     nvi         neovide 
 sal     lua         lua54
 sal     pad         proxy-auto-detect
 sal     mdp         markdown-preview
