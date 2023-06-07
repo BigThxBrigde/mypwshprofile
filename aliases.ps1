@@ -6,6 +6,7 @@ sal     vim         nvim
 sal     vi          nvim
 sal     nvi         neovide 
 sal     lua         lua54
+sal     luac        luac54
 sal     pad         proxy-auto-detect
 sal     mdp         markdown-preview
 sal     tac         textadept-curses.exe
