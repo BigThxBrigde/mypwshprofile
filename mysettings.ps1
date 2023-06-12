@@ -80,7 +80,7 @@ function conn-tm {
   mstsc.exe $home\tm.rdp /f
 }
 
-function open_shr {
+function open-shr {
   open $env:TM_SHR_FOLDER
 }
 
