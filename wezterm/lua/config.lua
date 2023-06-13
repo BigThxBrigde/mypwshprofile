@@ -29,7 +29,7 @@ local _setup = function(config)
 
     config.font = wezterm.font_with_fallback{
 --        { family = 'Hurmit Nerd Font Mono', weight = 'Bold' },
-        { family = 'Noto Sans Mono', weight = 'Medium' },
+        { family = 'Noto Sans Mono', weight = 'Bold' },
         { family = 'Zhiyin', weight = 'Medium' },
     }
 

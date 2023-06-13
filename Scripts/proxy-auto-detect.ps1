@@ -48,7 +48,7 @@ function Read-Proxy-Status {
   }
   else {
     $msg = 'disabled'
-    $color = [System.ConsoleColor]::Red
+    $color = [System.ConsoleColor]::Yellow
   }
   Write-Host ('Auto detect proxy status: {0}' -f $msg) -f $color
 }
