@@ -1,0 +1,6 @@
+gui:
+  showIcons: true
+git:
+  parseEmoji: true
+os:
+  editPreset: 'nvim'
