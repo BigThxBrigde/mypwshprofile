@@ -30,6 +30,10 @@ function halt {
     sudo shutdown -s -f -t 0
 }
 
+function blk-txt([string]$txt) {
+    echo "`u{001b}[5m$txt`u{001b}[0m" 
+}
+
 # Loop kill mbcloudea.exe 
 function kill-trashes {
   $sb = {
