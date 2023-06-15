@@ -15,8 +15,8 @@ oh-my-posh init pwsh --config $env:USERPROFILE\Documents\PowerShell\meow.json | 
 $GOLIBPATH     = "$env:USERPROFILE\go\bin"
 $env:PATH      = $env:PATH + ";C:\Go\bin"
 $env:PATH      = $env:PATH + ";" + $GOLIBPATH
-$env:DOCUMENTS = "$env:USERPROFILE\Documents\"
-$env:PSDOCHOME = "$env:DOCUMENTS" + "PowerShell"
+$env:DOCUMENTS = "$env:USERPROFILE\Documents"
+$env:PSDOCHOME = "$env:DOCUMENTS" + "\PowerShell"
 $env:SIMPLEVIM = "$env:PSDOCHOME" + "\simplevim"
 $env:PATH      = $env:PATH + ";$env:DOCUMENTS\PowerShell\Scripts"
 $env:PATH      = $env:PATH + ";$env:USERPROFILE\.local\bin"
