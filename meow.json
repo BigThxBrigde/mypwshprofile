@@ -10,7 +10,7 @@
             "style": "folder"
           },
           "style": "plain",
-          "template": "😺💬 \u001b[5m<#FF8000>Meow!?</>\u001b[0m {{ .Path }} ",
+          "template": "😺💬 <#FF8000>Meow!?</> {{ .Path }} ",
           "type": "path"
         },
         {
