@@ -34,6 +34,12 @@ function blk-txt([string]$txt) {
     echo "`u{001b}[5m$txt`u{001b}[0m" 
 }
 
+function killall([string]$proc) {
+    & cmd /c "taskkill /f /im $proc.exe >NUL 2>&1"
+    & cmd /c "taskkill /f /im $proc >NUL 2>&1"
+}
+
+
 # Loop kill mbcloudea.exe 
 function kill-trashes {
   $sb = {
@@ -159,7 +165,11 @@ function cmatrix {
 }
 
 function csi { 
-    wt -w 0 nt --title "C# REPL" csharprepl --useTerminalPaletteTheme
+    if ($env:WEZTERM_SESSION) {
+        & wezterm cli spawn csharprepl --useTerminalPaletteTheme
+    } else {
+        & wt -w 0 nt --title "C# REPL" csharprepl --useTerminalPaletteTheme
+    }
 }
 
 function csr {

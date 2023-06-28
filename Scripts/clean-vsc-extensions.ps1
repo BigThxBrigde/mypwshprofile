@@ -1,3 +1,5 @@
+$erroractionpreference = 'Continue'
+
 $vsc_ext_dir  = "$env:USERPROFILE\.vscode\extensions"
 $vsc_ext_json = "extensions.json"
 $inst_exts    = @()
