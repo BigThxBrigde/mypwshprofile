@@ -35,8 +35,13 @@ function blk-txt([string]$txt) {
 }
 
 function killall([string]$proc) {
-    & cmd /c "taskkill /f /im $proc.exe >NUL 2>&1"
-    & cmd /c "taskkill /f /im $proc >NUL 2>&1"
+    ps | % {
+        $name = $_.processname
+        if ($name -like "*$proc*") {
+            & cmd /c "taskkill /f /im $name.exe >NUL 2>&1"
+            & cmd /c "taskkill /f /im $name >NUL 2>&1"
+        }
+    }
 }
 
 
