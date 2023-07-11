@@ -1,5 +1,4 @@
-local M  = {}
-
+local M       = {}
 local wezterm = require('wezterm')
 local setup   = function(config, _)
     config.keys = {

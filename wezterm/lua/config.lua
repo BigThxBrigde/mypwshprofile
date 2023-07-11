@@ -13,9 +13,7 @@ if file_exists(user_config_file) then
     config_locals      = local_config.locals or {}
 end
 
-local font_dirs = {
-    os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm/fonts'
-}
+local font_dirs = {os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm/fonts'}
 
 local default_config = {
     default_prog                               = {'pwsh'},
@@ -33,11 +31,11 @@ local default_config = {
     command_palette_font_size                  = 10.0,
     command_palette_bg_color                   = "#1E1D2E",
     font_dirs                                  = font_dirs,
-    font                                       =  wezterm.font_with_fallback{
-        { family = 'Noto Sans Mono', weight = 'Bold'   },
+    font                                       = wezterm.font_with_fallback {
+        { family = 'Noto Sans Mono', weight = 'Bold' },
         { family = 'Zhiyin',         weight = 'Medium' },
-        { family = 'JetBrains Mono', weight = 'Medium' },
-    }, 
+        { family = 'JetBrains Mono', weight = 'Medium' }
+    },
 
     set_environment_variables                  = {
         WEZTERM_SESSION = get_uuid()
@@ -45,7 +43,6 @@ local default_config = {
 }
 
 merge(config_defaults, default_config)
-
 
 local setup = function(config, user_config)
 
