@@ -82,12 +82,6 @@ local function get_uuid()
 	return guid
 end
 
-local _merge = function(x, y)
-    for k,v in pairs(y) do 
-        x[k] = v 
-    end
-end
-
 local function define_class(class_name, super)
     local class = { __cname = class_name, super = super }
     if super then
@@ -104,9 +98,25 @@ local function define_class(class_name, super)
     return class
 end
 
-M.get_uuid = get_uuid
-M.table_merge = _merge
-M.define_class = define_class
+local function merge(x, y)
+    for k,v in pairs(y) do
+        x[k] = v
+    end
+end
 
+local function file_exists(name)
+   local f = io.open(name,"r")
+   if f ~= nil then
+       io.close(f)
+       return true
+   else
+       return false
+   end
+end
+
+M.get_uuid     = get_uuid
+M.table_merge  = merge
+M.define_class = define_class
+M.file_exists  = file_exists
 
 return M

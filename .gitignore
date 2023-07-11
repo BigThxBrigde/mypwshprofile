@@ -5,3 +5,4 @@ simplevim/data
 simplevim/state
 simplevim/config
 simplevim/projects
+wezterm/lua/user_config.lua

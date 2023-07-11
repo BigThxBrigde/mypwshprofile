@@ -1,7 +1,7 @@
 local M  = {}
 
 local wezterm = require('wezterm')
-local _setup = function(config)
+local setup   = function(config, _)
     config.keys = {
         {
             key    = '_',
@@ -105,6 +105,6 @@ local _setup = function(config)
     }
 end
 
-M.setup = _setup
+M.setup = setup
 
 return M

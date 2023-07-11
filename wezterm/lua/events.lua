@@ -1,8 +1,8 @@
-local M = {}
-local toggle_tabbar_position = require('config').toggle_tabbar_position
+local M       = {}
 local symidx  = 1
 local wezterm = require('wezterm')
-local _setup  = function()
+local setup   = function(_ , user_config)
+
 
     -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
     local function get_proc_name(file)
@@ -12,47 +12,6 @@ local _setup  = function()
         end
         return file:match("(.+)%..+") or file
     end
-
-    --
-    -- Setup ikun style
-    -- 
-    --
-    local base = 59648 -- E900
-    -- from \uE900 to \uE9F0
-    local char_table = {}
-    for i = 1,17 do 
-        char_table[i] = utf8.char(base + i - 1)
-    end
-
-    -- Draw an ikun style here
-    wezterm.on('update-status', function(window, pane)
-        if symidx > 17 then symidx = 1 end
-        local symbol = char_table[symidx]
-        symidx = symidx + 1
-
-      -- Make it italic and underlined
-      window:set_left_status(wezterm.format {
-            { Attribute  = { Intensity = "Bold"    } },
-            { Foreground = { Color     = "#44475A" } },
-            { Background = { Color     = "#BD93F9" } },
-            { Text       =  symbol .. ' '            },
-      })
-    end)
-
-    wezterm.on('format-window-title', 
-        function(tab, pane, tabs, panes, config)
-            local zoomed = ''
-            if tab.active_pane.is_zoomed then
-                zoomed = '[Z] '
-            end
-
-            local index = ''
-            if #tabs > 1 then
-                index = string.format('[%d/%d] ', tab.tab_index + 1, #tabs)
-            end
-
-            return zoomed .. index .. get_proc_name(tab.active_pane.title)
-        end)
 
     -- This function returns the suggested title for a tab.
     -- It prefers the title that was set via `tab:set_title()`
@@ -69,6 +28,53 @@ local _setup  = function()
         -- in that tab
         return get_proc_name(tab_info.active_pane.title)
     end
+
+    local toggle_position     = user_config.toggle_tabbar_position
+    local use_fancy_indicator = user_config.use_fancy_indicator
+
+    if use_fancy_indicator then
+        --
+        -- Setup ikun style
+        -- 
+        --
+        local base = 59648 -- E900
+        -- from \uE900 to \uE9F0
+        local char_table = {}
+        for i = 1,17 do 
+            char_table[i] = utf8.char(base + i - 1)
+        end
+
+        -- Draw an ikun style here
+        wezterm.on('update-status', function(window, pane)
+            if symidx > 17 then symidx = 1 end
+            local symbol = char_table[symidx]
+            symidx = symidx + 1
+
+          -- Make it italic and underlined
+          window:set_left_status(wezterm.format {
+                { Attribute  = { Intensity = "Bold"    } },
+                { Foreground = { Color     = "#44475A" } },
+                { Background = { Color     = "#BD93F9" } },
+                { Text       =  symbol .. ' '            },
+          })
+        end)
+    end
+
+    wezterm.on('format-window-title', 
+        function(tab, pane, tabs, panes, config)
+            local zoomed = ''
+            if tab.active_pane.is_zoomed then
+                zoomed = '[Z] '
+            end
+
+            local index = ''
+            if #tabs > 1 then
+                index = string.format('[%d/%d] ', tab.tab_index + 1, #tabs)
+            end
+
+            return zoomed .. index .. get_proc_name(tab.active_pane.title)
+        end)
+
 
     wezterm.on('format-tab-title', 
         function(tab, tabs, panes, config, hover, max_width)
@@ -152,7 +158,7 @@ local _setup  = function()
     --end)
     --
     wezterm.on('window-resized', function(window, pane)
-        if not toggle_tabbar_position then
+        if not toggle_position then
             return
         end
         local window_dims      = window:get_dimensions()
@@ -167,6 +173,6 @@ local _setup  = function()
     end)
 end
 
-M.setup = _setup
+M.setup = setup
 
 return M
