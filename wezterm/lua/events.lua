@@ -53,10 +53,10 @@ local setup   = function(_, user_config)
 
             -- Make it italic and underlined
             window:set_left_status(wezterm.format {
-                    { Attribute  = { Intensity = "Bold" } },
-                    { Foreground = { Color     = "#44475A" } },
-                    { Background = { Color     = "#BD93F9" } },
-                    { Text       = symbol .. ' ' }
+                    { Attribute  = { Intensity = "Bold"    }},
+                    { Foreground = { Color     = "#44475A" }},
+                    { Background = { Color     = "#BD93F9" }},
+                    { Text       = symbol .. ' '            }
             })
         end)
     end
@@ -92,12 +92,12 @@ local setup   = function(_, user_config)
             indicator    = utf8.char(9702)
         end
         return {
-            { Foreground = { Color = indicator_fg } },
-            { Background = { Color = indicator_bg } },
-            { Text       = ' ' .. indicator },
-            { Foreground = { Color = text_fg } },
-            { Background = { Color = text_bg } },
-            { Text       = title .. ' ' }
+            { Foreground = { Color = indicator_fg }},
+            { Background = { Color = indicator_bg }},
+            { Text       = ' ' .. indicator        },
+            { Foreground = { Color = text_fg      }},
+            { Background = { Color = text_bg      }},
+            { Text       = title .. ' '            }
         }
     end)
 
@@ -140,10 +140,10 @@ local setup   = function(_, user_config)
             local text = cells[i]
             if text then
                 text = ' ' .. icons[i] .. ' ' .. text .. ' '
-                table.insert(elements, { Attribute  = { Intensity = text_style } })
-                table.insert(elements, { Foreground = { Color     = fg_text } })
-                table.insert(elements, { Background = { Color     = bg_colors[i] } })
-                table.insert(elements, { Text       = text })
+                table.insert(elements, { Attribute  = { Intensity = text_style   }})
+                table.insert(elements, { Foreground = { Color     = fg_text      }})
+                table.insert(elements, { Background = { Color     = bg_colors[i] }})
+                table.insert(elements, { Text       = text                        })
             end
         end
 
@@ -160,12 +160,8 @@ local setup   = function(_, user_config)
         end
         local window_dims      = window:get_dimensions()
         local overrides_config = window:get_config_overrides() or {}
-        if window_dims.is_full_screen then
-            overrides_config.tab_bar_at_bottom = false
-        else
-            overrides_config.tab_bar_at_bottom = true
-        end
 
+        overrides_config.tab_bar_at_bottom = not window_dims.is_full_screen
         window:set_config_overrides(overrides_config)
     end)
 end
