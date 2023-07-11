@@ -2,15 +2,15 @@ local M = {}
 
 local float_term = require('lazy.util').float_term
 local show_lazygit = function()
-    float_term({ 'pwsh', '--nologo',  '-c',  'lg' })
-end 
+    float_term({'pwsh', '--nologo', '-c', 'lg'})
+end
 
 local show_term_pwsh = function()
-    float_term({ 'pwsh', '--nologo' })
+    float_term({'pwsh', '--nologo'})
 end
 
 local show_term_cmd = function()
-    float_term({ 'cmd' })
+    float_term({'cmd'})
 end
 
 local show_lf = function()
@@ -18,9 +18,9 @@ local show_lf = function()
     local function open_lf()
         local file = io.open(".lf_opened_by_vim", 'w')
         file:write("lf opened by vim")
-        file:flush() 
+        file:flush()
         file:close()
-        local ft = float_term({ 'lf' })
+        local ft = float_term({'lf'})
         return ft
     end
 
@@ -53,29 +53,29 @@ local show_vterm = function()
     ]])
 end
 
-local _setkey = vim.keymap.set
-local _setup = function()
+local nvim_setkey = vim.keymap.set
+local setup = function()
     -- 
     -- https://superuser.com/questions/945329/how-to-disable-the-leader-key-in-vim-insert-mode 
     -- :verbose imap <leader>
     --
-    _setkey('n', '<leader>lg', show_lazygit)
-    _setkey('n', '<leader>lf', show_lf)
-    _setkey('n', '<leader>tp', show_term_pwsh)
-    _setkey('n', '<leader>tc', show_term_cmd)
-    _setkey('n', '<leader>th', show_hterm)
-    _setkey('n', '<leader>tv', show_vterm)
-    _setkey('v', '<leader>xa', '<Plug>(EasyAlign)')
-    _setkey('n', '<leader>ff', '<cmd>Files<cr>')
-    _setkey('n', '<leader>fb', '<cmd>Buffers<cr>')
-    _setkey('n', '<leader>xd', '<cmd>Dashboard<cr>')
-    _setkey('n', '<leader>bc', '<cmd>bd!<cr>')
-    _setkey('n', '<leader>pq', '<cmd>qa!<cr>')
-    _setkey('n', '<leader>ps', '<cmd>wa!<cr>')
-    _setkey('n', '<leader>xl', '<cmd>Lazy<cr>')
-    _setkey('n', '<leader>fn', '<cmd>nohlsearch<cr>')
+    nvim_setkey('n', '<leader>lg', show_lazygit)
+    nvim_setkey('n', '<leader>lf', show_lf)
+    nvim_setkey('n', '<leader>tp', show_term_pwsh)
+    nvim_setkey('n', '<leader>tc', show_term_cmd)
+    nvim_setkey('n', '<leader>th', show_hterm)
+    nvim_setkey('n', '<leader>tv', show_vterm)
+    nvim_setkey('v', '<leader>xa', '<Plug>(EasyAlign)')
+    nvim_setkey('n', '<leader>ff', '<cmd>Files<cr>')
+    nvim_setkey('n', '<leader>fb', '<cmd>Buffers<cr>')
+    nvim_setkey('n', '<leader>xd', '<cmd>Dashboard<cr>')
+    nvim_setkey('n', '<leader>bc', '<cmd>bd!<cr>')
+    nvim_setkey('n', '<leader>pq', '<cmd>qa!<cr>')
+    nvim_setkey('n', '<leader>ps', '<cmd>wa!<cr>')
+    nvim_setkey('n', '<leader>xl', '<cmd>Lazy<cr>')
+    nvim_setkey('n', '<leader>fn', '<cmd>nohlsearch<cr>')
 end
 
-M.setup = _setup
+M.setup = setup
 
 return M

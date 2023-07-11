@@ -2,8 +2,8 @@
 -- Set the lua package path
 --
 
-local pkgpath = os.getenv('SIMPLEVIM') .. '/lua/?.lua'
-package.path  = package.path ..  pkgpath
+-- local pkgpath = os.getenv('SIMPLEVIM') .. '/lua/?.lua'
+-- package.path  = package.path ..  pkgpath
 
 -- print(package.path)
 --
