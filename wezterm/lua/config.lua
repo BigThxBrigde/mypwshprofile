@@ -1,9 +1,10 @@
 local M                = {}
 local wezterm          = require('wezterm')
+local wez_home_dir     = os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm'
 local get_uuid         = require('util').get_uuid
 local file_exists      = require('util').file_exists
 local merge            = require('util').table_merge
-local user_config_file = os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm/lua/user_config.lua'
+local user_config_file = wez_home_dir .. '/lua/user_config.lua'
 local config_defaults  = {}
 local config_locals    = {}
 
@@ -13,7 +14,7 @@ if file_exists(user_config_file) then
     config_locals      = local_config.locals or {}
 end
 
-local font_dirs = {os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm/fonts'}
+local font_dirs = {wez_home_dir .. '/fonts'}
 
 local default_config = {
     default_prog                               = {'pwsh'},
@@ -42,11 +43,11 @@ local default_config = {
     }
 }
 
-merge(config_defaults, default_config)
+merge(default_config, config_defaults)
 
 local setup = function(config, user_config)
 
-    merge(config,      config_defaults)
+    merge(config,      default_config)
     merge(user_config, config_locals)
 
 end
