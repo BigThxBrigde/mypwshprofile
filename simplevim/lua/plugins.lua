@@ -123,22 +123,17 @@ return { {
 }, {
     "hrsh7th/nvim-cmp",
     -- load cmp on InsertEnter
-    event = "InsertEnter",
+    -- event = "InsertEnter",
     -- these dependencies will only be loaded when cmp loads
     -- dependencies are always lazy-loaded unless specified otherwise
-    dependencies = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"},
+    dependencies = {
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "neovim/nvim-lspconfig"
+    },
     config = function()
         -- ...
-        require('cmp').setup {
-            sources = {
-                { 
-                    name = 'buffer',
-                    option = {
-                        keyword_pattern = [[\k\+]],
-                    },
-                }
-            }
-        }
+        require('vim_lsp').setup()
     end
 }, -- you can use the VeryLazy event for things that can
 -- load later and are not important for the initial UI
