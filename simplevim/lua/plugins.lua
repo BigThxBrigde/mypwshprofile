@@ -1,172 +1,183 @@
-return { {
-    'terryma/vim-multiple-cursors'
-},
-{
-    'preservim/nerdcommenter'
-},
-{
-    'junegunn/vim-easy-align'
-}, {
-    'nvim-lualine/lualine.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-        --require('evilline')
-        require('lualine').setup {
-            options = {
-                component_separators = {
-                    left = '',
-                    right = '|'
-                },
-                section_separators = {
-                    left = '',
-                    right = ''
-                },
-                theme = 'catppuccin'
-            }
-        }
-    end
-}, {
-    'akinsho/bufferline.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-        local bufferline = require('bufferline')
-        bufferline.setup{
-            options = {
-                separator_style = {'|', '|'},
-                buffer_close_icon = '✖',
-                style_preset = {
-                    bufferline.style_preset.no_italic,
-                    --bufferline.style_preset.no_bold
-                },
-                indicator = {
-                    icon = '', -- this should be omitted if indicator style is not 'icon'
-                    style = 'none',
-                },
-            }
-        }
-    end
-}, -- { 'mhinz/vim-startify' },
-{
-    'glepnir/dashboard-nvim',
-    -- event = 'VimEnter',
-    config = function()
-        require('dashboard').setup {
-            -- config
-            config = {
-                header = require('banner')
-            }
-        }
-    end,
-    dependencies = {{'nvim-tree/nvim-web-devicons'}}
-}, {'tpope/vim-surround'}, {
-    'justinmk/vim-sneak',
-    keys = {
-        {'f', '<Plug>Sneak_s'}, 
-        {'F', '<Plug>Sneak_S'}, 
-        {'t', '<Plug>Sneak_t'}, 
-        {'T', '<Plug>Sneak_T'}
+local plugins = {
+    {
+        'terryma/vim-multiple-cursors'
     },
-    config = function()
-        vim.cmd([[
+    {
+        'preservim/nerdcommenter'
+    },
+    {
+        'junegunn/vim-easy-align'
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        config = function()
+            -- require('evilline')
+            require('lualine').setup {
+                options = {
+                    component_separators = {
+                        left = '',
+                        right = '|'
+                    },
+                    section_separators = {
+                        left = '',
+                        right = ''
+                    },
+                    theme = 'catppuccin'
+                }
+            }
+        end
+    },
+    {
+        'akinsho/bufferline.nvim',
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        config = function()
+            local bufferline = require('bufferline')
+            bufferline.setup {
+                options = {
+                    separator_style = {
+                        '|',
+                        '|'
+                    },
+                    buffer_close_icon = '✖',
+                    style_preset = {
+                        bufferline.style_preset.no_italic -- bufferline.style_preset.no_bold
+                    },
+                    indicator = {
+                        icon = '', -- this should be omitted if indicator style is not 'icon'
+                        style = 'none'
+                    }
+                }
+            }
+        end
+    }, -- { 'mhinz/vim-startify' },
+    {
+        'glepnir/dashboard-nvim',
+        -- event = 'VimEnter',
+        config = function()
+            require('dashboard').setup {
+                -- config
+                config = {
+                    header = require('banner')
+                }
+            }
+        end,
+        dependencies = {
+            {
+                'nvim-tree/nvim-web-devicons'
+            }
+        }
+    },
+    {
+        'tpope/vim-surround'
+    },
+    {
+        'justinmk/vim-sneak',
+        keys = {
+            {
+                'f',
+                '<Plug>Sneak_s'
+            },
+            {
+                'F',
+                '<Plug>Sneak_S'
+            },
+            {
+                't',
+                '<Plug>Sneak_t'
+            },
+            {
+                'T',
+                '<Plug>Sneak_T'
+            }
+        },
+        config = function()
+            vim.cmd([[
          highlight Sneak guifg=red guibg=NONE ctermfg=red ctermbg=NONE
          highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
         ]])
-    end
-}, {
-    'jiangmiao/auto-pairs',
-    config = function()
-    end
-}, {
-    'gcmt/wildfire.vim'
-}, {
-    "junegunn/fzf"
-}, {
-    "junegunn/fzf.vim"
-}, {
-    "nvim-neo-tree/neo-tree.nvim",
-    keys = {{
-        "<leader>ft",
-        "<cmd>Neotree toggle<cr>",
-        desc = "NeoTree"
-    }},
-    dependencies = {
-        "nvim-lua/plenary.nvim", 
-        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended 
-        "MunifTanjim/nui.nvim"
+        end
     },
-    config = function()
-        require("neo-tree").setup()
-    end
-}, -- the colorscheme should be available when starting Neovim
-{
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-        -- load the colorscheme here
-        vim.cmd([[colorscheme catppuccin-macchiato]])
-    end
-}, -- I have a separate config.mappings file where I require which-key.
--- With lazy the plugin will be automatically loaded when it is required somewhere
---{
-    --"folke/which-key.nvim",
-    --lazy = true
---}, 
-{
-    "dstein64/vim-startuptime",
-    -- lazy-load on a command
-    cmd = "StartupTime",
-    -- init is called during startup. Configuration for vim plugins typically should be set in an init function
-    init = function()
-        vim.g.startuptime_tries = 10
-    end
-}, {
-    "hrsh7th/nvim-cmp",
-    -- load cmp on InsertEnter
-    -- event = "InsertEnter",
-    -- these dependencies will only be loaded when cmp loads
-    -- dependencies are always lazy-loaded unless specified otherwise
-    dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "neovim/nvim-lspconfig"
+    {
+        'jiangmiao/auto-pairs',
+        config = function()
+        end
     },
-    config = function()
-        -- ...
-        require('vim_lsp').setup()
-    end
-}, -- you can use the VeryLazy event for things that can
--- load later and are not important for the initial UI
---{
-    --"stevearc/dressing.nvim",
-    --event = "VeryLazy"
---}
--- {
---   "Wansmer/treesj",
---   keys = {
---     { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
---   },
---   opts = { use_default_keymaps = false, max_join_length = 150 },
--- },
--- {
---   "monaqa/dial.nvim",
---   -- lazy-load on keys
---   -- mode is `n` by default. For more advanced options, check the section on key mappings
---   keys = { "<C-a>", { "<C-x>", mode = "n" } },
--- },
--- local plugins can also be configure with the dev option.
--- This will use {config.dev.path}/noice.nvim/ instead of fetching it from Github
--- With the dev option, you can easily switch between the local and installed version of a plugin
--- { "folke/noice.nvim", dev = true },
--- airline
--- { "vim-avim-airline/vim-airline" },
--- { "vim-airline/vim-airline-themes" },
--- { 
---    "itchyny/lightline.vim",
---     config = function()
---       --
---       -- vim.cmd([[ let g:lightline = { 'colorscheme' : 'one' } ]])
---     end,
--- },
+    {
+        'gcmt/wildfire.vim'
+    },
+    {
+        "junegunn/fzf"
+    },
+    {
+        "junegunn/fzf.vim"
+    },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        lazy = false,
+        keys = {
+            {
+                "<leader>ft",
+                "<cmd>Neotree toggle<cr>",
+                desc = "NeoTree"
+            }
+        },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim"
+        },
+        config = function()
+            require("neo-tree").setup({
+                filesystem = {
+                    hijack_netrw_behavior = "open_default" -- netrw disabled, opening a directory opens neo-tree
+                    -- in whatever position is specified in window.position
+                    -- "open_current",  -- netrw disabled, opening a directory opens within the
+                    -- window like netrw would, regardless of window.position
+                    -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
+                }
+            })
+        end
+    }, -- the colorscheme should be available when starting Neovim
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+            -- load the colorscheme here
+            vim.cmd([[colorscheme catppuccin-macchiato]])
+        end
+    }, -- I have a separate config.mappings file where I require which-key.
+    -- With lazy the plugin will be automatically loaded when it is required somewhere
+    -- {
+    -- "folke/which-key.nvim",
+    -- lazy = true
+    -- },
+    {
+        "dstein64/vim-startuptime",
+        -- lazy-load on a command
+        cmd = "StartupTime",
+        -- init is called during startup. Configuration for vim plugins typically should be set in an init function
+        init = function()
+            vim.g.startuptime_tries = 10
+        end
+    },
+    {
+        "hrsh7th/nvim-cmp",
+        -- load cmp on InsertEnter
+        -- event = "InsertEnter",
+        -- these dependencies will only be loaded when cmp loads
+        -- dependencies are always lazy-loaded unless specified otherwise
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "neovim/nvim-lspconfig"
+        },
+        config = function()
+            -- ...
+            require('vim_lsp').setup()
+        end
+    }
 }
 
+return plugins

@@ -1,11 +1,11 @@
 local vars = require('vars')
 
-local root         = vars.root
-local datapath     = vars.datapath
-local lazypath     = vars.lazypath
-local configpath   = vars.configpath
+-- local root         = vars.root
+local datapath = vars.datapath
+-- local lazypath     = vars.lazypath
+local configpath = vars.configpath
 local projectspath = vars.projectspath
-local statepath    = vars.statepath
+local statepath = vars.statepath
 
 return {
     root = datapath .. "/lazy", -- directory where plugins will be installed
@@ -24,7 +24,9 @@ return {
     git = {
         -- defaults for the `Lazy log` command
         -- log = { "-10" }, -- show the last 10 commits
-        log = {"--since=3 days ago"}, -- show commits from the last 3 days
+        log = {
+            "--since=3 days ago"
+        }, -- show commits from the last 3 days
         timeout = 120, -- kill processes that take more than 2 minutes
         url_format = "https://github.com/%s.git",
         -- lazy.nvim requires git >=2.19.0. If you really want to use lazy with an older version,
@@ -43,7 +45,9 @@ return {
         -- install missing plugins on startup. This doesn't increase startup time.
         missing = true,
         -- try to load one of these colorschemes when starting an installation during startup
-        colorscheme = {"catppuccin-macchiato"}
+        colorscheme = {
+            "catppuccin-macchiato"
+        }
     },
     ui = {
         -- a number <1 is a percentage., >1 is a fixed size
@@ -70,29 +74,34 @@ return {
             source = " ",
             start = "",
             task = "✔ ",
-            list = {"●", "➜", "★", "‒"}
+            list = {
+                "●",
+                "➜",
+                "★",
+                "‒"
+            }
         },
         -- leave nil, to automatically select a browser depending on your OS.
         -- If you want to use a specific browser, you can define it here
         browser = nil, ---@type string?
         throttle = 20, -- how frequently should the ui process render events
         custom_keys = {
---            -- you can define custom key maps here.
---            -- To disable one of the defaults, set it to false
---
---            -- open lazygit log
---            ["<localleader>l"] = function(plugin)
---                require("lazy.util").float_term({"lazygit", "log"}, {
---                    cwd = plugin.dir
---                })
---            end,
---
---            -- open a terminal for the plugin dir
---            ["<localleader>t"] = function(plugin)
---                require("lazy.util").float_term(nil, {
---                    cwd = plugin.dir
---                })
---            end
+            --            -- you can define custom key maps here.
+            --            -- To disable one of the defaults, set it to false
+            --
+            --            -- open lazygit log
+            --            ["<localleader>l"] = function(plugin)
+            --                require("lazy.util").float_term({"lazygit", "log"}, {
+            --                    cwd = plugin.dir
+            --                })
+            --            end,
+            --
+            --            -- open a terminal for the plugin dir
+            --            ["<localleader>t"] = function(plugin)
+            --                require("lazy.util").float_term(nil, {
+            --                    cwd = plugin.dir
+            --                })
+            --            end
         }
     },
     diff = {
@@ -144,7 +153,10 @@ return {
     readme = {
         enabled = true,
         root = statepath .. "/lazy/readme",
-        files = {"README.md", "lua/**/README.md"},
+        files = {
+            "README.md",
+            "lua/**/README.md"
+        },
         -- only generate markdown helptags for plugins that dont have docs
         skip_if_doc_exists = true
     },
