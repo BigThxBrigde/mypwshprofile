@@ -33,7 +33,7 @@ local plugins = {
         dependencies = 'nvim-tree/nvim-web-devicons',
         config = function()
             local bufferline = require('bufferline')
-            bufferline.setup {
+            bufferline.setup({
                 options = {
                     separator_style = {
                         '|',
@@ -48,9 +48,9 @@ local plugins = {
                         style = 'none'
                     }
                 }
-            }
+            })
         end
-    }, -- { 'mhinz/vim-startify' },
+    },
     {
         'glepnir/dashboard-nvim',
         -- event = 'VimEnter',
@@ -73,29 +73,11 @@ local plugins = {
     },
     {
         'justinmk/vim-sneak',
-        keys = {
-            {
-                'f',
-                '<Plug>Sneak_s'
-            },
-            {
-                'F',
-                '<Plug>Sneak_S'
-            },
-            {
-                't',
-                '<Plug>Sneak_t'
-            },
-            {
-                'T',
-                '<Plug>Sneak_T'
-            }
-        },
         config = function()
             vim.cmd([[
-         highlight Sneak guifg=red guibg=NONE ctermfg=red ctermbg=NONE
-         highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
-        ]])
+                 highlight Sneak guifg=red guibg=NONE ctermfg=red ctermbg=NONE
+                 highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
+            ]])
         end
     },
     {
@@ -115,13 +97,6 @@ local plugins = {
     {
         "nvim-neo-tree/neo-tree.nvim",
         lazy = false,
-        keys = {
-            {
-                "<leader>ft",
-                "<cmd>Neotree toggle<cr>",
-                desc = "NeoTree"
-            }
-        },
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -149,10 +124,13 @@ local plugins = {
         end
     }, -- I have a separate config.mappings file where I require which-key.
     -- With lazy the plugin will be automatically loaded when it is required somewhere
-    -- {
-    -- "folke/which-key.nvim",
-    -- lazy = true
-    -- },
+    {
+         "folke/which-key.nvim",
+         config = function()
+             require('vim_keys').setup()
+         end
+         -- lazy = true
+    },
     {
         "dstein64/vim-startuptime",
         -- lazy-load on a command
@@ -164,10 +142,6 @@ local plugins = {
     },
     {
         "hrsh7th/nvim-cmp",
-        -- load cmp on InsertEnter
-        -- event = "InsertEnter",
-        -- these dependencies will only be loaded when cmp loads
-        -- dependencies are always lazy-loaded unless specified otherwise
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             'hrsh7th/cmp-nvim-lsp-document-symbol',
@@ -180,7 +154,6 @@ local plugins = {
             'onsails/lspkind.nvim'
         },
         config = function()
-            -- ...
             require('vim_lsp').setup()
         end
     }

@@ -1,6 +1,5 @@
-local M = {}
-
 local float_term = require('lazy.util').float_term
+
 local show_lazygit = function()
     float_term({'pwsh', '--nologo', '-c', 'lg'})
 end
@@ -17,7 +16,7 @@ local show_lf = function()
 
     local function open_lf()
         local file = io.open(".lf_opened_by_vim", 'w')
-        file:write("lf opened by vim")
+        file:write('lf opened by vim')
         file:flush()
         file:close()
         local ft = float_term({'lf'})
@@ -26,7 +25,7 @@ local show_lf = function()
 
     local lf = open_lf()
 
-    lf:on('TermClose', function(ft)
+    lf:on('TermClose', function(_)
         local file = io.open('.lf_opened_by_vim', 'r')
         local path = file:read()
         file:close()
@@ -52,30 +51,95 @@ local show_vterm = function()
         vsplit term://pwsh
     ]])
 end
+-- 
+-- https://superuser.com/questions/945329/how-to-disable-the-leader-key-in-vim-insert-mode 
+-- :verbose imap <leader>
+--
 
-local nvim_setkey = vim.keymap.set
-local setup = function()
-    -- 
-    -- https://superuser.com/questions/945329/how-to-disable-the-leader-key-in-vim-insert-mode 
-    -- :verbose imap <leader>
-    --
-    nvim_setkey('n', '<leader>lg', show_lazygit)
-    nvim_setkey('n', '<leader>lf', show_lf)
-    nvim_setkey('n', '<leader>tp', show_term_pwsh)
-    nvim_setkey('n', '<leader>tc', show_term_cmd)
-    nvim_setkey('n', '<leader>th', show_hterm)
-    nvim_setkey('n', '<leader>tv', show_vterm)
-    nvim_setkey('v', '<leader>xa', '<Plug>(EasyAlign)')
-    nvim_setkey('n', '<leader>ff', '<cmd>Files<cr>')
-    nvim_setkey('n', '<leader>fb', '<cmd>Buffers<cr>')
-    nvim_setkey('n', '<leader>xd', '<cmd>Dashboard<cr>')
-    nvim_setkey('n', '<leader>bc', '<cmd>bd!<cr>')
-    nvim_setkey('n', '<leader>pq', '<cmd>qa!<cr>')
-    nvim_setkey('n', '<leader>ps', '<cmd>wa!<cr>')
-    nvim_setkey('n', '<leader>xl', '<cmd>Lazy<cr>')
-    nvim_setkey('n', '<leader>fn', '<cmd>nohlsearch<cr>')
-end
+local key_defs = {
+    -- Leader keys normal mode
+    {
+        keys = {
+            l = {
+                name = 'File System',
+                g = {show_lazygit, 'Show Lazygit'},
+                f = {show_lf, 'Show LF Manager'}
+            },
+            t = {
+                name = 'Terminal',
+                p = {show_term_pwsh, 'Launch terminal with powershell'},
+                c = {show_term_cmd, 'Launch terminal with cmd'},
+                h = {show_hterm, 'Split horizontally with powershell'},
+                v = {show_vterm, 'Split vertically with powershell'},
+            },
+            f = {
+                name = 'Files',
+                f = {'<cmd>Files<cr>', 'Find files'},
+                n = {'<cmd>nohlsearch<cr>', 'No highlight search'},
+                s = {'<cmd>w!<cr>', 'Save current file'},
+                S = {'<cmd>wa!<cr>', 'Save all files'},
+                t = {'<cmd>Neotree toggle<cr>', 'Toggle Neotree File Manager'},
+            },
+            x = {
+                name = 'Extensions',
+                d = {'<cmd>Dashboard<cr>', 'Show Dashboard'},
+                l = {'<cmd>Lazy<cr>', 'Show Lazynvim Package Manager'},
+            },
+            b = {
+                name = 'Buffers',
+                s = {'<cmd>Buffers<cr>', 'Find buffers'},
+                d = {'<cmd>bd!<cr>', 'Close current buffer'},
+                l = {'<cmd>ls<cr>', 'List all buffers'},
+                n = {'<cmd>bn<cr>', 'Next buffer'},
+                p = {'<cmd>bp<cr>', 'Previous buffer'},
+            },
+            q = {
+                name = 'Quit',
+                q = {'<cmd>q!<cr>', 'Quit current window'},
+                Q = {'<cmd>qa!<cr>', 'Quit vim'},
+            },
+            m = {
+                name = 'Motions',
+                f = {'<Plug>Sneak_s', 'Find character forward'},
+                F = {'<Plug>Sneak_S', 'Find character backward'},
+                t = {'<Plug>Sneak_t', "Find till character forward"},
+                T = {'<Plug>Sneak_T', 'Find till character backward'},
+                d = {'<Plug>Dsurround', 'Delete text block surrond character'}
+            }
+        },
+        opts = {
+            prefix = "<leader>"
+        }
+    },
+    -- Leader keys visual mode
+    {
+        keys = {
+            x = {
+                name = 'Extensions',
+                a = {'<Plug>(EasyAlign)', 'Align with delimeter'},
+            },
+            m = {
+                name = 'Motions',
+                a = {'<Plug>VSurround', 'Surrond text block with'}
+            }
+        },
+        opts = {
+            prefix = '<leader>',
+            mode   = 'v'
+        }
+    },
+    {
+        keys = {
+            c = {
+                name = 'Comments',
+                t = {'<Plug>NERDCommenterToggle', 'Toggle comments'},
+            },
+        },
+        opts = {
+            prefix = '<leader>',
+            mode   = {'v', 'n'}
+        }
+    },
+}
 
-M.setup = setup
-
-return M
+return key_defs
