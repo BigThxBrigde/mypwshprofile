@@ -1,10 +1,24 @@
-local M                = {}
-local wezterm          = require('wezterm')
-local wez_home_dir     = os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm'
+local M          = {}
+local wezterm    = require('wezterm')
+
+local os_name, _ = require('util').get_os_name()
+local is_windows = os_name == 'Windows'
+
+print('OS Platform ' .. os_name)
+
+local wez_home_dir, user_config_file
+
+if is_windows then
+    wez_home_dir = os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm'
+    user_config_file = wez_home_dir .. '/lua/user_config.lua'
+else
+    wez_home_dir = os.getenv('HOME') .. '/.config/wezterm'
+    user_config_file = wez_home_dir .. '/user_config.lua'
+end
+
 local get_uuid         = require('util').get_uuid
 local file_exists      = require('util').file_exists
 local merge            = require('util').table_merge
-local user_config_file = wez_home_dir .. '/lua/user_config.lua'
 local config_defaults  = {}
 local config_locals    = {}
 

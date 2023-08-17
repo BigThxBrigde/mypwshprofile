@@ -1,8 +1,16 @@
 local M = {}
+local get_clipboard = function()
+    if require('vars').is_windows then
+        return 'unnamed'
+    else
+        return 'unnamedplus'
+    end
+end
+
 
 M.setup = function()
     vim.o.guifont        = 'agave nfm r:h12'
-    vim.o.clipboard      = 'unnamed'
+    vim.o.clipboard      = require('vars').is_windows and 'unnamed' or 'unnamedplus'
     vim.o.number         = true
     vim.o.relativenumber = true
     vim.o.tabstop        = 4
@@ -25,7 +33,7 @@ M.setup = function()
         vim.g.neovide_fullscreen       = false
         vim.g.neovide_transparency     = 0.9
         vim.g.neovide_floating_opacity = 0.9
-    else 
+    else
         vim.cmd([[   
             autocmd colorscheme * highlight normal ctermbg=none guibg=none
         ]])

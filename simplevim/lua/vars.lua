@@ -1,16 +1,17 @@
+local get_os_name   = require('misc').get_os_name
+local _root         = os.getenv('SIMPLEVIM')
+local _datapath     = _root .. '/data'
+local _osname, _    = get_os_name()
 
-local root         = os.getenv('SIMPLEVIM')
-local datapath     = root .. '/data'
-local lazypath     = datapath .. '/lazy/lazy.nvim'
-local configpath   = root .. '/config'
-local projectspath = root .. '/projects'
-local statepath    = root .. '/state'
+-- print(_osname)
 
 return {
-    root         = root,
-    datapath     = datapath,
-    lazypath     = lazypath,
-    configpath   = configpath,
-    projectspath = projectspath,
-    statepath    = statepath
+    root         = _root,
+    datapath     = _datapath,
+    lazypath     = _datapath .. '/lazy/lazy.nvim',
+    configpath   = _root .. '/config',
+    projectspath = _root .. '/projects',
+    statepath    = _root .. '/state',
+    osname       = _osname,
+    iswindows    = _osname == 'Windows'
 }
