@@ -1,13 +1,12 @@
 local plugins = {
-    {
-        'terryma/vim-multiple-cursors'
-    },
-    {
-        'preservim/nerdcommenter'
-    },
-    {
-        'junegunn/vim-easy-align'
-    },
+    { 'terryma/vim-multiple-cursors' },
+    { 'preservim/nerdcommenter'      },
+    { 'junegunn/vim-easy-align'      },
+    { 'tpope/vim-surround'           },
+    { 'gcmt/wildfire.vim'            },
+    { "junegunn/fzf"                 },
+    { "junegunn/fzf.vim"             },
+    { 'jiangmiao/auto-pairs'         },
     {
         'nvim-lualine/lualine.nvim',
         dependencies = 'nvim-tree/nvim-web-devicons',
@@ -23,7 +22,6 @@ local plugins = {
                         left = '',
                         right = ''
                     },
-                    theme = 'catppuccin'
                 }
             }
         end
@@ -63,13 +61,8 @@ local plugins = {
             }
         end,
         dependencies = {
-            {
-                'nvim-tree/nvim-web-devicons'
-            }
+            { 'nvim-tree/nvim-web-devicons' }
         }
-    },
-    {
-        'tpope/vim-surround'
     },
     {
         'justinmk/vim-sneak',
@@ -79,20 +72,6 @@ local plugins = {
                  highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
             ]])
         end
-    },
-    {
-        'jiangmiao/auto-pairs',
-        config = function()
-        end
-    },
-    {
-        'gcmt/wildfire.vim'
-    },
-    {
-        "junegunn/fzf"
-    },
-    {
-        "junegunn/fzf.vim"
     },
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -113,7 +92,8 @@ local plugins = {
                 }
             })
         end
-    }, -- the colorscheme should be available when starting Neovim
+    }, 
+    -- the colorscheme should be available when starting Neovim
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -123,6 +103,14 @@ local plugins = {
             vim.cmd([[colorscheme catppuccin-macchiato]])
         end
     }, -- I have a separate config.mappings file where I require which-key.
+    --{
+    --    "joshdick/onedark.vim",
+    --    priority = 1000, -- make sure to load this before all the other start plugins
+    --    config = function()
+    --        -- load the colorscheme here
+    --        vim.cmd([[colorscheme onedark]])
+    --    end
+    --}, -- I have a separate config.mappings file where I require which-key.
     -- With lazy the plugin will be automatically loaded when it is required somewhere
     {
          "folke/which-key.nvim",
