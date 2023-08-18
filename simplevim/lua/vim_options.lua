@@ -3,7 +3,7 @@ local is_windows = require('vars').is_windows
 
 
 M.setup = function()
-    vim.o.guifont        = 'agave nfm r:h12'
+    vim.o.guifont        = 'JetBrains Mono:h10'
     vim.o.clipboard      = is_windows and 'unnamed' or 'unnamedplus'
     vim.o.number         = true
     vim.o.relativenumber = true
