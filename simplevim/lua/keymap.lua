@@ -60,33 +60,45 @@ end
 local term1_config = show_term1_config()
 local term2_config = show_term2_config()
 
-local show_lf
+-- not working correctly, without focus and hightlight
+--local show_lf
 
-if is_windows then
-    show_lf = function()
-        local function open_lf()
-            local file = io.open(".lf_opened_by_vim", 'w')
-            file:write('lf opened by vim')
-            file:flush()
-            file:close()
-            local ft = float_term({'lf'})
-            return ft
-        end
+--if is_windows then
+--    show_lf = function()
+--        local function open_lf()
+--            local file = io.open(".lf_opened_by_vim", 'w')
+--            local ft
+--            if file then
+--                file:write('lf opened by vim')
+--                file:flush()
+--                file:close()
+--                ft = float_term({'lf'})
+--            end
+--            return ft
+--        end
 
-        local lf = open_lf()
+--        local lf_ft = open_lf()
 
-        lf:on('TermClose', function(_)
-            local file = io.open('.lf_opened_by_vim', 'r')
-            local path = file:read()
-            file:close()
-            os.execute('cmd /c del /f /q .lf_opened_by_vim')
-            if path ~= 'lf opened by vim' then
-                -- not perfect here, need type :bn to focus
-                vim.cmd.tabedit(path)
-            end
-        end)
-    end
-end
+--        if not lf_ft then
+--            return
+--        end
+
+--        local path
+--        lf_ft:on('TermClose', function(_)
+--            local file = io.open('.lf_opened_by_vim', 'r')
+--            if not file then return end
+--                path = file:read()
+--            file:close()
+--            os.execute('cmd /c del /f /q .lf_opened_by_vim')
+--            if path ~= 'lf opened by vim' then
+--                -- not perfect here, need type :bn to focus
+--                vim.cmd(':enew')
+--                vim.cmd(':e ' .. path)
+--                -- vim.cmd.tabedit(path)
+--            end
+--        end)
+--    end
+--end
 
 --
 -- https://stackoverflow.com/questions/7207697/vim-split-buffer-and-have-it-open-at-the-bottom
@@ -130,13 +142,11 @@ local key_defs = {
             l = {
                 name = 'File System',
                 g = {show_lazygit, 'Show Lazygit'},
---                f = {show_lf, 'Show LF Manager'}
             },
             t = {
                 name = 'Terminal',
                 [term1_config.key] = {term1_config.func, term1_config.desc},
                 [term2_config.key] = {term2_config.func, term2_config.desc},
-                --z = {show_term_zsh, 'Launch terminal with zsh'},
                 h = {show_hterm, 'Split horizontally with ' .. (is_windows and 'pwsh' or 'zsh')},
                 v = {show_vterm, 'Split vertically with ' .. (is_windows and 'pwsh' or 'zsh')},
             },
@@ -210,19 +220,20 @@ local key_defs = {
     },
 }
 
-if show_lf then
-    table.insert({
-        keys = {
-            l = {
-                name = 'File System',
-                f = {show_lf, 'Show LF Manager'}
-            },
-        },
-        opts = {
-            prefix = "<leader>"
-        }
-    })
-end
+--if show_lf then
+--    table.insert(key_defs,
+--    {
+--        keys = {
+--            l = {
+--                name = 'File System',
+--                f = {show_lf, 'Show LF Manager'}
+--            },
+--        },
+--        opts = {
+--            prefix = "<leader>"
+--        }
+--    })
+--end
 
 
 return key_defs

@@ -12,6 +12,6 @@ return {
     configpath   = _root .. '/config',
     projectspath = _root .. '/projects',
     statepath    = _root .. '/state',
-    osname       = _osname,
-    iswindows    = _osname == 'Windows'
+    os_name       = _osname,
+    is_windows    = _osname == 'Windows'
 }

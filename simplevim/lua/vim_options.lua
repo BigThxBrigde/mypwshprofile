@@ -1,16 +1,10 @@
 local M = {}
-local get_clipboard = function()
-    if require('vars').is_windows then
-        return 'unnamed'
-    else
-        return 'unnamedplus'
-    end
-end
+local is_windows = require('vars').is_windows
 
 
 M.setup = function()
     vim.o.guifont        = 'agave nfm r:h12'
-    vim.o.clipboard      = require('vars').is_windows and 'unnamed' or 'unnamedplus'
+    vim.o.clipboard      = is_windows and 'unnamed' or 'unnamedplus'
     vim.o.number         = true
     vim.o.relativenumber = true
     vim.o.tabstop        = 4
