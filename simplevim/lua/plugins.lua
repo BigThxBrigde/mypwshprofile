@@ -11,19 +11,8 @@ local plugins = {
         'nvim-lualine/lualine.nvim',
         dependencies = 'nvim-tree/nvim-web-devicons',
         config = function()
-            -- require('evilline')
-            require('lualine').setup {
-                options = {
-                    component_separators = {
-                        left = '',
-                        right = '|'
-                    },
-                    section_separators = {
-                        left = '',
-                        right = ''
-                    },
-                }
-            }
+            local evilline = require('evilline')
+            require('lualine').setup(evilline)
         end
     },
     {

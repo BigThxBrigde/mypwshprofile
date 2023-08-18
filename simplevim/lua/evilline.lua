@@ -1,8 +1,41 @@
 -- Eviline config for lualine
 -- Color table for highlights
 -- stylua: ignore
-local lualine = require('lualine')
+
+-- This version id modified
+
 local colors = require("catppuccin.palettes").get_palette "macchiato"
+
+--for k,v in pairs(colors) do
+--    print(k .. ' ' .. v)
+--end
+
+-- sapphire  #7dc4e4
+-- peach     #f5a97f
+-- surface0  #363a4f
+-- mantle    #1e2030
+-- teal      #8bd5ca
+-- maroon    #ee99a0
+-- surface1  #494d64
+-- surface2  #5b6078
+-- blue      #8aadf4
+-- mauve     #c6a0f6
+-- red       #ed8796
+-- pink      #f5bde6
+-- overlay1  #8087a2
+-- flamingo  #f0c6c6
+-- overlay0  #6e738d
+-- overlay2  #939ab7
+-- rosewater #f4dbd6
+-- yellow    #eed49f
+-- text      #cad3f5
+-- subtext0  #a5adcb
+-- sky       #91d7e3
+-- crust     #181926
+-- subtext1  #b8c0e0
+-- green     #a6da95
+-- lavender  #b7bdf8
+-- base      #24273a
 
 local conditions = {
     buffer_not_empty = function()
@@ -30,14 +63,12 @@ local config = {
             -- are just setting default looks o statusline
             normal = {
                 c = {
-                    fg = colors.fg,
-                    bg = colors.bg
+                    fg = colors.text,
                 }
             },
             inactive = {
                 c = {
-                    fg = colors.fg,
-                    bg = colors.bg
+                    fg = colors.subtext0,
                 }
             }
         }
@@ -99,19 +130,19 @@ ins_left {
             v = colors.blue,
             [''] = colors.blue,
             V = colors.blue,
-            c = colors.magenta,
+            c = colors.maroon,
             no = colors.red,
-            s = colors.orange,
-            S = colors.orange,
-            [''] = colors.orange,
+            s = colors.peach,
+            S = colors.peach,
+            [''] = colors.peach,
             ic = colors.yellow,
-            R = colors.violet,
-            Rv = colors.violet,
+            R = colors.sky,
+            Rv = colors.sky,
             cv = colors.red,
             ce = colors.red,
-            r = colors.cyan,
-            rm = colors.cyan,
-            ['r?'] = colors.cyan,
+            r = colors.teal,
+            rm = colors.teal,
+            ['r?'] = colors.teal,
             ['!'] = colors.red,
             t = colors.red
         }
@@ -127,24 +158,43 @@ ins_left {
 ins_left {
     -- filesize component
     'filesize',
+    color = {
+        fg = colors.teal
+    },
     cond = conditions.buffer_not_empty
+}
+
+
+ins_left {
+    'filetype',
+    cond = conditions.buffer_not_empty,
+    color = {
+        fg = colors.yellow,
+        gui = 'bold'
+    }
 }
 
 ins_left {
     'filename',
     cond = conditions.buffer_not_empty,
     color = {
-        fg = colors.magenta,
+        fg = colors.mauve,
         gui = 'bold'
     }
 }
 
-ins_left {'location'}
+
+ins_left {
+    'location',
+    color = {
+        fg = colors.green,
+    }
+}
 
 ins_left {
     'progress',
     color = {
-        fg = colors.fg,
+        fg = colors.yellow,
         gui = 'bold'
     }
 }
@@ -165,7 +215,7 @@ ins_left {
             fg = colors.yellow
         },
         color_info = {
-            fg = colors.cyan
+            fg = colors.teal
         }
     }
 }
@@ -179,8 +229,7 @@ end}
 ins_left {
     -- Lsp server name .
     function()
-        -- local msg = 'No Active Lsp'
-        local msg = ''
+        local msg = 'LSP N/A'
         local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
         local clients = vim.lsp.get_active_clients()
         if next(clients) == nil then
@@ -196,10 +245,12 @@ ins_left {
     end,
     icon = ' LSP:',
     color = {
-        fg = colors.fg,
+        fg = colors.flamingo,
         gui = 'bold'
     }
 }
+
+
 
 -- Add components to right sections
 ins_right {
@@ -214,22 +265,34 @@ ins_right {
 
 ins_right {
     'fileformat',
-    fmt = string.upper,
-    icons_enabled = true, -- I think icons are cool but Eviline doesn't have them. sigh
     color = {
-        fg = colors.green,
+        fg = colors.peach,
         gui = 'bold'
     }
 }
+
+-- How to combine this two parts, I don't know well
+--
+ins_right {
+    'fileformat',
+    fmt = string.upper,
+    icons_enabled = false,
+    color = {
+        fg = colors.peach,
+        gui = 'bold'
+    }
+}
+
 
 ins_right {
     'branch',
     icon = '',
     color = {
-        fg = colors.violet,
+        fg = colors.sky,
         gui = 'bold'
     }
 }
+
 
 ins_right {
     'diff',
@@ -244,7 +307,7 @@ ins_right {
             fg = colors.green
         },
         modified = {
-            fg = colors.orange
+            fg = colors.peach
         },
         removed = {
             fg = colors.red
@@ -265,6 +328,7 @@ ins_right {
     }
 }
 
+return config
 -- Now don't forget to initialize lualine
-lualine.setup(config)
+-- lualine.setup(config)
 
