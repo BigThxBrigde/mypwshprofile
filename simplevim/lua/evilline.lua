@@ -2,8 +2,10 @@
 -- Color table for highlights
 -- stylua: ignore
 
--- This version id modified
+-- This version is modified
 
+-- Use mode_code to get mode description
+local get_mode = require('lualine.utils.mode').get_mode
 local colors = require("catppuccin.palettes").get_palette "macchiato"
 
 --for k,v in pairs(colors) do
@@ -120,13 +122,14 @@ ins_left {
 ins_left {
     -- mode component
     function()
-        return ''
+        local mode = get_mode()
+        return '  ' .. mode
     end,
     color = function()
         -- auto change color according to neovims mode
         local mode_color = {
-            n = colors.red,
-            i = colors.green,
+            n = colors.green,
+            i = colors.red,
             v = colors.blue,
             [''] = colors.blue,
             V = colors.blue,
@@ -143,8 +146,8 @@ ins_left {
             r = colors.teal,
             rm = colors.teal,
             ['r?'] = colors.teal,
-            ['!'] = colors.red,
-            t = colors.red
+            ['!'] = colors.yellow,
+            t = colors.yellow
         }
         return {
             fg = mode_color[vim.fn.mode()]
@@ -179,22 +182,6 @@ ins_left {
     cond = conditions.buffer_not_empty,
     color = {
         fg = colors.mauve,
-        gui = 'bold'
-    }
-}
-
-
-ins_left {
-    'location',
-    color = {
-        fg = colors.green,
-    }
-}
-
-ins_left {
-    'progress',
-    color = {
-        fg = colors.yellow,
         gui = 'bold'
     }
 }
@@ -250,7 +237,21 @@ ins_left {
     }
 }
 
+-- Right componets
+ins_right {
+    'location',
+    color = {
+        fg = colors.green,
+    }
+}
 
+ins_right {
+    'progress',
+    color = {
+        fg = colors.yellow,
+        gui = 'bold'
+    }
+}
 
 -- Add components to right sections
 ins_right {
