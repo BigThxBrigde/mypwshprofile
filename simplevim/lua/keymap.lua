@@ -179,6 +179,8 @@ local key_defs = {
                 name = 'Extensions',
                 d = {'<cmd>Dashboard<cr>', 'Show Dashboard'},
                 l = {'<cmd>Lazy<cr>', 'Show Lazynvim Package Manager'},
+                c = {'<cmd>FineCmdline<cr>', 'Execute command'},
+                f = {'<cmd>FineCmdline vimgrep <cr>', 'Filter with vimgrep'},
             },
             b = {
                 name = 'Buffers',

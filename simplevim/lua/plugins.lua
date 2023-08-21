@@ -8,6 +8,28 @@ local plugins = {
     { "junegunn/fzf.vim"             },
     { 'jiangmiao/auto-pairs'         },
     {
+        'VonHeikemen/fine-cmdline.nvim',
+        dependencies = 'MunifTanjim/nui.nvim',
+        config = function()
+            local fine_cmdline = require('fine-cmdline')
+            fine_cmdline.setup({
+                cmdline = {prompt = '> '},
+                popup = {
+                    position = {
+                      row = '40%',
+                      col = '50%',
+                    },
+                    size = {
+                      width = '60%',
+                    },
+                    border = {
+                      style = 'rounded',
+                    }
+                }
+            })
+        end
+    },
+    {
         'nvim-lualine/lualine.nvim',
         dependencies = 'nvim-tree/nvim-web-devicons',
         config = function()
