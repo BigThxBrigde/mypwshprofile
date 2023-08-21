@@ -6,7 +6,7 @@
 
 -- Use mode_code to get mode description
 local get_mode = require('lualine.utils.mode').get_mode
-local colors = require("catppuccin.palettes").get_palette "macchiato"
+local palette = require("catppuccin.palettes").get_palette "macchiato"
 
 --for k,v in pairs(colors) do
 --    print(k .. ' ' .. v)
@@ -65,12 +65,12 @@ local config = {
             -- are just setting default looks o statusline
             normal = {
                 c = {
-                    fg = colors.text,
+                    fg = palette.text,
                 }
             },
             inactive = {
                 c = {
-                    fg = colors.subtext0,
+                    fg = palette.subtext0,
                 }
             }
         }
@@ -111,7 +111,7 @@ ins_left {
         return '▊'
     end,
     color = {
-        fg = colors.blue
+        fg = palette.blue
     }, -- Sets highlighting of component
     padding = {
         left = 0,
@@ -128,26 +128,26 @@ ins_left {
     color = function()
         -- auto change color according to neovims mode
         local mode_color = {
-            n = colors.green,
-            i = colors.red,
-            v = colors.blue,
-            [''] = colors.blue,
-            V = colors.blue,
-            c = colors.maroon,
-            no = colors.red,
-            s = colors.peach,
-            S = colors.peach,
-            [''] = colors.peach,
-            ic = colors.yellow,
-            R = colors.sky,
-            Rv = colors.sky,
-            cv = colors.red,
-            ce = colors.red,
-            r = colors.teal,
-            rm = colors.teal,
-            ['r?'] = colors.teal,
-            ['!'] = colors.yellow,
-            t = colors.yellow
+            n = palette.green,
+            i = palette.red,
+            v = palette.blue,
+            [''] = palette.blue,
+            V = palette.blue,
+            c = palette.maroon,
+            no = palette.red,
+            s = palette.peach,
+            S = palette.peach,
+            [''] = palette.peach,
+            ic = palette.yellow,
+            R = palette.sky,
+            Rv = palette.sky,
+            cv = palette.red,
+            ce = palette.red,
+            r = palette.teal,
+            rm = palette.teal,
+            ['r?'] = palette.teal,
+            ['!'] = palette.yellow,
+            t = palette.yellow
         }
         return {
             fg = mode_color[vim.fn.mode()]
@@ -162,7 +162,7 @@ ins_left {
     -- filesize component
     'filesize',
     color = {
-        fg = colors.teal
+        fg = palette.teal
     },
     cond = conditions.buffer_not_empty
 }
@@ -172,7 +172,7 @@ ins_left {
     'filetype',
     cond = conditions.buffer_not_empty,
     color = {
-        fg = colors.yellow,
+        fg = palette.yellow,
         gui = 'bold'
     }
 }
@@ -181,7 +181,7 @@ ins_left {
     'filename',
     cond = conditions.buffer_not_empty,
     color = {
-        fg = colors.mauve,
+        fg = palette.mauve,
         gui = 'bold'
     }
 }
@@ -196,13 +196,13 @@ ins_left {
     },
     diagnostics_color = {
         color_error = {
-            fg = colors.red
+            fg = palette.red
         },
         color_warn = {
-            fg = colors.yellow
+            fg = palette.yellow
         },
         color_info = {
-            fg = colors.teal
+            fg = palette.teal
         }
     }
 }
@@ -232,7 +232,7 @@ ins_left {
     end,
     icon = ' LSP:',
     color = {
-        fg = colors.flamingo,
+        fg = palette.flamingo,
         gui = 'bold'
     }
 }
@@ -241,14 +241,15 @@ ins_left {
 ins_right {
     'location',
     color = {
-        fg = colors.green,
-    }
+        fg = palette.sapphire,
+    },
+    gui = 'bold'
 }
 
 ins_right {
     'progress',
     color = {
-        fg = colors.yellow,
+        fg = palette.lavender,
         gui = 'bold'
     }
 }
@@ -259,7 +260,7 @@ ins_right {
     fmt = string.upper, -- I'm not sure why it's upper case either ;)
     cond = conditions.hide_in_width,
     color = {
-        fg = colors.green,
+        fg = palette.rosewater,
         gui = 'bold'
     }
 }
@@ -267,7 +268,7 @@ ins_right {
 ins_right {
     'fileformat',
     color = {
-        fg = colors.peach,
+        fg = palette.pink,
         gui = 'bold'
     }
 }
@@ -279,7 +280,7 @@ ins_right {
     fmt = string.upper,
     icons_enabled = false,
     color = {
-        fg = colors.peach,
+        fg = palette.pink,
         gui = 'bold'
     }
 }
@@ -289,11 +290,10 @@ ins_right {
     'branch',
     icon = '',
     color = {
-        fg = colors.sky,
+        fg = palette.sky,
         gui = 'bold'
     }
 }
-
 
 ins_right {
     'diff',
@@ -305,13 +305,13 @@ ins_right {
     },
     diff_color = {
         added = {
-            fg = colors.green
+            fg = palette.green
         },
         modified = {
-            fg = colors.peach
+            fg = palette.peach
         },
         removed = {
-            fg = colors.red
+            fg = palette.red
         }
     },
     cond = conditions.hide_in_width
@@ -322,7 +322,7 @@ ins_right {
         return '▊'
     end,
     color = {
-        fg = colors.blue
+        fg = palette.blue
     },
     padding = {
         left = 1

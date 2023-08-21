@@ -130,18 +130,34 @@ local show_vterm = function()
     end
     vim.cmd(cmd)
 end
+
 -- 
 -- https://superuser.com/questions/945329/how-to-disable-the-leader-key-in-vim-insert-mode 
 -- :verbose imap <leader>
 --
 
+--
+--  key map defines
+--
 local key_defs = {
     -- Leader keys normal mode
     {
         keys = {
             l = {
-                name = 'File System',
-                g = {show_lazygit, 'Show Lazygit'},
+                name = 'Language Server',
+                d = {'<cmd>lua vim.diagnostic.open_float()<cr>', 'View Diagnostic'},
+                q = {'<cmd>lua vim.diagnostic.setqflist()<cr>', 'Diagnostic in Quick Fix'},
+                n = {'<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next Diagnostic'},
+                p = {'<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous Diagnostic'},
+                c = {'<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Actions'},
+                r = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename Symbol'},
+                R = {'<cmd>lua vim.lsp.buf.references()<cr>', 'Find All References'},
+                f = {'<cmd>lua vim.lsp.buf.format()<cr>', 'Format Document'},
+                s = {'<cmd>lua vim.lsp.buf.document_symbol()<cr>', 'Document Symbols'},
+                i = {'<cmd>lua vim.lsp.buf.implementation()<cr>', 'Go to implementation'},
+                v = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'View Document'},
+                S = {'<cmd>lua vim.lsp.buf.workspace_symbol()<cr>', 'Workspace Symbols'},
+                I = {'<cmd>LspInfo<CR>', 'Show Language Server Info'}
             },
             t = {
                 name = 'Terminal',
@@ -157,6 +173,7 @@ local key_defs = {
                 s = {'<cmd>w!<cr>', 'Save current file'},
                 S = {'<cmd>wa!<cr>', 'Save all files'},
                 t = {'<cmd>Neotree toggle<cr>', 'Toggle Neotree File Manager'},
+                g = {show_lazygit, 'Show Lazygit'},
             },
             x = {
                 name = 'Extensions',
