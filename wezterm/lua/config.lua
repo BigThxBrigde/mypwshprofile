@@ -1,12 +1,52 @@
+-- Function `setup(config, user_config)`, setup configuration and user configuration
+--      - config:      Built-in configuration
+--      - user_config: Other configuration for user-defined
+--
+-- wez_home_dir, the wez home directory, depends on platform:
+--     - Windows: %USERPROFILE%\Documents\PowerShell\wezterm
+--     - Linux:   $HOME/.config/wezterm
+--
+-- user_config_file, the user_config.lua
+--     - Windows: %USERPROFILE%\Documents\PowerShell\wezterm\lua\user_config.lua
+--     - Linux:   $HOME/.config/wezterm/user_config.lua
+--
+-- local_config, the configuration read from the `user_config.lua` file,
+-- below is a sample file:
+--
+--     ```lua
+--     local wezterm = require('wezterm')
+--     
+--     return {
+--         defaults = {
+--             default_prog           = {'zsh'},
+--             status_update_interval = 1000,
+--             --font_size              = 11.0,
+--             font                   = wezterm.font_with_fallback {
+--                 { family = 'JetBrains Mono', weight = 'Medium'},
+--                 { family = 'Noto Mono',   weight = 'Medium' },
+--                 { family = 'FiraCode NF', weight = 'Medium' },
+--                 { family = 'Zhiyin',      weight = 'Medium' },
+--             },
+--             check_for_updates      = false
+--         },
+--         locals   = {
+--             use_fancy_indicator    = false,
+--             toggle_tabbar_position = false
+--         }
+--     }
+--     ```
+
+
 local M          = {}
+
+local util       = require('util')
 local wezterm    = require('wezterm')
 
-local os_name, _ = require('util').get_os_name()
+local os_name, _ = util.get_os_name()
 local is_windows = os_name == 'Windows'
 
-print('OS Platform ' .. os_name)
 
-local wez_home_dir, user_config_file
+local wez_home_dir, user_config_file, local_config
 
 if is_windows then
     wez_home_dir = os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm'
@@ -16,45 +56,17 @@ else
     user_config_file = wez_home_dir .. '/user_config.lua'
 end
 
-local get_uuid         = require('util').get_uuid
-local file_exists      = require('util').file_exists
-local merge            = require('util').table_merge
-local user_config_defaults  = {}
-local user_config_locals    = {}
 
---
--- File: user_config.lua
---
-
--- local wezterm = require('wezterm')
--- 
--- return {
---     defaults = {
---         default_prog           = {'zsh'},
---         status_update_interval = 1000,
---         --font_size              = 11.0,
---         font                   = wezterm.font_with_fallback {
---             { family = 'JetBrains Mono', weight = 'Medium'},
---             { family = 'Noto Mono',   weight = 'Medium' },
---             { family = 'FiraCode NF', weight = 'Medium' },
---             { family = 'Zhiyin',      weight = 'Medium' },
---         },
---         check_for_updates      = false
---     },
---     locals   = {
---         use_fancy_indicator    = false,
---         toggle_tabbar_position = false
---     }
--- }
-
-if file_exists(user_config_file) then
-    local local_config = require('user_config')
-    user_config_defaults    = local_config.defaults or {}
-    user_config_locals      = local_config.locals or {}
+if util.file_exists(user_config_file) then
+    local_config = require('user_config')
 end
 
-local font_dirs = {wez_home_dir .. '/fonts'}
+local_config = local_config or {}
 
+local config_locals = local_config.locals or {}
+local font_dirs     = {wez_home_dir .. '/fonts'}
+
+-- Built-in configuration
 local config_defaults = {
     default_prog                               = is_windows and {'pwsh'} or {'zsh'},
     color_scheme                               = "Catppuccin Mocha",
@@ -78,19 +90,17 @@ local config_defaults = {
     },
 
     set_environment_variables                  = {
-        WEZTERM_SESSION = get_uuid()
+        WEZTERM_SESSION = util.get_uuid()
     }
 }
 
-merge(config_defaults, user_config_defaults)
+-- Override built-in configurations
+util.table_merge(config_defaults, local_config.defaults or {})
 
-local setup = function(config, user_config)
 
-    merge(config,      config_defaults)
-    merge(user_config, user_config_locals)
-
+function M.setup(config, user_config)
+    util.table_merge(config,      config_defaults)
+    util.table_merge(user_config, config_locals)
 end
-
-M.setup = setup
 
 return M
