@@ -143,22 +143,6 @@ local key_defs = {
     -- Leader keys normal mode
     {
         keys = {
-            l = {
-                name = 'Language Server',
-                d = {'<cmd>lua vim.diagnostic.open_float()<cr>', 'View Diagnostic'},
-                q = {'<cmd>lua vim.diagnostic.setqflist()<cr>', 'Diagnostic in Quick Fix'},
-                n = {'<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next Diagnostic'},
-                p = {'<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous Diagnostic'},
-                c = {'<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Actions'},
-                r = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename Symbol'},
-                R = {'<cmd>lua vim.lsp.buf.references()<cr>', 'Find All References'},
-                f = {'<cmd>lua vim.lsp.buf.format()<cr>', 'Format Document'},
-                s = {'<cmd>lua vim.lsp.buf.document_symbol()<cr>', 'Document Symbols'},
-                i = {'<cmd>lua vim.lsp.buf.implementation()<cr>', 'Go to implementation'},
-                v = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'View Document'},
-                S = {'<cmd>lua vim.lsp.buf.workspace_symbol()<cr>', 'Workspace Symbols'},
-                I = {'<cmd>LspInfo<CR>', 'Show Language Server Info'}
-            },
             t = {
                 name = 'Terminal',
                 [term1_config.key] = {term1_config.func, term1_config.desc},
@@ -230,6 +214,22 @@ local key_defs = {
             c = {
                 name = 'Comments',
                 l = {'<Plug>NERDCommenterToggle', 'Toggle comments'},
+            },
+            l = {
+                name = 'Language Server',
+                d = {'<cmd>lua vim.diagnostic.open_float()<cr>', 'View Diagnostic'},
+                q = {'<cmd>lua vim.diagnostic.setqflist()<cr>', 'Diagnostic in Quick Fix'},
+                n = {'<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next Diagnostic'},
+                p = {'<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous Diagnostic'},
+                c = {'<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Actions'},
+                r = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename Symbol'},
+                R = {'<cmd>lua vim.lsp.buf.references()<cr>', 'Find All References'},
+                f = {'<cmd>lua vim.lsp.buf.format()<cr>', 'Format Document'},
+                s = {'<cmd>lua vim.lsp.buf.document_symbol()<cr>', 'Document Symbols'},
+                i = {'<cmd>lua vim.lsp.buf.implementation()<cr>', 'Go to implementation'},
+                v = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'View Document'},
+                S = {'<cmd>lua vim.lsp.buf.workspace_symbol()<cr>', 'Workspace Symbols'},
+                I = {'<cmd>LspInfo<CR>', 'Show Language Server Info'}
             },
         },
         opts = {
