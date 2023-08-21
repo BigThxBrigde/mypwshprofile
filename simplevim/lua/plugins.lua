@@ -1,12 +1,20 @@
 local plugins = {
     { 'terryma/vim-multiple-cursors' },
-    { 'preservim/nerdcommenter'      },
     { 'junegunn/vim-easy-align'      },
     { 'tpope/vim-surround'           },
     { 'gcmt/wildfire.vim'            },
     { "junegunn/fzf"                 },
     { "junegunn/fzf.vim"             },
     { 'jiangmiao/auto-pairs'         },
+    {
+        'preservim/nerdcommenter',
+        config = function()
+            vim.cmd([[
+               let g:NERDSpaceDelims = 1
+               let g:NERDDefaultAlign = 'left'
+            ]])
+        end
+    },
     {
         'VonHeikemen/fine-cmdline.nvim',
         dependencies = 'MunifTanjim/nui.nvim',
