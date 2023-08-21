@@ -6,7 +6,7 @@
 
 -- Use mode_code to get mode description
 local get_mode = require('lualine.utils.mode').get_mode
-local palette = require("catppuccin.palettes").get_palette "macchiato"
+local palette  = require("catppuccin.palettes").get_palette "macchiato"
 
 --for k,v in pairs(colors) do
 --    print(k .. ' ' .. v)
@@ -128,26 +128,26 @@ ins_left {
     color = function()
         -- auto change color according to neovims mode
         local mode_color = {
-            n = palette.green,
-            i = palette.red,
-            v = palette.blue,
+            n      = palette.green,
+            i      = palette.red,
+            v      = palette.blue,
             [''] = palette.blue,
-            V = palette.blue,
-            c = palette.maroon,
-            no = palette.red,
-            s = palette.peach,
-            S = palette.peach,
+            V      = palette.blue,
+            c      = palette.maroon,
+            no     = palette.red,
+            s      = palette.peach,
+            S      = palette.peach,
             [''] = palette.peach,
-            ic = palette.yellow,
-            R = palette.sky,
-            Rv = palette.sky,
-            cv = palette.red,
-            ce = palette.red,
-            r = palette.teal,
-            rm = palette.teal,
+            ic     = palette.yellow,
+            R      = palette.sky,
+            Rv     = palette.sky,
+            cv     = palette.red,
+            ce     = palette.red,
+            r      = palette.teal,
+            rm     = palette.teal,
             ['r?'] = palette.teal,
-            ['!'] = palette.yellow,
-            t = palette.yellow
+            ['!']  = palette.yellow,
+            t      = palette.yellow
         }
         return {
             fg = mode_color[vim.fn.mode()]
@@ -188,7 +188,7 @@ ins_left {
 
 ins_left {
     'diagnostics',
-    sources = {'nvim_diagnostic'},
+    sources = { 'nvim_diagnostic' },
     symbols = {
         error = ' ',
         warn = ' ',
@@ -209,9 +209,9 @@ ins_left {
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
-ins_left {function()
+ins_left { function()
     return '%='
-end}
+end }
 
 ins_left {
     -- Lsp server name .
@@ -256,7 +256,7 @@ ins_right {
 
 -- Add components to right sections
 ins_right {
-    'o:encoding', -- option component same as &encoding in viml
+    'o:encoding',       -- option component same as &encoding in viml
     fmt = string.upper, -- I'm not sure why it's upper case either ;)
     cond = conditions.hide_in_width,
     color = {
@@ -332,4 +332,3 @@ ins_right {
 return config
 -- Now don't forget to initialize lualine
 -- lualine.setup(config)
-
