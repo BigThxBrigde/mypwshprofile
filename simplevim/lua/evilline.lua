@@ -54,12 +54,12 @@ local conditions = {
 }
 
 -- Config
-local config = {
+local config     = {
     options = {
         -- Disable sections and component separators
         component_separators = '',
-        section_separators = '',
-        theme = {
+        section_separators   = '',
+        theme                = {
             -- We are going to use lualine_c an lualine_x as left and
             -- right section. Both are highlighted by c theme .  So we
             -- are just setting default looks o statusline
@@ -114,7 +114,7 @@ ins_left {
         fg = palette.blue
     }, -- Sets highlighting of component
     padding = {
-        left = 0,
+        left  = 0,
         right = 1
     } -- We don't need space before this
 }
@@ -172,7 +172,7 @@ ins_left {
     'filetype',
     cond = conditions.buffer_not_empty,
     color = {
-        fg = palette.yellow,
+        fg  = palette.yellow,
         gui = 'bold'
     }
 }
@@ -181,7 +181,7 @@ ins_left {
     'filename',
     cond = conditions.buffer_not_empty,
     color = {
-        fg = palette.mauve,
+        fg  = palette.mauve,
         gui = 'bold'
     }
 }
@@ -209,9 +209,11 @@ ins_left {
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
-ins_left { function()
-    return '%='
-end }
+ins_left {
+    function()
+        return '%='
+    end
+}
 
 ins_left {
     -- Lsp server name .
@@ -249,7 +251,7 @@ ins_right {
 ins_right {
     'progress',
     color = {
-        fg = palette.lavender,
+        fg  = palette.lavender,
         gui = 'bold'
     }
 }
@@ -260,7 +262,7 @@ ins_right {
     fmt = string.upper, -- I'm not sure why it's upper case either ;)
     cond = conditions.hide_in_width,
     color = {
-        fg = palette.rosewater,
+        fg  = palette.rosewater,
         gui = 'bold'
     }
 }
@@ -268,7 +270,7 @@ ins_right {
 ins_right {
     'fileformat',
     color = {
-        fg = palette.pink,
+        fg  = palette.pink,
         gui = 'bold'
     }
 }
@@ -280,7 +282,7 @@ ins_right {
     fmt = string.upper,
     icons_enabled = false,
     color = {
-        fg = palette.pink,
+        fg  = palette.pink,
         gui = 'bold'
     }
 }
@@ -290,7 +292,7 @@ ins_right {
     'branch',
     icon = '',
     color = {
-        fg = palette.sky,
+        fg  = palette.sky,
         gui = 'bold'
     }
 }
@@ -299,9 +301,9 @@ ins_right {
     'diff',
     -- Is it me or the symbol for modified us really weird
     symbols = {
-        added = ' ',
+        added    = ' ',
         modified = '󰝤 ',
-        removed = ' '
+        removed  = ' '
     },
     diff_color = {
         added = {

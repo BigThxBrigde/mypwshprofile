@@ -27,7 +27,7 @@ function M.get_os_name()
         raw_arch_name = jit.arch
         -- print( ("Debug jit name: %q %q"):format( raw_os_name, raw_arch_name ) )
     else
-        if package.config:sub(1,1) == '\\' then
+        if package.config:sub(1, 1) == '\\' then
             -- Windows
             local env_OS = os.getenv('OS')
             local env_ARCH = os.getenv('PROCESSOR_ARCHITECTURE')
@@ -37,8 +37,8 @@ function M.get_os_name()
             end
         else
             -- other platform, assume uname support and popen support
-            raw_os_name = io.popen('uname -s','r'):read('*l')
-            raw_arch_name = io.popen('uname -m','r'):read('*l')
+            raw_os_name = io.popen('uname -s', 'r'):read('*l')
+            raw_arch_name = io.popen('uname -m', 'r'):read('*l')
         end
     end
 
@@ -48,17 +48,17 @@ function M.get_os_name()
     -- print( ("Debug: %q %q"):format( raw_os_name, raw_arch_name) )
 
     local os_patterns = {
-        ['windows']     = 'Windows',
-        ['linux']       = 'Linux',
-        ['osx']         = 'Mac',
-        ['mac']         = 'Mac',
-        ['darwin']      = 'Mac',
-        ['^mingw']      = 'Windows',
-        ['^cygwin']     = 'Windows',
-        ['bsd$']        = 'BSD',
-        ['sunos']       = 'Solaris',
+        ['windows'] = 'Windows',
+        ['linux']   = 'Linux',
+        ['osx']     = 'Mac',
+        ['mac']     = 'Mac',
+        ['darwin']  = 'Mac',
+        ['^mingw']  = 'Windows',
+        ['^cygwin'] = 'Windows',
+        ['bsd$']    = 'BSD',
+        ['sunos']   = 'Solaris',
     }
-    
+
     local arch_patterns = {
         ['^x86$']           = 'x86',
         ['i[%d]86']         = 'x86',
@@ -88,15 +88,10 @@ function M.get_os_name()
     return os_name, arch_name
 end
 
-
 -- heuristic for detecting standalone script
 -- if (... ~= 'get_os_name') then
-    -- main
-    -- print(("%q %q"):format(M.get_os_name()))
+-- main
+-- print(("%q %q"):format(M.get_os_name()))
 -- end
 
 return M
-
-
-
-
