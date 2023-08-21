@@ -229,7 +229,7 @@ local key_defs = {
         keys = {
             c = {
                 name = 'Comments',
-                t = {'<Plug>NERDCommenterToggle', 'Toggle comments'},
+                l = {'<Plug>NERDCommenterToggle', 'Toggle comments'},
             },
         },
         opts = {
