@@ -49,10 +49,10 @@ local is_windows = os_name == 'Windows'
 local wez_home_dir, user_config_file, local_config
 
 if is_windows then
-    wez_home_dir = os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm'
+    wez_home_dir     = os.getenv('USERPROFILE') .. '/Documents/PowerShell/wezterm'
     user_config_file = wez_home_dir .. '/lua/user_config.lua'
 else
-    wez_home_dir = os.getenv('HOME') .. '/.config/wezterm'
+    wez_home_dir     = os.getenv('HOME') .. '/.config/wezterm'
     user_config_file = wez_home_dir .. '/user_config.lua'
 end
 

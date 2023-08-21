@@ -1,6 +1,5 @@
 local M = {}
 
------
 local function num2bs(num)
     local _mod = math.fmod
     local _floor = math.floor
@@ -15,7 +14,7 @@ local function num2bs(num)
     end
     return result
 end
---
+
 local function bs2num(num)
     local _sub = string.sub
     local index, result = 0, 0
@@ -31,7 +30,7 @@ local function bs2num(num)
     end
     return result
 end
---
+
 local function padbits(num, bits)
     if #num == bits then
         return num
@@ -45,8 +44,8 @@ local function padbits(num, bits)
     end
     return num
 end
---
-local function get_uuid()
+
+function M.get_uuid()
     local _rnd = math.random
     local _sub = string.sub
     local _fmt = string.format
@@ -89,36 +88,85 @@ local function get_uuid()
     return guid
 end
 
-local function define_class(class_name, super)
+--
+-- Method for defined class
+-- Example like
+--
+--     ```lua
+--     local define_class = require('util').define_class
+--     
+--     -- Define class Shape
+--
+--     local Shape = define_class('Animal')
+--     function Shape:get_area()
+--     end
+--
+--     -- Define a rectangle
+--     local Rectangle = define_class('Rectangle', Shape) 
+--     function Rectangle:constructor(width, height)
+--         self.width  = width
+--         self.height = height
+--     end
+--     function Rectangle:get_area()
+--         return self.width * self.height
+--     end
+--
+--     -- Define a circle
+--     local Circle = define_class('Circle', Shape)
+--     Circle.PI = 3.14
+--
+--     function Circle:constructor(radius)
+--         self.radius = radius
+--     end
+--     function Circle:get_area()
+--         return Circle.PI * radius * radius
+--     end
+--
+--     -- Logic code here
+--     local rect = Rectangle.new(3.0, 4.0)
+--     print(rect:get_area())
+--
+--     local circle = Circle.new(2.0)
+--     print(circle:get_area())
+--     
+--     ```
+--
+
+function M.define_class(class_name, super)
     local class = {
         __cname = class_name,
-        super = super
+        super   = super
     }
     if super then
-        setmetatable(class, {
+        setmetatable(class,
+        {
             __index = super
         })
     end
+
+    -- class constructor
     class.new = function(...)
         local instance = {}
-        setmetatable(instance, {
+        setmetatable(instance,
+        {
             __index = class
         })
-        if class.init then
-            class.init(instance, ...)
+        if class.constructor then
+            class.constructor(instance, ...)
         end
         return instance
     end
+
     return class
 end
 
-local function merge(x, y)
+function M.table_merge(x, y)
     for k, v in pairs(y) do
         x[k] = v
     end
 end
 
-local function file_exists(name)
+function M.file_exists(name)
     local f = io.open(name, 'r')
     if f ~= nil then
         io.close(f)
@@ -128,17 +176,17 @@ local function file_exists(name)
     end
 end
 
+-- Return two strings describing the OS name and OS architecture.
+-- For Windows, the OS identification is based on environment variables
+-- On unix, a call to uname is used.
+--
+-- OS possible values: Windows, Linux, Mac, BSD, Solaris
+-- Arch possible values: x86, x86864, powerpc, arm, mips
+--
+-- On Windows, detection based on environment variable is limited
+-- to what Windows is willing to tell through environement variables. In particular
+-- 64bits is not always indicated so do not rely hardly on this value.
 function M.get_os_name()
-    -- Return two strings describing the OS name and OS architecture.
-    -- For Windows, the OS identification is based on environment variables
-    -- On unix, a call to uname is used.
-    --
-    -- OS possible values: Windows, Linux, Mac, BSD, Solaris
-    -- Arch possible values: x86, x86864, powerpc, arm, mips
-    --
-    -- On Windows, detection based on environment variable is limited
-    -- to what Windows is willing to tell through environement variables. In particular
-    -- 64bits is not always indicated so do not rely hardly on this value.
 
     local raw_os_name, raw_arch_name = '', ''
 
@@ -148,7 +196,7 @@ function M.get_os_name()
         raw_arch_name = jit.arch
         -- print( ("Debug jit name: %q %q"):format( raw_os_name, raw_arch_name ) )
     else
-        if package.config:sub(1,1) == '\\' then
+        if package.config:sub(1, 1) == '\\' then
             -- Windows
             local env_OS = os.getenv('OS')
             local env_ARCH = os.getenv('PROCESSOR_ARCHITECTURE')
@@ -158,8 +206,8 @@ function M.get_os_name()
             end
         else
             -- other platform, assume uname support and popen support
-            raw_os_name = io.popen('uname -s','r'):read('*l')
-            raw_arch_name = io.popen('uname -m','r'):read('*l')
+            raw_os_name = io.popen('uname -s', 'r'):read('*l')
+            raw_arch_name = io.popen('uname -m', 'r'):read('*l')
         end
     end
 
@@ -169,15 +217,15 @@ function M.get_os_name()
     -- print( ("Debug: %q %q"):format( raw_os_name, raw_arch_name) )
 
     local os_patterns = {
-        ['windows']     = 'Windows',
-        ['linux']       = 'Linux',
-        ['osx']         = 'Mac',
-        ['mac']         = 'Mac',
-        ['darwin']      = 'Mac',
-        ['^mingw']      = 'Windows',
-        ['^cygwin']     = 'Windows',
-        ['bsd$']        = 'BSD',
-        ['sunos']       = 'Solaris',
+        ['windows'] = 'Windows',
+        ['linux']   = 'Linux',
+        ['osx']     = 'Mac',
+        ['mac']     = 'Mac',
+        ['darwin']  = 'Mac',
+        ['^mingw']  = 'Windows',
+        ['^cygwin'] = 'Windows',
+        ['bsd$']    = 'BSD',
+        ['sunos']   = 'Solaris',
     }
 
     local arch_patterns = {
@@ -208,10 +256,5 @@ function M.get_os_name()
     end
     return os_name, arch_name
 end
-
-M.get_uuid     = get_uuid
-M.table_merge  = merge
-M.define_class = define_class
-M.file_exists  = file_exists
 
 return M

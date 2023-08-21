@@ -1,13 +1,17 @@
-local M       = {}
-local symidx  = 1
-local wezterm = require('wezterm')
-local setup   = function(_, user_config)
+local M          = {}
+local symidx     = 1
+local wezterm    = require('wezterm')
+local os_name, _ = require('util').get_os_name()
+local is_windows = os_name == 'Windows'
 
+function M.setup(_, user_config)
     -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
     local function get_proc_name(file)
-        local start, _ = file:find('[%w%s!-={-|]+[_%.].+')
-        if start ~= nil then
-            file = file:sub(start, #file) or file
+        if is_windows then
+            local start, _ = file:find('[%w%s!-={-|]+[_%.].+')
+            if start ~= nil then
+                file = file:sub(start, #file) or file
+            end
         end
         return file:match("(.+)%..+") or file
     end
@@ -17,9 +21,8 @@ local setup   = function(_, user_config)
     -- or `wezterm cli set-tab-title`, but falls back to the
     -- title of the active pane in that tab.
     local function tab_title(tab_info)
-
         local title = tab_info.tab_title
-        -- if the tab title is explicitly set, take that 
+        -- if the tab title is explicitly set, take that
         if title and #title > 0 then
             return get_proc_name(title)
         end
@@ -53,10 +56,10 @@ local setup   = function(_, user_config)
 
             -- Make it italic and underlined
             window:set_left_status(wezterm.format {
-                    { Attribute  = { Intensity = "Bold"    }},
-                    { Foreground = { Color     = "#44475A" }},
-                    { Background = { Color     = "#BD93F9" }},
-                    { Text       = symbol .. ' '            }
+                { Attribute = { Intensity = "Bold" } },
+                { Foreground = { Color = "#44475A" } },
+                { Background = { Color = "#BD93F9" } },
+                { Text = symbol .. ' ' }
             })
         end)
     end
@@ -92,26 +95,27 @@ local setup   = function(_, user_config)
             indicator    = utf8.char(9702)
         end
         return {
-            { Foreground = { Color = indicator_fg }},
-            { Background = { Color = indicator_bg }},
-            { Text       = ' ' .. indicator        },
-            { Foreground = { Color = text_fg      }},
-            { Background = { Color = text_bg      }},
-            { Text       = title .. ' '            }
+            { Foreground = { Color = indicator_fg } },
+            { Background = { Color = indicator_bg } },
+            { Text       = ' ' .. indicator         },
+            { Foreground = { Color = text_fg      } },
+            { Background = { Color = text_bg      } },
+            { Text       = title .. ' '             }
         }
     end)
 
     wezterm.on("update-right-status", function(window, pane)
-
         local elements = {}
         local cwd, date, time, hostname, bat;
         local cwd_uri = pane:get_current_working_dir()
 
         if cwd_uri then
             cwd_uri = cwd_uri:sub(8)
-            local slash = cwd_uri:find('/')
-            if slash == 1 then
-                cwd_uri = cwd_uri:gsub('/', '', 1)
+            if is_windows then
+                local slash = cwd_uri:find('/')
+                if slash == 1 then
+                    cwd_uri = cwd_uri:gsub('/', '', 1)
+                end
             end
             cwd = cwd_uri
         end
@@ -124,26 +128,26 @@ local setup   = function(_, user_config)
             bat = string.format('%.0f%%', b.state_of_charge * 100)
         end
 
-        local cells      = {cwd, time, date, hostname, bat}
-        local icons      = {'📁', '⏲ ', '📅', '💻', '🔋'}
+        local cells      = { cwd, time, date, hostname, bat }
+        local icons      = { '📁', '⏲ ', '📅', '💻', '🔋' }
         local text_style = 'Bold'
         local fg_text    = '#44475A'
         local bg_colors  = {
-            '#ABE9B3',     -- working dir
-            '#F5C2E7',     -- time
-            '#96CDFB',     -- date
-            '#F28FAD',     -- host
-            '#FAE3B0',     -- battery
+            '#ABE9B3', -- working dir
+            '#F5C2E7', -- time
+            '#96CDFB', -- date
+            '#F28FAD', -- host
+            '#FAE3B0', -- battery
         }
 
         for i = 1, #cells do
             local text = cells[i]
             if text then
                 text = ' ' .. icons[i] .. ' ' .. text .. ' '
-                table.insert(elements, { Attribute  = { Intensity = text_style   }})
-                table.insert(elements, { Foreground = { Color     = fg_text      }})
-                table.insert(elements, { Background = { Color     = bg_colors[i] }})
-                table.insert(elements, { Text       = text                        })
+                table.insert(elements, { Attribute = { Intensity = text_style } })
+                table.insert(elements, { Foreground = { Color = fg_text } })
+                table.insert(elements, { Background = { Color = bg_colors[i] } })
+                table.insert(elements, { Text = text })
             end
         end
 
@@ -158,14 +162,12 @@ local setup   = function(_, user_config)
         if not toggle_position then
             return
         end
-        local window_dims      = window:get_dimensions()
-        local overrides_config = window:get_config_overrides() or {}
-
+        local window_dims                  = window:get_dimensions()
+        local overrides_config             = window:get_config_overrides() or {}
         overrides_config.tab_bar_at_bottom = not window_dims.is_full_screen
         window:set_config_overrides(overrides_config)
     end)
 end
 
-M.setup = setup
 
 return M
