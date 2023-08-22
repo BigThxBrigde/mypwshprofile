@@ -219,6 +219,7 @@ local key_defs = {
                 n = {'<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next Diagnostic'},
                 p = {'<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous Diagnostic'},
                 c = {'<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Actions'},
+                d = {'<cmd>lua vim.lsp.buf.definition()<cr>', 'Definition'},
                 r = {'<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename Symbol'},
                 R = {'<cmd>lua vim.lsp.buf.references()<cr>', 'Find All References'},
                 f = {'<cmd>lua vim.lsp.buf.format()<cr>', 'Format Document'},
