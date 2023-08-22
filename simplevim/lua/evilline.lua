@@ -329,7 +329,7 @@ ins_right {
 
 ins_right {
     function()
-        local fmt = '%Y-%m-%d | %H:%M'
+        local fmt = '%Y-%m-%d'
         return os.date(fmt)
     end,
     color = {
