@@ -162,7 +162,7 @@ local key_defs = {
             x = {
                 name = 'Extensions',
                 d = {'<cmd>Dashboard<cr>', 'Show Dashboard'},
-                l = {'<cmd>Lazy<cr>', 'Show Lazynvim Package Manager'},
+                m = {'<cmd>Lazy<cr>', 'Show Lazynvim Package Manager'},
                 c = {'<cmd>FineCmdline<cr>', 'Execute command'},
                 f = {'<cmd>FineCmdline vimgrep <cr>', 'Filter with vimgrep'},
             },
@@ -185,7 +185,6 @@ local key_defs = {
                 F = {'<Plug>Sneak_S', 'Find character backward'},
                 t = {'<Plug>Sneak_t', "Find till character forward"},
                 T = {'<Plug>Sneak_T', 'Find till character backward'},
-                d = {'<Plug>Dsurround', 'Delete text block surrond character'}
             }
         },
         opts = {
@@ -201,7 +200,6 @@ local key_defs = {
             },
             m = {
                 name = 'Motions',
-                a = {'<Plug>VSurround', 'Surrond text block with'}
             }
         },
         opts = {

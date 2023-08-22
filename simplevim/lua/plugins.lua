@@ -1,11 +1,17 @@
 local plugins = {
     { 'terryma/vim-multiple-cursors' },
     { 'junegunn/vim-easy-align'      },
-    { 'tpope/vim-surround'           },
     { 'gcmt/wildfire.vim'            },
     { "junegunn/fzf"                 },
     { "junegunn/fzf.vim"             },
-    { 'jiangmiao/auto-pairs'         },
+    {
+        'jiangmiao/auto-pairs',
+        config = function()
+            vim.cmd([[
+                let g:AutoPairsFlyMode = 1
+            ]])
+        end
+    },
     {
         'preservim/nerdcommenter',
         config = function()

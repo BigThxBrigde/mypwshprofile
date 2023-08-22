@@ -7,6 +7,7 @@ function M.setup()
     vim.o.number         = true
     vim.o.relativenumber = true
     vim.o.tabstop        = 4
+    vim.o.expandtab      = true
     vim.o.shiftwidth     = 4
     vim.o.smarttab       = true
     vim.o.cursorline     = true
