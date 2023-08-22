@@ -217,7 +217,6 @@ local key_defs = {
             },
             l = {
                 name = 'Language Server',
-                d = {'<cmd>lua vim.diagnostic.open_float()<cr>', 'View Diagnostic'},
                 q = {'<cmd>lua vim.diagnostic.setqflist()<cr>', 'Diagnostic in Quick Fix'},
                 n = {'<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next Diagnostic'},
                 p = {'<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous Diagnostic'},
