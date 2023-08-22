@@ -5,8 +5,8 @@
 -- This version is modified
 
 -- Use mode_code to get mode description
-local get_mode = require('lualine.utils.mode').get_mode
-local palette  = require("catppuccin.palettes").get_palette "macchiato"
+local get_mode   = require('lualine.utils.mode').get_mode
+local palette    = require("catppuccin.palettes").get_palette("macchiato")
 
 --for k,v in pairs(colors) do
 --    print(k .. ' ' .. v)
@@ -131,13 +131,13 @@ ins_left {
             n      = palette.green,
             i      = palette.red,
             v      = palette.blue,
-            [''] = palette.blue,
+            ['']  = palette.blue,
             V      = palette.blue,
             c      = palette.maroon,
             no     = palette.red,
             s      = palette.peach,
             S      = palette.peach,
-            [''] = palette.peach,
+            ['']  = palette.peach,
             ic     = palette.yellow,
             R      = palette.sky,
             Rv     = palette.sky,
@@ -150,7 +150,8 @@ ins_left {
             t      = palette.yellow
         }
         return {
-            fg = mode_color[vim.fn.mode()]
+            fg  = mode_color[vim.fn.mode()],
+            gui = 'bold'
         }
     end,
     padding = {
@@ -162,7 +163,8 @@ ins_left {
     -- filesize component
     'filesize',
     color = {
-        fg = palette.teal
+        fg  = palette.teal,
+        gui = 'bold'
     },
     cond = conditions.buffer_not_empty
 }
@@ -196,13 +198,16 @@ ins_left {
     },
     diagnostics_color = {
         color_error = {
-            fg = palette.red
+            fg  = palette.red,
+            gui = 'bold'
         },
         color_warn = {
-            fg = palette.yellow
+            fg  = palette.yellow,
+            gui = 'bold'
         },
         color_info = {
-            fg = palette.teal
+            fg = palette.teal,
+            gui = 'bold'
         }
     }
 }
@@ -218,7 +223,7 @@ ins_left {
 ins_left {
     -- Lsp server name .
     function()
-        local msg = 'LSP N/A'
+        local msg = 'N/A'
         local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
         local clients = vim.lsp.get_active_clients()
         if next(clients) == nil then
@@ -244,8 +249,8 @@ ins_right {
     'location',
     color = {
         fg = palette.sapphire,
+        gui = 'bold'
     },
-    gui = 'bold'
 }
 
 ins_right {
@@ -267,20 +272,20 @@ ins_right {
     }
 }
 
-ins_right {
-    'fileformat',
-    color = {
-        fg  = palette.pink,
-        gui = 'bold'
-    }
-}
-
 -- How to combine this two parts, I don't know well
 --
+local ff_symbols = {
+    unix = '', -- e712
+    dos = '', -- e70f
+    mac = '', -- e711
+}
+
 ins_right {
-    'fileformat',
+    function()
+        local format = vim.bo.fileformat
+        return ff_symbols[format] .. '  ' .. format
+    end,
     fmt = string.upper,
-    icons_enabled = false,
     color = {
         fg  = palette.pink,
         gui = 'bold'
@@ -307,16 +312,30 @@ ins_right {
     },
     diff_color = {
         added = {
-            fg = palette.green
+            fg  = palette.green,
+            gui = 'bold'
         },
         modified = {
-            fg = palette.peach
+            fg  = palette.peach,
+            gui = 'bold'
         },
         removed = {
-            fg = palette.red
+            fg  = palette.red,
+            gui = 'bold'
         }
     },
     cond = conditions.hide_in_width
+}
+
+ins_right {
+    function()
+        local fmt = '%Y-%m-%d | %H:%M'
+        return os.date(fmt)
+    end,
+    color = {
+        fg = palette.flamingo,
+        gui = 'bold'
+    },
 }
 
 ins_right {
