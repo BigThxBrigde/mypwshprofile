@@ -1,9 +1,9 @@
 local plugins = {
     { 'terryma/vim-multiple-cursors' },
-    { 'junegunn/vim-easy-align'      },
-    { 'gcmt/wildfire.vim'            },
-    { "junegunn/fzf"                 },
-    { "junegunn/fzf.vim"             },
+    { 'junegunn/vim-easy-align' },
+    { 'gcmt/wildfire.vim' },
+    { "junegunn/fzf" },
+    { "junegunn/fzf.vim" },
     {
         'jiangmiao/auto-pairs',
         config = function()
@@ -22,22 +22,29 @@ local plugins = {
         end
     },
     {
+
+        'nvim-telescope/telescope.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+        },
+    },
+    {
         'VonHeikemen/fine-cmdline.nvim',
         dependencies = 'MunifTanjim/nui.nvim',
         config = function()
             local fine_cmdline = require('fine-cmdline')
             fine_cmdline.setup({
-                cmdline = {prompt = '> '},
+                cmdline = { prompt = '> ' },
                 popup = {
                     position = {
-                      row = '40%',
-                      col = '50%',
+                        row = '40%',
+                        col = '50%',
                     },
                     size = {
-                      width = '60%',
+                        width = '60%',
                     },
                     border = {
-                      style = 'rounded',
+                        style = 'rounded',
                     }
                 }
             })
@@ -117,7 +124,7 @@ local plugins = {
                 }
             })
         end
-    }, 
+    },
     -- the colorscheme should be available when starting Neovim
     {
         "catppuccin/nvim",
@@ -138,11 +145,11 @@ local plugins = {
     --}, -- I have a separate config.mappings file where I require which-key.
     -- With lazy the plugin will be automatically loaded when it is required somewhere
     {
-         "folke/which-key.nvim",
-         config = function()
-             require('vim_keys').setup()
-         end
-         -- lazy = true
+        "folke/which-key.nvim",
+        config = function()
+            require('vim_keys').setup()
+        end
+        -- lazy = true
     },
     {
         "dstein64/vim-startuptime",
