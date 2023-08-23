@@ -5,7 +5,6 @@ local os_name, _ = require('util').get_os_name()
 local is_windows = os_name == 'Windows'
 
 function M.setup(_, user_config)
-    print(user_config)
     -- https://stackoverflow.com/questions/18884396/extracting-filename-only-with-pattern-matching
     local function get_proc_name(file)
         if is_windows then
