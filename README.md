@@ -44,12 +44,12 @@ popd
 
 ## For Linux users
 Ignore the PowerShellCore Profile, clone the repo into `$YOUR_PATH`
-```bash
+```shell
 git clone https://github.com/BigThxBrigde/mypwshprofile $YOUR_PATH/PowerShell
 ```
 
 Create links for Wezterm
-```
+```shell
 mkdir -p $HOME/.config/wezterm
 cd $HOME/.config/wezterm
 ln -sv $YOUR_PATH/PowerShell/wezterm/wezterm.lua wezterm.lua
@@ -60,13 +60,13 @@ ln -sv $YOUR_PATH/PowerShell/wezterm/lua/util.lua util.lua
 ```
 
 Create links for Vim
-```bash
+```shell
 cd $HOME/.config
 ln -sv $YOUR_PATH/PowerShell/simplevim nvim
 ```
 
 Add `SIMPLEVIM` into your .zshrc or .bashrc, etc
-```
+```shell
 export SIMPLEVIM=$YOUR_PATH/PowerShell/simplevim
 ```
 
