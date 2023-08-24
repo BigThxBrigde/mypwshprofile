@@ -1,11 +1,28 @@
-# This is a simple powershell core profile
+# General
 
-This is only for my own use.
+First of all, these configurations are only for my own use. Current there're three parts configurations:
+- Vim
+- Wezterm
+- PowerShellCore Profile.
 
-# Create links
+Configuraitons on different platforms support:
+- Vim: Windows and Linux
+- Wezterm: Windows and Linux
+- PowerShellCore profile: Windows only
 
-1. Links for wezterm
+# How to use
+The most important thing at first is to back up all your configurations on Vim, Wezterm and PowerShellCore Profile.
 
+## For windows users
+
+Clone this repo into $PROFILE parent directory, execute following command in powershell.
+```powershell
+$mydocuments = [environment]::getfolderpath([environment+specialfolder]::mydocuments)
+cd $mydocuments
+git clone https://github.com/BigThxBrigde/mypwshprofile PowerShell
+```
+
+Create links for Wezterm
 ```batch
 @echo off
 pushd "%USERPROFILE%"
@@ -16,14 +33,41 @@ mklink /D .wezterm "%USERPROFILE%\Documents\PowerShell\wezterm\lua"
 popd
 ```
 
-2. Links for vim
-   
+Create links for Vim
 ```batch
 @echo off
 pushd "%LOCALAPPDATA%"
 if exist nvim rmdir /q nvim
 mklink /D nvim "%USERPROFILE%\Documents\PowerShell\simplevim"
 popd
+```
+
+## For Linux users
+Ignore the PowerShellCore Profile, clone the repo into `$YOUR_PATH`
+```bash
+git clone https://github.com/BigThxBrigde/mypwshprofile $YOUR_PATH/PowerShell
+```
+
+Create links for Wezterm
+```
+mkdir -p $HOME/.config/wezterm
+cd $HOME/.config/wezterm
+ln -sv $YOUR_PATH/PowerShell/wezterm/wezterm.lua wezterm.lua
+ln -sv $YOUR_PATH/PowerShell/wezterm/lua/config.lua config.lua
+ln -sv $YOUR_PATH/PowerShell/wezterm/lua/events.lua events.lua
+ln -sv $YOUR_PATH/PowerShell/wezterm/lua/keymap.lua keymap.lua
+ln -sv $YOUR_PATH/PowerShell/wezterm/lua/util.lua util.lua
+```
+
+Create links for Vim
+```bash
+cd $HOME/.config
+ln -sv $YOUR_PATH/PowerShell/simplevim nvim
+```
+
+Add `SIMPLEVIM` into your .zshrc or .bashrc, etc
+```
+export SIMPLEVIM=$YOUR_PATH/PowerShell/simplevim
 ```
 
 # Package Manager
