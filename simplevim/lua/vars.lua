@@ -1,3 +1,5 @@
+require('pload')
+
 local get_os_name = require('misc').get_os_name
 local osname, _   = get_os_name()
 local default_root
