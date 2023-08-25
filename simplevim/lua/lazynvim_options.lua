@@ -1,11 +1,9 @@
 local vars = require('vars')
 
--- local root         = vars.root
-local datapath = vars.datapath
--- local lazypath     = vars.lazypath
-local configpath = vars.configpath
+local datapath     = vars.datapath
+local configpath   = vars.configpath
 local projectspath = vars.projectspath
-local statepath = vars.statepath
+local statepath    = vars.statepath
 
 return {
     root = datapath .. "/lazy", -- directory where plugins will be installed
@@ -86,22 +84,6 @@ return {
         browser = nil, ---@type string?
         throttle = 20, -- how frequently should the ui process render events
         custom_keys = {
-            --            -- you can define custom key maps here.
-            --            -- To disable one of the defaults, set it to false
-            --
-            --            -- open lazygit log
-            --            ["<localleader>l"] = function(plugin)
-            --                require("lazy.util").float_term({"lazygit", "log"}, {
-            --                    cwd = plugin.dir
-            --                })
-            --            end,
-            --
-            --            -- open a terminal for the plugin dir
-            --            ["<localleader>t"] = function(plugin)
-            --                require("lazy.util").float_term(nil, {
-            --                    cwd = plugin.dir
-            --                })
-            --            end
         }
     },
     diff = {
