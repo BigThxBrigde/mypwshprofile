@@ -1,6 +1,6 @@
 -- Ensure lazynvim plugin has been setup
 
-
+require('vars')
 require('lazynvim_setup').setup()
 
 local lazy         = require('lazy')
