@@ -1,25 +1,26 @@
-local M = {}
-print('call me maybe')
+local module = {}
 
-
-function M.init_pkg_path()
-    M.default_root      = (
+function module:init_pkg_path()
+    self.default_root  = (
         os.getenv('LOCALAPPDATA')
         and (os.getenv('LOCALAPPDATA') .. '/nvim')
         or (os.getenv('HOME') .. '/.config/nvim')
     )
 
     -- setup common path
-    local comm_pkg_path = M.default_root .. '/common/?.lua'
-    package.path        = package.path .. ';' .. comm_pkg_path
+    self.comm_pkg_path = self.default_root .. '/common/?.lua'
+    package.path       = package.path .. ';' .. self.comm_pkg_path
 end
 
-function M.init_pload()
+--
+-- Initialize a safe require wrapper according to
+-- vscode environment or not refer to `vim.g.vscode`
+--
+function module:init_pload()
     --
     -- A factory to create a function safe
     -- loading the lua module
     --
-
     local function pload_factory(prefix)
         return function(name)
             if not prefix then
@@ -42,9 +43,9 @@ function M.init_pload()
     rawset(_G, 'pload', pload)
 end
 
-function M.init(self)
-    self.init_pkg_path()
-
+function module.init(self)
+    -- init package path, include common folder
+    self:init_pkg_path()
     local get_os_name = require('util').get_os_name
     local os_name, _  = get_os_name()
 
@@ -58,9 +59,9 @@ function M.init(self)
     self.statepath    = self.root .. '/state'
 
 
-    self.init_pload()
+    self:init_pload()
 end
 
-M:init()
+module:init()
 
-return M
+return module

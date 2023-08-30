@@ -1,4 +1,3 @@
-
 local M = {}
 
 local function num2bs(num)
@@ -95,7 +94,7 @@ end
 --
 --     ```lua
 --     local define_class = require('util').define_class
---     
+--
 --     -- Define class Shape
 --
 --     local Shape = define_class('Animal')
@@ -103,7 +102,7 @@ end
 --     end
 --
 --     -- Define a rectangle
---     local Rectangle = define_class('Rectangle', Shape) 
+--     local Rectangle = define_class('Rectangle', Shape)
 --     function Rectangle:constructor(width, height)
 --         self.width  = width
 --         self.height = height
@@ -129,7 +128,7 @@ end
 --
 --     local circle = Circle.new(2.0)
 --     print(circle:get_area())
---     
+--
 --     ```
 --
 
@@ -140,18 +139,18 @@ function M.define_class(class_name, super)
     }
     if super then
         setmetatable(class,
-        {
-            __index = super
-        })
+            {
+                __index = super
+            })
     end
 
     -- class constructor
     class.new = function(...)
         local instance = {}
         setmetatable(instance,
-        {
-            __index = class
-        })
+            {
+                __index = class
+            })
         if class.constructor then
             class.constructor(instance, ...)
         end
@@ -188,7 +187,6 @@ end
 -- to what Windows is willing to tell through environement variables. In particular
 -- 64bits is not always indicated so do not rely hardly on this value.
 function M.get_os_name()
-
     local raw_os_name, raw_arch_name = '', ''
 
     -- LuaJIT shortcut

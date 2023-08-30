@@ -157,7 +157,7 @@ local key_defs          = {
                 S = { '<cmd>wa!<cr>', 'Save all files' },
                 t = { '<cmd>Neotree toggle<cr>', 'Toggle Neotree File Manager' },
                 g = { show_lazygit, 'Show Lazygit' },
-                w = {'<cmd>%s/\\s\\+$//e<cr>', 'Trim Trailing Whitespace'}
+                w = { '<cmd>%s/\\s\\+$//e<cr>', 'Trim Trailing Whitespace' }
             },
             x = {
                 name = 'Extensions',

@@ -1,4 +1,4 @@
-local vars = require('vars')
+local vars         = require('vars')
 
 local datapath     = vars.datapath
 local configpath   = vars.configpath

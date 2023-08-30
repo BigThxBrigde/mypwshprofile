@@ -1,7 +1,6 @@
-local M = {}
+local module = {}
 
-function M.init_pkg_path(self)
-
+function module:init_pkg_path()
     self.default_root  = (
         os.getenv('LOCALAPPDATA')
         and (os.getenv('LOCALAPPDATA') .. '/nvim')
@@ -9,10 +8,10 @@ function M.init_pkg_path(self)
     )
 
     -- setup common path
-    local comm_pkg_path = self.default_root .. '/common/?.lua'
-    package.path        = package.path .. ';' .. comm_pkg_path
+    self.comm_pkg_path = self.default_root .. '/common/?.lua'
+    package.path       = package.path .. ';' .. self.comm_pkg_path
 end
 
-M:init_pkg_path()
+module:init_pkg_path()
 
-return M
+return module
