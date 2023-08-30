@@ -166,7 +166,8 @@ local key_defs          = {
                 c = { '<cmd>FineCmdline<cr>', 'Execute command' },
                 f = { '<cmd>FineCmdline vimgrep <cr>', 'Filter with vimgrep' },
                 g = { telescope_builtin.live_grep, 'Live grep' },
-                h = { telescope_builtin.help_tags, 'Help tags' }
+                h = { telescope_builtin.help_tags, 'Help tags' },
+                t = { telescope_builtin.treesitter, 'View treesitter' }
             },
             b = {
                 name = 'Buffers',
