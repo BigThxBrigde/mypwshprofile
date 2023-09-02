@@ -1,5 +1,52 @@
 local module = {}
+--
+-- Global variable use to print debug information or not
+--
+module.__DBG = false
 
+--
+-- Print moduble members when moudle.__DBG = true
+--
+function module:dbg_print_module(m)
+    if not self.__DBG then return end
+    if type(m) ~= 'table' then return end
+
+
+    --
+    -- location function to print a table members
+    --
+    local function print_table(tbl, key, level)
+        level = level or 0
+        key = key or ''
+        local indent = ''
+        for _ = 1, level do
+            indent = indent .. '  '
+        end
+
+        if key ~= '' then
+            print(indent, key, '=')
+        end
+        print(indent, '{')
+
+        for k, v in pairs(tbl) do
+            if type(v) == 'table' then
+                key = k
+                print_table(v, key, level + 1)
+            else
+                local fmt = '   %s%s = %s'
+                print(fmt:format(indent,
+                    tostring(k), tostring(v)))
+            end
+        end
+        print(indent, '}')
+    end
+
+    print_table(m)
+end
+
+--
+-- Initialize the common package paths
+--
 function module:init_pkg_path()
     self.default_root  = (
         os.getenv('LOCALAPPDATA')
@@ -24,12 +71,19 @@ function module:init_pload()
     local function pload_factory(prefix)
         return function(name)
             if not prefix then
-                return require(name)
+                local m = require(name)
+                if m then self:dbg_print_module(m) end
+                return m
             end
-            local n = string.format("%s.%s", prefix, name)
 
+            local n = string.format("%s.%s", prefix, name)
             local r, m = pcall(require, n)
-            if r then return m end
+
+            if r then
+                self:dbg_print_module(m)
+            end
+
+            if r and m then return m end
             return require(name)
         end
     end
@@ -43,7 +97,7 @@ function module:init_pload()
     rawset(_G, 'pload', pload)
 end
 
-function module.init(self)
+function module:init()
     -- init package path, include common folder
     self:init_pkg_path()
     local get_os_name = require('util').get_os_name

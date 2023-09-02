@@ -2,9 +2,7 @@ return {
     {
         "folke/which-key.nvim",
         config = function()
-            -- require('vim_keys').setup()
-            -- not work current
+            require('vim_keys').setup()
         end
-        -- lazy = true
     },
 }

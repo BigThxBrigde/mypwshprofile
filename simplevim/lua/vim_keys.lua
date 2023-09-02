@@ -1,5 +1,5 @@
 local wk       = require('which-key')
-local key_defs = require('keymap')
+local key_defs = pload('keymap')
 
 return {
     setup = function()
