@@ -2,7 +2,7 @@
 --
 -- Execute vscode editor action
 --
-local function vsc_editor_action(action_id, ...)
+local function vsc_editor_action(action_id)
     local fmt = "<cmd>call VSCodeCall('editor.action.%s')<cr>"
     return fmt:format(action_id)
 end
@@ -34,7 +34,10 @@ local key_defs = {
 
         keys = {
             l = {
-                d = {vsc_editor_action('revealDefinitionAside'), 'Goto definition'},
+                V = {vsc_editor_action('revealDefinitionAside'), 'Goto Definition Aside'},
+                d = {vsc_editor_action('revealDefinition'), 'Goto Definition'},
+                D = {vsc_editor_action('revealDeclaration'), 'Goto Declaration'},
+                v = {vsc_editor_action('showHover'), 'View Document'}
             }
         },
         opts = {
