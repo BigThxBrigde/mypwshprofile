@@ -4,6 +4,9 @@ local is_windows = require('vars').is_windows
 function M.setup()
     vim.o.guifont        = 'JetBrains Mono:h10'
     vim.o.clipboard      = is_windows and 'unnamed' or 'unnamedplus'
+    vim.o.showcmd        = false
+    vim.o.showmode       = false
+    vim.o.ruler          = false
     vim.o.number         = true
     vim.o.relativenumber = true
     vim.o.tabstop        = 4
@@ -22,6 +25,9 @@ function M.setup()
     vim.o.splitbelow     = true
     vim.o.splitright     = true
 
+    -- Disable intro here
+    vim.opt.shortmess:append({ I = true })
+
     if vim.g.neovide then
         -- put anything you want to happen only in neovide here
         vim.g.neovide_fullscreen       = false
@@ -29,14 +35,14 @@ function M.setup()
         vim.g.neovide_floating_opacity = 0.9
     else
         vim.cmd(
-        [[
+            [[
             autocmd colorscheme * highlight normal ctermbg=none guibg=none
         ]])
     end
 
     -- disable perl and ruby provider
     vim.cmd(
-    [[
+        [[
       let g:loaded_perl_provider = 0
       let g:loaded_ruby_provider = 0
     ]])

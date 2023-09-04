@@ -2,7 +2,7 @@ local module = {}
 --
 -- Global variable use to print debug information or not
 --
-module.__DBG = false
+module.__DBG = os.getenv('SIMPL_DBG') or false
 
 --
 -- Print moduble members when moudle.__DBG = true

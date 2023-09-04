@@ -11,6 +11,8 @@ function M.setup()
     vim.o.shiftwidth     = 4
     vim.o.smarttab       = true
     vim.o.cursorline     = true
+    -- Disable an the welcome screen
+    vim.opt.shortmess:append({ I = true })
 
     vim.cmd(
         [[
