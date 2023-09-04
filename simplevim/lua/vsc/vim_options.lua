@@ -1,4 +1,6 @@
+
 local M = {}
+local is_windows = require('vars').is_windows
 
 function M.setup()
     vim.o.clipboard      = is_windows and 'unnamed' or 'unnamedplus'
@@ -11,7 +13,7 @@ function M.setup()
     vim.o.cursorline     = true
 
     vim.cmd(
-    [[
+        [[
       let g:loaded_perl_provider = 0
       let g:loaded_ruby_provider = 0
     ]])
