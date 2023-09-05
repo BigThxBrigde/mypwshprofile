@@ -2,7 +2,6 @@ local M          = {}
 local is_windows = require('vars').is_windows
 
 function M.setup()
-    vim.o.guifont        = 'JetBrains Mono:h10'
     vim.o.clipboard      = is_windows and 'unnamed' or 'unnamedplus'
     vim.o.showcmd        = false
     vim.o.showmode       = false
@@ -33,6 +32,7 @@ function M.setup()
         vim.g.neovide_fullscreen       = false
         vim.g.neovide_transparency     = 0.9
         vim.g.neovide_floating_opacity = 0.9
+        vim.o.guifont                  = is_windows and 'agave NFM r:h12' or 'FiraCode NF:h10'
     else
         vim.cmd(
             [[
