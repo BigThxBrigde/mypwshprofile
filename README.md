@@ -56,7 +56,7 @@ ln -sv $YOUR_PATH/PowerShell/wezterm/wezterm.lua wezterm.lua
 ln -sv $YOUR_PATH/PowerShell/wezterm/lua/config.lua config.lua
 ln -sv $YOUR_PATH/PowerShell/wezterm/lua/events.lua events.lua
 ln -sv $YOUR_PATH/PowerShell/wezterm/lua/keymap.lua keymap.lua
-ln -sv $YOUR_PATH/PowerShell/wezterm/lua/util.lua util.lua
+ln -sv $YOUR_PATH/PowerShell/wezterm/lua/pkg.lua pkg.lua
 ```
 
 Create links for Vim
