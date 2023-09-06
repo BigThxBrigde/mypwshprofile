@@ -25,8 +25,16 @@ local key_defs = {
     {
         keys = {
             l = {
+                name = 'Language Server',
                 f = { call_vsc_editor_action('formatDocument'), 'Format Document' },
-            }
+            },
+            f = {
+                name = 'Files',
+                n = { '<cmd>nohlsearch<cr>', 'No highlight search' },
+                s = { '<cmd>w!<cr>', 'Save current file' },
+                S = { '<cmd>wa!<cr>', 'Save all files' },
+                w = { '<cmd>%s/\\s\\+$//e<cr>', 'Trim Trailing Whitespace' }
+            },
         },
         opts = {
             prefix = '<leader>',
@@ -35,6 +43,7 @@ local key_defs = {
     },
     {
         keys = {
+            name = 'Language Server',
             l = {
                 f = { call_vsc_editor_action('formatSelection'), 'Format Selection' },
             }
@@ -47,6 +56,7 @@ local key_defs = {
     {
 
         keys = {
+            name = 'Language Server',
             l = {
                 V = { notify_vsc_editor_action('revealDefinitionAside'), 'Goto Definition Aside' },
                 d = { notify_vsc_editor_action('revealDefinition'), 'Goto Definition' },
