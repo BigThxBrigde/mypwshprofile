@@ -1,17 +1,19 @@
 # set error action reference
 $erroractionpreference = 'Continue'
 
-function gen-autocompl() {
-    $autocmp_dir = $env:PSDOCHOME + "\autocompletions"
+class AutoGenInfo {
+    [string]$cmd
+    [bool]$require_gen
+    [string[]]$cmd_exec
+    [string]$autocmp
+}
 
-    if (test-path -d $autocmp_dir) {
-        rm -recurse -force $autocmp_dir
-    } 
-    & mkdir $autocmp_dir | %{}
-
-    if (get-command 'dotnet') {
-        # dotnet auto completion
-        $sb = @"
+$autogeninfo = @(
+        [AutoGenInfo]@{
+            cmd         = 'dotnet'
+            require_gen = $false
+            cmd_exec    = @()
+            autocmp     = @"
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
      param(`$commandName, `$wordToComplete, `$cursorPosition)
          dotnet complete --position `$cursorPosition "`$wordToComplete" | ForEach-Object {
@@ -19,14 +21,12 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
          }
  }
 "@
-        $autocmp_file = $autocmp_dir + "\dotnet_autocmp.ps1"
-        echo $sb > $autocmp_file
-        . $autocmp_file
-    }
-
-    if (get-command 'winget') {
-        # dotnet auto completion
-        $sb = @"
+        },
+        [AutoGenInfo]@{
+            cmd         = 'winget'
+            require_gen = $false
+            cmd_exec    = @()
+            autocmp     = @"
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
     param(`$wordToComplete, `$commandAst, `$cursorPosition)
         [Console]::InputEncoding = [Console]::OutputEncoding = `$OutputEncoding = [System.Text.Utf8Encoding]::new()
@@ -37,26 +37,52 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
         }
 }
 "@
-        $autocmp_file = $autocmp_dir + "\winget_autocmp.ps1"
-        echo $sb > $autocmp_file
-        . $autocmp_file
-    }
+        },
+        [AutoGenInfo]@{
+            cmd         = 'rustup'
+            require_gen = $true
+            cmd_exec    = @('rustup', 'completions', 'powershell')
+            autocmp     = ''
+        },
+        [AutoGenInfo]@{
+            cmd         = 'nbacli'
+            require_gen = $true
+            cmd_exec    = @('nbacli', 'completion', 'powershell')
+            autocmp     = ''
+        },
+        [AutoGenInfo]@{
+            cmd         = 'wezterm'
+            require_gen = $true
+            cmd_exec    = @('wezterm', 'shell-completion', '--shell', 'power-shell')
+            autocmp     = ''
+        }
+)
 
-    if (get-command 'rustup') {
-        $autocmp_file = $autocmp_dir + "\rustup_autocmp.ps1"
-        & rustup completions powershell > $autocmp_file
-        . $autocmp_file
-    }
 
-    if (get-command 'nbacli') {
-        $autocmp_file = $autocmp_dir + "\nbacli_autocmp.ps1"
-        & nbacli completion powershell > $autocmp_file
-        . $autocmp_file
-    }
+function gen-autocompl() {
+    $autocmp_dir = $env:PSDOCHOME + "\autocompletions"
 
-    if (get-command 'wezterm') {
-        $autocmp_file = $autocmp_dir + "\wezterm_autocmp.ps1"
-        & wezterm shell-completion --shell power-shell > $autocmp_file
+    if (test-path -d $autocmp_dir) {
+        rm -recurse -force $autocmp_dir
+    }
+    & mkdir $autocmp_dir | %{}
+
+    $autogeninfo | % {
+
+        $info = $_
+
+        if (-not (get-command $info.cmd)) { return }
+
+        # echo $info.cmd
+
+        $autocmp_file = $autocmp_dir + "\" + $info.cmd + "_autocmp.ps1"
+
+        if ($info.require_gen) {
+            $cmd = ($info.cmd_exec -join " ")
+            & cmd /c $cmd > "$autocmp_file"
+        } else {
+            echo $info.autocmp > "$autocmp_file"
+        }
         . $autocmp_file
     }
 }
