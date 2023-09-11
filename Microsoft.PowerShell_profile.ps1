@@ -71,6 +71,8 @@ $env:FZF_DEFAULT_OPTS = @"
 --preview-window='right:60%'
 "@
 
+$env:EDITOR = 'nvim'
+
 . $outbanner
 . $aliases
 . $mysettings
