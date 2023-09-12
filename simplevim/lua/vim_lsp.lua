@@ -96,12 +96,9 @@ return {
             }
         })
 
-        for _, srv in ipairs(servers) do
-            local lsp_cfg = {
-                capabilities = capabilities,
-            }
-            if srv == 'lua_ls' then
-                local settings = {
+        local extras = {
+            lua_ls = {
+                settings = {
                     Lua = {
                         runtime = {
                             -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
@@ -120,8 +117,19 @@ return {
                             enable = false
                         }
                     }
+
                 }
-                rawset(lsp_cfg, 'settings', settings)
+            }
+        }
+
+        for _, srv in ipairs(servers) do
+            local lsp_cfg = {
+                capabilities = capabilities,
+            }
+            if extras[srv] then
+                for k, v in pairs(extras[srv]) do
+                    rawset(lsp_cfg, k, v)
+                end
             end
             lspconfig[srv].setup(lsp_cfg)
         end
