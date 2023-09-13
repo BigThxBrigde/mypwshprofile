@@ -15,7 +15,7 @@ function touch([string]$File) {
 
 # Win fetch
 function winfetch {
-  pwshfetch-test-1 -a -l -cpustyle bartext `
+  pwshfetch -all -logo "Windows 7" -cpustyle bartext `
   -memorystyle bartext -diskstyle bartext `
   -batterystyle bartext
 }

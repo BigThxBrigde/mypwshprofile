@@ -45,12 +45,6 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
             autocmp     = ''
         },
         [AutoCompleteGenerationInfo]@{
-            cmd         = 'nbacli'
-            require_gen = $true
-            exec_cmd    = @('nbacli', 'completion', 'powershell')
-            autocmp     = ''
-        },
-        [AutoCompleteGenerationInfo]@{
             cmd         = 'wezterm'
             require_gen = $true
             exec_cmd    = @('wezterm', 'shell-completion', '--shell', 'power-shell')

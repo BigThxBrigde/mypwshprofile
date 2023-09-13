@@ -21,6 +21,16 @@ $mydocuments = [environment]::getfolderpath([environment+specialfolder]::mydocum
 cd $mydocuments
 git clone https://github.com/BigThxBrigde/mypwshprofile PowerShell
 ```
+Create links for Vim
+```batch
+@echo off
+pushd "%LOCALAPPDATA%"
+if exist nvim rmdir /q nvim
+if exist nvim-data rmdir /q nvim-data
+mklink /D nvim "%USERPROFILE%\Documents\PowerShell\simplevim"
+mklink /D nvim-data "%USERPROFILE%\Documents\PowerShell\simplevim\data"
+popd
+```
 
 Create links for Wezterm
 ```batch
@@ -33,14 +43,6 @@ mklink /D .wezterm "%USERPROFILE%\Documents\PowerShell\wezterm\lua"
 popd
 ```
 
-Create links for Vim
-```batch
-@echo off
-pushd "%LOCALAPPDATA%"
-if exist nvim rmdir /q nvim
-mklink /D nvim "%USERPROFILE%\Documents\PowerShell\simplevim"
-popd
-```
 
 ## For Linux users
 Ignore the PowerShellCore Profile, clone the repo into `$YOUR_PATH`
