@@ -72,6 +72,7 @@ $env:FZF_DEFAULT_OPTS = @"
 "@
 
 $env:EDITOR = 'nvim'
+$env:NODE_TLS_REJECT_UNAUTHORIZED = 0
 
 . $outbanner
 . $aliases
