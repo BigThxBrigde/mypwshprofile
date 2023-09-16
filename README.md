@@ -13,6 +13,8 @@ Configuraitons on different platforms support:
 # How to use
 The most important thing at first is to back up all your configurations on Vim, Wezterm and PowerShellCore Profile.
 
+Due to some common libs which used by wezterm are in vim, perhaps configure vim first. If you only want to use wezterm, then copy the lua file under common folder to any place could be retrieved by wezterm.
+
 ## For windows users
 
 Clone this repo into $PROFILE parent directory, execute following command in powershell.
