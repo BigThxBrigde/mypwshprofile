@@ -8,7 +8,7 @@ class AutoCompleteGenerationInfo {
     [string]  $autocmp
 }
 
-$autogeninfo = @(
+$script:autogeninfo = @(
         [AutoCompleteGenerationInfo]@{
             cmd         = 'dotnet'
             require_gen = $false
@@ -68,7 +68,7 @@ function gen-autocompl() {
 
         & mkdir $autocmp_dir | %{}
 
-        $autogeninfo | %{
+        $script:autogeninfo | %{
 
             $info = $_
 
