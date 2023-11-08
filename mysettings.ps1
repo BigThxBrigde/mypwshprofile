@@ -80,7 +80,9 @@ function switch-gitconfig {
 
 # Weather report
 function report-weather {
-  curl wttr.in
+  # https://wttr.in/:help
+  # curl https://wttr.in/suzhou?lang=zh-cn
+  curl https://wttr.in/suzhou
 }
 
 function cd-parent {
