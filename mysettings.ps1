@@ -57,26 +57,26 @@ function kill-trashes {
 }
 
 # Try to switch the gitconfig 
-function switch-gitconfig {
-  param(
-    [Parameter(ParameterSetName = 'Operations')]
-    [alias('o')]
-    [switch]$original,
-    [Parameter(ParameterSetName = 'Operations')]
-    [alias('m')]
-    [switch]$modified
-  )
+# function switch-gitconfig {
+#   param(
+#     [Parameter(ParameterSetName = 'Operations')]
+#     [alias('o')]
+#     [switch]$original,
+#     [Parameter(ParameterSetName = 'Operations')]
+#     [alias('m')]
+#     [switch]$modified
+#   )
 
-  if ($original.IsPresent) {
-    cp ~/.config/git/config.original ~/.gitconfig -Force
-  } elseif ($modified.IsPresent) {
-    cp ~/.config/git/config.modified ~/.gitconfig -Force
-  } else {
-    write-host 'Usage: switch-gitconfig [option]'  -f Green
-    write-host '       -m,-modified    Use modified gitconfig'  -f Green
-    write-host '       -o,-original    Use original gitconfig'  -f Green
-  }
-}
+#   if ($original.IsPresent) {
+#     cp ~/.config/git/config.original ~/.gitconfig -Force
+#   } elseif ($modified.IsPresent) {
+#     cp ~/.config/git/config.modified ~/.gitconfig -Force
+#   } else {
+#     write-host 'Usage: switch-gitconfig [option]'  -f Green
+#     write-host '       -m,-modified    Use modified gitconfig'  -f Green
+#     write-host '       -o,-original    Use original gitconfig'  -f Green
+#   }
+# }
 
 # Weather report
 function report-weather {
