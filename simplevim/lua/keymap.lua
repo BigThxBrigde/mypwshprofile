@@ -165,7 +165,9 @@ local key_defs          = {
                 m = { '<cmd>Lazy<cr>', 'Show Lazynvim Package Manager' },
                 g = { telescope_builtin.live_grep, 'Live grep' },
                 h = { telescope_builtin.help_tags, 'Help tags' },
-                t = { telescope_builtin.treesitter, 'View treesitter' }
+                t = { telescope_builtin.treesitter, 'View treesitter' },
+                x = { telescope_builtin.commands, 'Execute commands' },
+                c = { telescope_builtin.colorscheme, 'Color scheme' }
             },
             b = {
                 name = 'Buffers',
