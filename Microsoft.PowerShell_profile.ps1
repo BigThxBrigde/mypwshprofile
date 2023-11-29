@@ -56,6 +56,7 @@ $outbanner  = "$env:PSDOCHOME\outbanner.ps1"
 $aliases    = "$env:PSDOCHOME\aliases.ps1"
 $mysettings = "$env:PSDOCHOME\mysettings.ps1"
 $autocompl  = "$env:PSDOCHOME\autocompl.ps1"
+$wm         = "$env:PSDOCHOME\wm.ps1"
 
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 0
 
@@ -79,3 +80,4 @@ $env:NODE_TLS_REJECT_UNAUTHORIZED = 0
 . $aliases
 . $mysettings
 . $autocompl
+. $wm
