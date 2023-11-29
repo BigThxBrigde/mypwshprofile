@@ -24,7 +24,7 @@ local plugins = {
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         config = function()
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
@@ -58,7 +58,7 @@ local plugins = {
                         '|',
                         '|'
                     },
-                    buffer_close_icon = '✖',
+                    -- buffer_close_icon = '✖',
                     style_preset = {
                         bufferline.style_preset.no_italic -- bufferline.style_preset.no_bold
                     },
