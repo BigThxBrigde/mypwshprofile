@@ -49,6 +49,12 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
             require_gen = $true
             exec_cmd    = @('wezterm', 'shell-completion', '--shell', 'power-shell')
             autocmp     = ''
+        },
+        [AutoCompleteGenerationInfo]@{
+            cmd         = 'glow'
+            require_gen = $true
+            exec_cmd    = @('glow', 'completion', 'powershell')
+            autocmp     = ''
         }
 )
 
