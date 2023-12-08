@@ -99,6 +99,10 @@ export SIMPLEVIM=$YOUR_PATH/PowerShell/simplevim
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [wezterm](https://wezfurlong.org/wezterm/index.html)
 - [C# REPL](https://fuqua.io/CSharpRepl/)
+- [eza](https://github.com/eza-community/eza)
+- [chafa](https://github.com/hpjansson/chafa)
+- [felix](https://github.com/kyoheiu/felix)
+- [glow](https://github.com/charmbracelet/glow)
 
 Refer to [modules and tools](modules_and_tools.md)
 

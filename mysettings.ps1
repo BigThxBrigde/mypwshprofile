@@ -256,6 +256,17 @@ function wc {
 #   }
 # }
 
+## use eza(exa) dirr[ich]
+# https://github.com/eza-community/eza
+function dirr {
+    Param(
+         [parameter(ValueFromRemainingArguments = $true)]
+         [string[]]$opts)
+    $default_opts = @('--icons', '--all', '--long')
+    $actual_opts = $default_opts + $opts
+    eza @actual_opts
+}
+
 function which {
   param(
 	  [parameter(position = 0,

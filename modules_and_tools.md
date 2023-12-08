@@ -26,3 +26,6 @@
 | wezterm    | https://wezfurlong.org/wezterm/index.html |
 | C# REPL    | https://fuqua.io/CSharpRepl/              |
 | glow       | https://github.com/charmbracelet/glow     |
+| eza        | https://github.com/eza-community/eza      |
+| chafa      | https://github.com/hpjansson/chafa        |
+| felix      | https://github.com/kyoheiu/felix          |
