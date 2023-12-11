@@ -1,3 +1,5 @@
+# TODO
+# This is only a test
 $env:KOMOREBI_CONFIG_HOME = "$env:PSDOCHOME\komorebi"
 $env:WHKD_CONFIG_HOME     = "$env:PSDOCHOME\komorebi"
 
