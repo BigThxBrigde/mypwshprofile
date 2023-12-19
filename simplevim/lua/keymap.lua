@@ -47,7 +47,7 @@ local show_term2_config = function()
     end
 
     local show_term_bash = function()
-        float_term({ 'cmd' })
+        float_term({ 'bash' })
     end
     return {
         func = show_term_bash,
