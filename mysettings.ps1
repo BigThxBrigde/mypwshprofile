@@ -156,8 +156,7 @@ function edit {
     }
   } | fzf | % {
     $live_searching = $false
-    # hx $_
-	vi $_
+    & $env:EDITOR $_
   }
 }
 
@@ -280,6 +279,61 @@ function which {
   } else {
       write-host "ERROR: No command [$cmd] found!" -f red
   }
+}
+
+function desccmd {
+  param(
+	  [parameter(position = 0,
+		  valuefrompipeline = $true)]
+	  [string][alias('c')]$cmdname
+  )
+
+  if (-not $cmdname) {
+    write-host "ERROR: No cmd name could not be empty!" -f red
+    return
+  }
+
+
+  # Try to find external script first
+
+  $searchname = $cmdname
+
+  $funcinfo = get-command -commandtype externalscript $searchname -erroraction silentlycontinue
+
+  if ($funcinfo) {
+      $funcinfo.scriptblock
+      return
+  }
+
+  # Try to parse alias
+  $funcinfo = get-command -commandtype alias $searchname -erroraction silentlycontinue
+  if ($funcinfo -and $funcinfo.resolvedcommand) {
+      if ($funcinfo.resolvedcommand.source) {
+          $searchname = $funcinfo.resolvedcommand.source
+      } else {
+          $searchname = $funcinfo.resolvedcommand.name
+      }
+      # If resolved find external script
+      $funcinfo = get-command -commandtype externalscript $searchname -erroraction silentlycontinue
+
+      if ($funcinfo) {
+          $funcinfo.scriptblock
+          return
+      }
+  }
+
+
+  # Try to find function
+  $funcinfo = get-command -commandtype function $searchname -erroraction silentlycontinue
+
+  if ($funcinfo) {
+      $funcinfo.scriptblock
+      return
+  }
+
+
+  write-host "ERROR: No cmd [$cmdname] found or source not avaliable!" -f red
+
 }
 
 
