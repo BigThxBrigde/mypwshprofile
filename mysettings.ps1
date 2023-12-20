@@ -289,7 +289,7 @@ function desccmd {
   )
 
   if (-not $cmdname) {
-    write-host "ERROR: No cmd name could not be empty!" -f red
+    write-host "ERROR: cmd name could not be empty!" -f red
     return
   }
 
