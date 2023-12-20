@@ -301,7 +301,7 @@ function desccmd {
   $funcinfo = get-command -commandtype externalscript $searchname -erroraction silentlycontinue
 
   if ($funcinfo) {
-      $funcinfo.scriptblock
+      $funcinfo.scriptblock | bat -l ps1
       return
   }
 
@@ -317,7 +317,7 @@ function desccmd {
       $funcinfo = get-command -commandtype externalscript $searchname -erroraction silentlycontinue
 
       if ($funcinfo) {
-          $funcinfo.scriptblock
+          $funcinfo.scriptblock | bat -l ps1
           return
       }
   }
@@ -327,7 +327,7 @@ function desccmd {
   $funcinfo = get-command -commandtype function $searchname -erroraction silentlycontinue
 
   if ($funcinfo) {
-      $funcinfo.scriptblock
+      $funcinfo.scriptblock | bat -l ps1
       return
   }
 
