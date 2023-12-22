@@ -1,6 +1,6 @@
 # Monitoring file dynamically
 function tail([string]$Path, [int]$Line = 30) {
-    Get-Content -Path $Path -Tail $Line -Wait
+    cat -Path $Path -Tail $Line -Wait
 }
 
 # Open file or folders
@@ -10,7 +10,7 @@ function open([string]$Path){
 
 # Create a new files
 function touch([string]$File) {
-    New-Item -Type File $File
+    ni -Type File $File
 }
 
 # Win fetch
@@ -24,14 +24,14 @@ function winfetch {
 function reboot {
     sudo shutdown -r -f -t 0
 }
- 
+
 # Shutdown PC
 function halt {
     sudo shutdown -s -f -t 0
 }
 
 function blk-txt([string]$txt) {
-    echo "`u{001b}[5m$txt`u{001b}[0m" 
+    echo "`u{001b}[5m$txt`u{001b}[0m"
 }
 
 function killall([string]$proc) {
@@ -45,7 +45,7 @@ function killall([string]$proc) {
 }
 
 
-# Loop kill mbcloudea.exe 
+# Loop kill mbcloudea.exe
 function kill-trashes {
   $sb = {
       while ($true) {
@@ -56,7 +56,7 @@ function kill-trashes {
   Start-Job -ScriptBlock $sb -Name "kill-trashes"
 }
 
-# Try to switch the gitconfig 
+# Try to switch the gitconfig
 # function switch-gitconfig {
 #   param(
 #     [Parameter(ParameterSetName = 'Operations')]
@@ -102,13 +102,13 @@ function open-shr {
 }
 
 
-# Use for fzf search 
-$script:FZF_EXCLUDE_DIR = @(".git", 
-  ".gitlab", 
-  ".vs", 
-  "bin", 
-  "obj", 
-  "node_modules") 
+# Use for fzf search
+$script:FZF_EXCLUDE_DIR = @(".git",
+  ".gitlab",
+  ".vs",
+  "bin",
+  "obj",
+  "node_modules")
 
 $script:exclude_dir = @()
 
@@ -160,7 +160,7 @@ function edit {
   }
 }
 
-function nba-go { 
+function nba-go {
   $tz  = [system.timezoneinfo]::findsystemtimezonebyid("Pacific Standard Time")
   $now = [system.timezoneinfo]::converttimefromutc((get-date).touniversaltime(), $tz)
   & nbacli games -d $now.tostring('yyyyMMdd')
@@ -170,7 +170,7 @@ function cmatrix {
   wsl cmatrix
 }
 
-function csi { 
+function csi {
     if ($env:WEZTERM_SESSION) {
         & wezterm cli spawn csharprepl --useTerminalPaletteTheme
     } else {
@@ -190,7 +190,7 @@ function do-profiling {
 
 
 #
-#  If not installed ripgrep use this function 
+#  If not installed ripgrep use this function
 #
 # function grep {
 #   param(
@@ -201,9 +201,9 @@ function do-profiling {
 #     [alias('p')]
 #     [string]$pattern
 #   )
-#   gci -recurse -file $file | %{ 
+#   gci -recurse -file $file | %{
 #     sls -literalpath @($_.fullname) -pattern "$pattern" -erroraction silentlycontinue } `
-#   | bat -l meminfo --theme base16 --style plain 
+#   | bat -l meminfo --theme base16 --style plain
 # }
 
 function wc {
@@ -214,21 +214,21 @@ function wc {
     [switch][alias('w')]$word = $false,
     [switch][alias('c')]$char = $false
   )
-  if ((-not $line) -and (-not $word) -and (-not $char)) { 
-    write-host 'Usage: wc <input> [option]'  -f green             
+  if ((-not $line) -and (-not $word) -and (-not $char)) {
+    write-host 'Usage: wc <input> [option]'  -f green
     write-host '       -l, -line    Count lines of the input stream.'  -f green
     write-host '       -w, -word    Count words of the input stream.'  -f green
     write-host '       -c, -char    Count chars of the input stream.'  -f green
     return
   }
-  if ($line) { (gc $input | measure -l).lines } 
+  if ($line) { (gc $input | measure -l).lines }
   elseif ($word) { (gc $input | measure -w).words }
   elseif ($char) { (gc $input | measure -c).characters }
 }
 
 
-# $script:init_file = $env:PSDOCHOME + "/simplevim/init.lua" 
-# 
+# $script:init_file = $env:PSDOCHOME + "/simplevim/init.lua"
+#
 # function nvi {
 #   param(
 # 	  [parameter(valuefromremainingarguments = $true,
@@ -241,7 +241,7 @@ function wc {
 #     neovide -- -u "$script:init_file" @path
 #   }
 # }
-# 
+#
 # function vi {
 #   param(
 # 	  [parameter(valuefromremainingarguments = $true,
@@ -262,7 +262,17 @@ function dirr {
          [parameter(ValueFromRemainingArguments = $true)]
          [string[]]$opts)
     $default_opts = @('--icons', '--all', '--long')
-    $actual_opts = $default_opts + $opts
+
+    $actual_opts = $default_opts
+
+    if ($opts) {
+        if ($opts -contains '-fresh') {
+            $actual_opts = @($opts | ? { $_ -ne '-fresh' })
+        } else {
+            $actual_opts = $default_opts + $opts
+        }
+    }
+
     eza @actual_opts
 }
 
@@ -273,7 +283,7 @@ function which {
 	  [string][alias('c')]$cmd
   )
 
-  $cmdinfo = get-command $cmd -erroraction silentlycontinue
+  $cmdinfo = gcm $cmd -erroraction silentlycontinue
   if ($cmdinfo) {
       $cmdinfo
   } else {
@@ -281,11 +291,13 @@ function which {
   }
 }
 
+# https://github.com/julian-r/file-windows
 function desccmd {
   param(
 	  [parameter(position = 0,
 		  valuefrompipeline = $true)]
-	  [string][alias('c')]$cmdname
+	  [string][alias('n')]$cmdname,
+      [switch][alias('r')]$nocolor
   )
 
   if (-not $cmdname) {
@@ -298,15 +310,16 @@ function desccmd {
 
   $searchname = $cmdname
 
-  $funcinfo = get-command -commandtype externalscript $searchname -erroraction silentlycontinue
+  $funcinfo = gcm -commandtype externalscript $searchname -erroraction silentlycontinue
 
   if ($funcinfo) {
-      $funcinfo.scriptblock | bat -l ps1
+      if ($nocolor) { $funcinfo.scriptblock }
+      else { $funcinfo.scriptblock  | bat -l ps1 }
       return
   }
 
   # Try to parse alias
-  $funcinfo = get-command -commandtype alias $searchname -erroraction silentlycontinue
+  $funcinfo = gcm -commandtype alias $searchname -erroraction silentlycontinue
   if ($funcinfo -and $funcinfo.resolvedcommand) {
       if ($funcinfo.resolvedcommand.source) {
           $searchname = $funcinfo.resolvedcommand.source
@@ -314,23 +327,24 @@ function desccmd {
           $searchname = $funcinfo.resolvedcommand.name
       }
       # If resolved find external script
-      $funcinfo = get-command -commandtype externalscript $searchname -erroraction silentlycontinue
+      $funcinfo = gcm -commandtype externalscript $searchname -erroraction silentlycontinue
 
       if ($funcinfo) {
-          $funcinfo.scriptblock | bat -l ps1
+          if ($nocolor) { $funcinfo.scriptblock }
+          else { $funcinfo.scriptblock  | bat -l ps1 }
           return
       }
   }
 
 
   # Try to find function
-  $funcinfo = get-command -commandtype function $searchname -erroraction silentlycontinue
+  $funcinfo = gcm -commandtype function $searchname -erroraction silentlycontinue
 
   if ($funcinfo) {
-      $funcinfo.scriptblock | bat -l ps1
+      if ($color) { $funcinfo.scriptblock | bat -l ps1 }
+      else { $funcinfo.scriptblock }
       return
   }
-
 
   write-host "ERROR: No cmd [$cmdname] found or source not avaliable!" -f red
 
