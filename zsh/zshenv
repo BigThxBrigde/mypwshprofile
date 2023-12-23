@@ -1,0 +1,48 @@
+. "$HOME/.cargo/env"
+
+export PATH=$HOME/.emacs.d/bin:$PATH
+
+export GOPATH=$HOME/.local/go
+export PATH=$GOPATH/bin:$PATH
+export GOPROXY=https://goproxy.cn
+export GO111MODULE=auto
+# export BAT_THEME="Dracula"
+export BAT_THEME="OneHalfDark"
+export EDITOR='vi'
+export BAT_STYLE="plain,changes,rule,numbers,snip"
+
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+
+export PYTHON_HOST_PROG="/usr/bin/python2"
+export PYTHON3_HOST_PROG="/usr/bin/python3"
+
+
+# Add nvm managerment
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export TERM=xterm-256color
+export FZF_DEFAULT_OPTS="--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9\
+ --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9\
+ --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6\
+ --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4\
+ --height=60%\
+ --layout=reverse\
+ --preview='bat -f {}'\
+ --preview-window='right:60%'"
+
+export SIMPLEVIM="$HOME/.simplevim"
+
+
+# export RUSTUP_USE_CURL=1
+# export CURLOPT_SSL_VERIFYPEER=0
+export HOMEBREW_INSTALL_FROM_API=1
+export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
