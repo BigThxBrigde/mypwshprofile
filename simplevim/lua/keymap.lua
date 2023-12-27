@@ -177,6 +177,13 @@ local key_defs          = {
                 n = { '<cmd>bn<cr>', 'Next buffer' },
                 p = { '<cmd>bp<cr>', 'Previous buffer' },
             },
+            w = {
+                name = 'Windows',
+                h = { '<cmd>wincmd h<cr>', 'Focus left window' },
+                l = { '<cmd>wincmd l<cr>', 'Focus right window' },
+                j = { '<cmd>wincmd j<cr>', 'Focus down window' },
+                k = { '<cmd>wincmd k<cr>', 'Focus up window' },
+            },
             q = {
                 name = 'Quit',
                 q = { '<cmd>q!<cr>', 'Quit current window' },
