@@ -1,5 +1,6 @@
 # Import Terminal Icons modules and oh-my-posh
 Import-Module -Name Terminal-Icons
+Import-Module gsudoModule
 
 # Tried to use EMACS Keybindings
 Set-PSReadLineOption -EditMode Emacs
