@@ -1,4 +1,6 @@
 #!/bin/env bash
+
+# trap INT
 # find $HOME/Music -type f -name "*.mp3" | shuf | while read f; do ffplay -nodisp -hide_banner "$@" -autoexit -- "$f"; done
 
 # cvlc $HOME/Documents/fav_music.m3u8 --random --verbose 0 --no-metadata-network-access "$@"
