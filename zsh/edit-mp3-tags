@@ -1,0 +1,28 @@
+#!/bin/env bash
+
+
+IFS='-'
+MUSIC_DIR="$HOME/Music"
+
+
+pushd $MUSIC_DIR
+
+ls | while read f; do
+    read -ra data <<< "$f"
+
+    title=${data[0]}
+    title=${title// /}
+
+    artist=${data[1]}
+    artist=${artist// /}
+    artist=${artist//.mp3/}  # replace mp3
+
+    # echo "$title"
+    # echo "$artist"
+    echo "Editing $f with: $title -> $artist"
+    eyeD3 --encoding utf8 -t "$title" -a "$artist" "$f" 
+done
+
+popd
+
+# vim: set ft=bash:

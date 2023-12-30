@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# input url, vsc download url
+DL_URL=$1
+# input url, host to be replaced with
+RP_URL=$2
+# use cn cdn
+CDN_URL='vscode.cdn.azure.cn'
+
+wget "${DL_URL/${RP_URL}/${CDN_URL}}"
+
+
+
+
+
+# vim: set ft=sh :

@@ -1,0 +1,7 @@
+#!/bin/env bash
+# find $HOME/Music -type f -name "*.mp3" | shuf | while read f; do ffplay -nodisp -hide_banner "$@" -autoexit -- "$f"; done
+
+# cvlc $HOME/Documents/fav_music.m3u8 --random --verbose 0 --no-metadata-network-access "$@"
+
+find $HOME/Music -type f -name "*.mp3" | shuf > /tmp/playlist
+mpg123 -z --long-tag -v -@ /tmp/playlist
