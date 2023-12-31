@@ -16,12 +16,14 @@ trap "rm -f ${TMP_FILE} && clear && exit" QUIT EXIT INT
 
 games=$(cat $GAME_LIST | while read line; do
     read -ra data <<< "$line"
-    echo "${data[0]} ${data[1]}:${data[2]} off";
+    status=''
+    [[ $((${data[0]} - 1)) -eq 0 ]] && status='on' || status='off'
+    echo "${data[0]} ${data[1]}:${data[2]} $status";
 done | xargs) || exit 100
 
 /usr/bin/dialog \
     --clear \
-    --radiolist "Select a game" 50 50 20\
+    --radiolist "Select a game" 30 50 30\
     $games 2> ${TMP_FILE}
 
 return_value=$?
