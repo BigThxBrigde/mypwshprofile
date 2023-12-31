@@ -1,5 +1,10 @@
 #!/bin/env bash
 
+# gamelist file:
+# 1 snowbros 雪人兄弟
+# 2 wofch    三国志
+# 3 dino     恐龙新世纪
+
 MAME_EXEC="$HOME/Documents/mame/mame"
 GAME_LIST="$HOME/Downloads/roms/gamelist"
 TMP_FILE="/tmp/game_id"
@@ -42,7 +47,6 @@ case $return_value in
 esac
 
 if [ -z "${game_id}" ]; then
-    echo "no game_id $game_id"
     exit 100
 fi
 
