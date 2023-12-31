@@ -1,0 +1,54 @@
+#!/bin/env bash
+
+MAME_EXEC="$HOME/Documents/mame/mame"
+GAME_LIST="$HOME/Downloads/roms/gamelist"
+TMP_FILE="/tmp/game_id"
+
+: ${DIALOG_OK=0}
+: ${DIALOG_CANCEL=1}
+: ${DIALOG_HELP=2}
+: ${DIALOG_EXTRA=3}
+: ${DIALOG_ITEM_HELP=4}
+: ${DIALOG_ESC=255}
+
+trap "rm -f ${TMP_FILE} && clear && exit" QUIT EXIT INT
+
+
+games=$(cat $GAME_LIST | while read line; do
+    read -ra data <<< "$line"
+    echo "${data[0]} ${data[1]}:${data[2]} off";
+done | xargs) || exit 100
+
+/usr/bin/dialog \
+    --clear \
+    --radiolist "Select a game" 50 50 20\
+    $games 2> ${TMP_FILE}
+
+return_value=$?
+
+game_id=""
+
+case $return_value in
+  $DIALOG_OK)
+    game_id=$(/bin/cat ${TMP_FILE})
+    ;;
+  $DIALOG_ESC)
+    if test -s $TMP_FILE ; then
+      /bin/rm -f $TMP_FILE
+    fi
+    ;;
+esac
+
+if [ -z "${game_id}" ]; then
+    echo "no game_id $game_id"
+    exit 100
+fi
+
+# read the game list again, select the right file
+readarray -t games_data < <(cat $GAME_LIST)
+read -ra row<<< "${games_data[$((game_id - 1))]}"
+game_name=${row[1]}
+
+"$MAME_EXEC" "$game_name"
+
+# vim: set ft=bash :
