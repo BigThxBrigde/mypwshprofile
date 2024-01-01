@@ -52,7 +52,7 @@ if [ -z "${game_id}" ]; then
 fi
 
 # read the game list again, select the right file
-readarray -t games_data < <(cat $GAME_LIST)
+readarray -t games_data < <(sort $GAME_LIST -k2)
 read -ra row<<< "${games_data[$((game_id - 1))]}"
 game_name=${row[0]}
 
