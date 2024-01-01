@@ -48,13 +48,17 @@ case $return_value in
 esac
 
 if [ -z "${game_id}" ]; then
-    exit 100
+    exit 101
 fi
 
 # read the game list again, select the right file
 readarray -t games_data < <(cat $GAME_LIST)
 read -ra row<<< "${games_data[$((game_id - 1))]}"
 game_name=${row[0]}
+
+if [ -z "${game_name}" ]; then
+    exit 102
+fi
 
 "$MAME_EXEC" "$game_name"
 
