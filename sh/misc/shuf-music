@@ -5,5 +5,9 @@
 
 # cvlc $HOME/Documents/fav_music.m3u8 --random --verbose 0 --no-metadata-network-access "$@"
 
-find $HOME/Music -type f -name "*.mp3" | shuf > /tmp/playlist
-mpg123 -z --long-tag -v -@ /tmp/playlist
+PLAY_LIST='/tmp/playlist'
+
+trap "rm -f ${PLAY_LIST}"  QUIT EXIT INT
+
+find $HOME/Music -type f -name "*.mp3" | shuf > ${PLAY_LIST}
+mpg123 -z --long-tag -v -@ ${PLAY_LIST}
