@@ -19,7 +19,7 @@ TMP_FILE="/tmp/game_id"
 trap "rm -f ${TMP_FILE} && clear && exit" QUIT EXIT INT
 
 idx=0
-games=$(cat $GAME_LIST | while read line; do
+games=$(sort $GAME_LIST -k2 | while read line; do
     read -ra data <<< "$line"
     status=''
     [[ $((idx)) -eq 0 ]] && status='on' || status='off'

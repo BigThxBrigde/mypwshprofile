@@ -1,3 +1,65 @@
-#!/bin/env bash
+#!/bin/env node
 
-node $HOME/Documents/mypwshprofile/sh/mame/index.js "$@" 
+const usage = `
+Usage: translate-mame [options] <keyword>
+
+       -c   The keyword in Chinese
+       -e   The keyword in English
+
+       If no options, both use the keyword as Chinese and English
+`
+
+const queryAsync = new Promise((resolve) => {
+
+    const db = require('./db.json')
+
+    const argv = process.argv.slice(2)
+
+    let keyword, query, output
+
+    if (argv.length < 1 || argv.length > 2) {
+        output = ['No input, keyword is too many or none',
+            usage].join('\n')
+        resolve(output)
+    } else if (argv.length == 2) {
+        if (argv[0] != '-c' && argv[0] != '-e') {
+            output = [`Unknown option: ${argv[0]}`,
+                usage].join('\n')
+            resolve(output)
+        }
+
+        keyword = argv[1]
+        query = (k, v) => {
+            let match = argv[0] === '-c' ? v : k
+            return match.indexOf(keyword) > -1
+        }
+    }
+    else {
+
+        keyword = argv[0]
+        query = (k, v) => {
+            return k.indexOf(keyword) > -1
+                || v.indexOf(keyword) > -1
+        }
+    }
+
+    const result = []
+
+    for (const [key, value] of Object.entries(db)) {
+        if (query(key, value)) {
+            result.push(`${key}: ${value}`)
+        }
+    }
+
+    if (result.length === 0) {
+        resolve('No result found!')
+    } else {
+        output = [`Found results of ${keyword}:`,
+        `  - ${result.join('\n  - ')}`].join('\n')
+        resolve(output)
+    }
+})
+
+queryAsync.then(console.log)
+
+// vim: set ft=javascript :
