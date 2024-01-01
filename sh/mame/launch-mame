@@ -1,9 +1,9 @@
 #!/bin/env bash
 
 # gamelist file:
-# 1 snowbros 雪人兄弟
-# 2 wofch    三国志
-# 3 dino     恐龙新世纪
+# snowbros 雪人兄弟
+# wofch    三国志
+# dino     恐龙新世纪
 
 MAME_EXEC="$HOME/Documents/mame/mame"
 GAME_LIST="$HOME/Downloads/roms/gamelist"
@@ -18,12 +18,13 @@ TMP_FILE="/tmp/game_id"
 
 trap "rm -f ${TMP_FILE} && clear && exit" QUIT EXIT INT
 
-
+idx=0
 games=$(cat $GAME_LIST | while read line; do
     read -ra data <<< "$line"
     status=''
-    [[ $((${data[0]} - 1)) -eq 0 ]] && status='on' || status='off'
-    echo "${data[0]} ${data[1]}:${data[2]} $status";
+    [[ $((idx)) -eq 0 ]] && status='on' || status='off'
+    idx=$((idx + 1))
+    echo "$idx ${data[0]}:${data[1]} $status";
 done | xargs) || exit 100
 
 /usr/bin/dialog \
@@ -53,7 +54,7 @@ fi
 # read the game list again, select the right file
 readarray -t games_data < <(cat $GAME_LIST)
 read -ra row<<< "${games_data[$((game_id - 1))]}"
-game_name=${row[1]}
+game_name=${row[0]}
 
 "$MAME_EXEC" "$game_name"
 
