@@ -127,7 +127,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias mdp=markdown-preview
 alias eza="eza --all --icons -l"
-alias xterm="xterm -fa 'Monospace' -fs 14"
+# alias xterm="xterm -fa 'Monospace' -fs 14"
 alias lg=lazygit
 alias te="emacs -nw"
 alias open=xdg-open
