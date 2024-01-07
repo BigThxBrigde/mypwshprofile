@@ -6,8 +6,13 @@
 # cvlc $HOME/Documents/fav_music.m3u8 --random --verbose 0 --no-metadata-network-access "$@"
 
 PLAY_LIST='/tmp/playlist'
+MUSIC_DIR="$HOME/Music"
+
+if [[ -n "$1" && -d "$1" ]]; then
+    MUSIC_DIR=$(realpath "$1")
+fi
 
 trap "rm -f ${PLAY_LIST}"  QUIT EXIT INT
 
-find $HOME/Music -type f -name "*.mp3" | shuf > ${PLAY_LIST}
-mpg123 -z --long-tag -v -@ ${PLAY_LIST}
+find "$MUSIC_DIR" -type f -name "*.mp3" | shuf > ${PLAY_LIST}
+mpg123 -o pulse,alsa -z --long-tag -v -@ ${PLAY_LIST}
