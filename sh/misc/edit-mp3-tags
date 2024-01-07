@@ -4,9 +4,14 @@
 IFS='-'
 MUSIC_DIR="$HOME/Music"
 
+if [[ -n "$1" && -d "$1" ]]; then
+    MUSIC_DIR=$(realpath "$1")
+fi
 
-pushd $MUSIC_DIR
 
+pushd $MUSIC_DIR >/dev/null
+
+#printf "%s%s %s\n" "$title" "${padding:${#title}}" "Page 1"
 ls | while read f; do
     read -ra data <<< "$f"
 
@@ -19,10 +24,13 @@ ls | while read f; do
 
     # echo "$title"
     # echo "$artist"
-    echo "Editing $f with: $title -> $artist"
-    eyeD3 --encoding utf8 -t "$title" -a "$artist" "$f" 
+    # echo "Editing: $f with: $title -> $artist"
+    printf "Editing: %s ...\n" "$f" 
+    printf "Patched: %s with %s\n" "$title" "$artist"
+    printf "\n"
+    eyeD3 --encoding utf8 -t "$title" -a "$artist" "$f" >/dev/null
 done
 
-popd
+popd >/dev/null
 
 # vim: set ft=bash:
