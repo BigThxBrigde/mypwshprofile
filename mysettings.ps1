@@ -306,7 +306,13 @@ function whereis {
           {($_ -eq [system.management.automation.commandtypes]::function) `
              -and $cmdinfo.scriptblock.file }
           {
-              "{0}:({1})" -f $cmdinfo.scriptblock.file,$cmdinfo.name
+              $startposition = $cmdinfo.scriptblock.startposition
+              $line          = $startposition.startline
+              $column        = $startposition.startcolumn
+              $file          = $cmdinfo.scriptblock.file
+              $name          = $cmdinfo.name
+
+              "{0}:{1}:{2} {3}" -f $file, $line, $column, $name
           }
 
           {(($_ -eq [system.management.automation.commandtypes]::application) `
@@ -315,19 +321,26 @@ function whereis {
           {
               $cmdinfo.source
           }
+
           {($_ -eq [system.management.automation.commandtypes]::alias) `
             -and ($cmdinfo.resolvedcommand.commandtype -eq [system.management.automation.commandtypes]::function) `
             -and $cmdinfo.resolvedcommand.scriptblock.file }
           {
-              "{0}:({1} -> {2})" -f $cmdinfo.resolvedcommand.scriptblock.file,$cmdinfo.name,$cmdinfo.resolvedcommand.name
+              $startposition = $cmdinfo.resolvedcommand.scriptblock.startposition
+              $line          = $startposition.startline
+              $column        = $startposition.startcolumn
+              $file          = $cmdinfo.resolvedcommand.scriptblock.file
+              $name          = $cmdinfo.name
+              $ref_name      = $cmdinfo.resolvedcommand.name
 
+              "{0}:{1}:{2} {3} -> {4}" -f $file, $line, $column, $name, $ref_name
           }
           {($_ -eq [system.management.automation.commandtypes]::alias) `
             -and ($cmdinfo.resolvedcommand.commandtype -eq [system.management.automation.commandtypes]::application `
               -or $cmdinfo.resolvedcommand.commandtype -eq  [system.management.automation.commandtypes]::externalscript) `
             -and $cmdinfo.resolvedcommand.source }
           {
-              "{0}:({1} -> {2})" -f $cmdinfo.resolvedcommand.source,$cmdinfo.name,$cmdinfo.resolvedcommand.name
+              "{0} {1} -> {2}" -f $cmdinfo.resolvedcommand.source,$cmdinfo.name,$cmdinfo.resolvedcommand.name
 
           }
           default { write-host "[$cmd] is a built-in cmdlet or alias!" }
@@ -359,8 +372,8 @@ function desccmd {
   $funcinfo = gcm -commandtype externalscript $searchname -erroraction silentlycontinue
 
   if ($funcinfo) {
-      if ($nocolor) { $funcinfo.scriptblock }
-      else { $funcinfo.scriptblock  | bat -l ps1 }
+      if ($nocolor) { $funcinfo.scriptblock.startposition.content }
+      else { $funcinfo.scriptblock.startposition.content  | bat -l ps1 }
       return
   }
 
@@ -376,8 +389,8 @@ function desccmd {
       $funcinfo = gcm -commandtype externalscript $searchname -erroraction silentlycontinue
 
       if ($funcinfo) {
-          if ($nocolor) { $funcinfo.scriptblock }
-          else { $funcinfo.scriptblock  | bat -l ps1 }
+          if ($nocolor) { $funcinfo.scriptblock.startposition.content }
+          else { $funcinfo.scriptblock.startposition.content | bat -l ps1 }
           return
       }
   }
@@ -387,8 +400,8 @@ function desccmd {
   $funcinfo = gcm -commandtype function $searchname -erroraction silentlycontinue
 
   if ($funcinfo) {
-      if ($color) { $funcinfo.scriptblock | bat -l ps1 }
-      else { $funcinfo.scriptblock }
+      if ($nocolor) { $funcinfo.scriptblock.startposition.content  }
+      else { $funcinfo.scriptblock.startposition.content | bat -l ps1}
       return
   }
 
