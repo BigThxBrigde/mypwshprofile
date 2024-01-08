@@ -291,6 +291,52 @@ function which {
   }
 }
 
+function whereis {
+  param(
+	  [parameter(position = 0,
+		  valuefrompipeline = $true)]
+	  [string][alias('c')]$cmd
+  )
+
+  $cmdinfo = gcm $cmd -erroraction silentlycontinue
+  if ($cmdinfo) {
+      $type = $cmdinfo.commandtype
+      switch ($type)
+      {
+          {($_ -eq [system.management.automation.commandtypes]::function) `
+             -and $cmdinfo.scriptblock.file }
+          {
+              "{0}:({1})" -f $cmdinfo.scriptblock.file,$cmdinfo.name
+          }
+
+          {(($_ -eq [system.management.automation.commandtypes]::application) `
+            -or ($_ -eq [system.management.automation.commandtypes]::externalscript)) `
+            -and $cmdinfo.source }
+          {
+              $cmdinfo.source
+          }
+          {($_ -eq [system.management.automation.commandtypes]::alias) `
+            -and ($cmdinfo.resolvedcommand.commandtype -eq [system.management.automation.commandtypes]::function) `
+            -and $cmdinfo.resolvedcommand.scriptblock.file }
+          {
+              "{0}:({1} -> {2})" -f $cmdinfo.resolvedcommand.scriptblock.file,$cmdinfo.name,$cmdinfo.resolvedcommand.name
+
+          }
+          {($_ -eq [system.management.automation.commandtypes]::alias) `
+            -and ($cmdinfo.resolvedcommand.commandtype -eq [system.management.automation.commandtypes]::application `
+              -or $cmdinfo.resolvedcommand.commandtype -eq  [system.management.automation.commandtypes]::externalscript) `
+            -and $cmdinfo.resolvedcommand.source }
+          {
+              "{0}:({1} -> {2})" -f $cmdinfo.resolvedcommand.source,$cmdinfo.name,$cmdinfo.resolvedcommand.name
+
+          }
+          default { write-host "[$cmd] is a built-in cmdlet or alias!" }
+      }
+  } else {
+      write-host "ERROR: No command [$cmd] found!" -f red
+  }
+}
+
 # https://github.com/julian-r/file-windows
 function desccmd {
   param(
