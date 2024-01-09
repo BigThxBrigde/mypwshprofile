@@ -9,7 +9,7 @@ Usage: translate-mame [options] <keyword>
        If no options, both use the keyword as Chinese and English
 `
 
-const queryAsync = new Promise((resolve) => {
+const queryAsync = () => new Promise((resolve) => {
 
     const db = require('./db.json')
 
@@ -60,6 +60,6 @@ const queryAsync = new Promise((resolve) => {
     }
 })
 
-queryAsync.then(console.log)
+queryAsync().then(console.log)
 
 // vim: set ft=javascript :
