@@ -276,6 +276,16 @@ function dirr {
     eza @actual_opts
 }
 
+function view {
+    param(
+        [parameter(position = 0,
+            valuefrompipeline = $true)]
+        [string][alias('c')]$file
+    )
+
+    & vi -R -c ":set wrap" -- "$file"
+}
+
 function which {
   param(
 	  [parameter(position = 0,
