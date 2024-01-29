@@ -1,6 +1,7 @@
 #!/bin/env bash
 
 
+OLD_IFS=$IFS
 IFS='-'
 MUSIC_DIR="$HOME/Music"
 
@@ -32,5 +33,7 @@ ls | while read f; do
 done
 
 popd >/dev/null
+
+IFS=$OLD_IFS
 
 # vim: set ft=bash:
