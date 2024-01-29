@@ -56,6 +56,10 @@ function kill-trashes {
   Start-Job -ScriptBlock $sb -Name "kill-trashes"
 }
 
+function choco-autoclean {
+    & sudo choco-cleaner.bat
+}
+
 # Try to switch the gitconfig
 # function switch-gitconfig {
 #   param(
