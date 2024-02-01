@@ -280,14 +280,30 @@ function dirr {
     eza @actual_opts
 }
 
+function vact {
+    $act_file = 'e:\jermaine\work\docs\accounts.txt'
+    glow "$act_file"
+    # view "$act_file" 'set ft=markdown'
+
+}
+
 function view {
     param(
         [parameter(position = 0,
+            mandatory,
             valuefrompipeline = $true)]
-        [string][alias('c')]$file
+        [string][alias('f')]$file,
+        [parameter(position = 1)]
+        [string][alias('c')]$opts=""
     )
 
-    & vi -R -c ":set wrap" -- "$file"
+    $cmd = ":set wrap"
+    if ($opts) {
+        $cmd += " | $opts " 
+    }
+
+
+    & vi -R -c "$cmd" -- "$file"
 }
 
 function which {
