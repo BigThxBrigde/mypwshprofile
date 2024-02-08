@@ -89,14 +89,6 @@ function report-weather {
   curl https://wttr.in/suzhou
 }
 
-function cd-parent {
-  cd ../
-}
-
-function cd-home {
-  cd ~
-}
-
 function conn-tm {
   mstsc.exe $home\tm.rdp /f
 }

@@ -1,6 +1,4 @@
 #       Alias       Cmd
-sal     ~           cd-home 
-sal     ..          cd-parent 
 sal     lg          lazygit
 sal     vim         nvim
 sal     vi          nvim
