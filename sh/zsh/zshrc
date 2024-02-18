@@ -136,6 +136,7 @@ alias nvi=neovide
 alias chrome=google-chrome-stable
 alias dirr="eza --icons"
 alias tac="/opt/textadept/textadept-curses"
+alias steam='steam -no-cef-sandbox >/dev/null 2>&1 &'
 
 # alias vi="vim -u $HOME/.simplevim/init.lua"
 
