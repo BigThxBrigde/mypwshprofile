@@ -15,7 +15,7 @@
 --
 --     ```lua
 --     local wezterm = require('wezterm')
---     
+--
 --     return {
 --         defaults = {
 --             default_prog           = {'zsh'},
@@ -61,14 +61,14 @@ if util.file_exists(user_config_file) then
     local_config = require('user_config')
 end
 
-local_config = local_config or {}
+local_config          = local_config or {}
 
-local config_locals = local_config.locals or {}
-local font_dirs     = {wez_home_dir .. '/fonts'}
+local config_locals   = local_config.locals or {}
+local font_dirs       = { wez_home_dir .. '/fonts' }
 
 -- Built-in configuration
 local config_defaults = {
-    default_prog                               = is_windows and {'pwsh'} or {'zsh'},
+    default_prog                               = is_windows and { 'pwsh' } or { 'zsh' },
     color_scheme                               = "Catppuccin Mocha",
     enable_tab_bar                             = true,
     font_size                                  = 10,
@@ -83,6 +83,7 @@ local config_defaults = {
     command_palette_font_size                  = 10.0,
     command_palette_bg_color                   = "#1E1D2E",
     font_dirs                                  = font_dirs,
+    default_cursor_style                       = 'BlinkingBlock',
     font                                       = wezterm.font_with_fallback {
         { family = 'Noto Sans Mono', weight = 'Bold' },
         { family = 'Zhiyin',         weight = 'Medium' },
@@ -99,7 +100,7 @@ util.table_merge(config_defaults, local_config.defaults or {})
 
 
 function M.setup(config, user_config)
-    util.table_merge(config,      config_defaults)
+    util.table_merge(config, config_defaults)
     util.table_merge(user_config, config_locals)
 end
 
