@@ -133,10 +133,12 @@ alias te="emacs -nw"
 alias open=xdg-open
 alias nvi=neovide
 # alias vi=vim
-alias chrome=google-chrome-stable
+alias chrome='bash -c "/usr/bin/chrome &>/dev/null &"'
 alias dirr="eza --icons"
 alias tac="/opt/textadept/textadept-curses"
-alias steam='steam &>/dev/null &'
+alias steam="bash -c 'steam &>/dev/null &'"
+alias ff="bash -c '/usr/bin/firefox &>/dev/null &'"
+alias aq="bash -c 'xterm -e asciiquarium &'"
 
 # alias vi="vim -u $HOME/.simplevim/init.lua"
 
