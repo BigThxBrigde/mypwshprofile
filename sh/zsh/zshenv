@@ -24,14 +24,16 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export TERM=xterm-256color
-export FZF_DEFAULT_OPTS="--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9\
- --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9\
+export FZF_DEFAULT_OPTS="--color=fg:#f8f8f2,hl:#bd93f9\
+ --color=fg+:#f8f8f2,hl+:#bd93f9\
  --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6\
  --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4\
  --height=60%\
  --layout=reverse\
  --preview='bat -f {}'\
  --preview-window='right:60%'"
+
+export FZF_CTRL_R_OPTS="--preview-window='right:0%'"
 
 export SIMPLEVIM="$HOME/.simplevim"
 
