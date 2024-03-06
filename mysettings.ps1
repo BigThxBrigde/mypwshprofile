@@ -372,6 +372,16 @@ function whereis {
   }
 }
 
+function hexview {
+  param(
+	  [parameter(position = 0,
+		  valuefrompipeline = $true)]
+	  [string][alias('f')]$file
+  )
+
+  xxd "$file" | bat -l meminfo
+}
+
 # https://github.com/julian-r/file-windows
 function desccmd {
   param(
