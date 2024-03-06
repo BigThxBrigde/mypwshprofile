@@ -136,7 +136,7 @@ alias nvi=neovide
 alias chrome='bash -c "/usr/bin/chrome &>/dev/null &"'
 alias dirr="eza --icons"
 alias tac="/opt/textadept/textadept-curses"
-alias steam="bash -c 'steam &>/dev/null &'"
+alias steam="bash -c 'steam -no-cef-sandbox &>/dev/null &'"
 alias ff="bash -c '/usr/bin/firefox &>/dev/null &'"
 alias aq="bash -c 'xterm -e asciiquarium &'"
 
