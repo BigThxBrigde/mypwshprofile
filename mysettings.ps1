@@ -372,6 +372,20 @@ function whereis {
   }
 }
 
+function unzip {
+  param(
+	  [parameter(position = 0,
+		  valuefrompipeline = $true)]
+	  [string][alias('p')]$file,
+      [switch][alias('f')]$force
+  )
+      if ($force.ispresent) {
+          7z x "$file" -y
+      } else {
+          7z x "$file"
+      }
+}
+
 function hexview {
   param(
 	  [parameter(position = 0,
