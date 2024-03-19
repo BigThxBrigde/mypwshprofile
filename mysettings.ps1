@@ -291,7 +291,7 @@ function view {
 
     $cmd = ":set wrap"
     if ($opts) {
-        $cmd += " | $opts " 
+        $cmd += " | $opts "
     }
 
 

@@ -84,7 +84,7 @@ function gen-autocompl() {
 
             if ($info.require_gen) {
                 $cmd = ($info.exec_cmd -join " ")
-                $info.autocmp = $(& cmd /c $cmd) -join ([environment]::newline) 
+                $info.autocmp = $(& cmd /c $cmd) -join ([environment]::newline)
                 echo $info.autocmp
             }
             echo $info.autocmp > "$autocmp_file"

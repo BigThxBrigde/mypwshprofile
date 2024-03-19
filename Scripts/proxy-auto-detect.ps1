@@ -13,12 +13,12 @@
 .VERSION 1.0.0.1
 .GUID 28166ed2-f498-4090-b239-fe7422236274
 .AUTHOR jermaine007
-.PROJECTURI 
+.PROJECTURI
 .COMPANYNAME
 .COPYRIGHT
-.TAGS 
-.LICENSEURI 
-.ICONURI 
+.TAGS
+.LICENSEURI
+.ICONURI
 .EXTERNALMODULEDEPENDENCIES
 .REQUIREDSCRIPTS
 .EXTERNALSCRIPTDEPENDENCIES
@@ -86,8 +86,8 @@ function Print-Usage {
 # Main procedure
 ###########################################
 
-if((-not $help.IsPresent) -and 
-   (-not $status.IsPresent) -and 
+if((-not $help.IsPresent) -and
+   (-not $status.IsPresent) -and
    (-not $enable.IsPresent) -and
    (-not $disable.IsPresent)) {
   Print-Usage

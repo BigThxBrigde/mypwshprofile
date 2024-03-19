@@ -2,7 +2,7 @@
 sal     lg          lazygit
 sal     vim         nvim
 sal     vi          nvim
-sal     nvi         neovide 
+sal     nvi         neovide
 sal     lua         lua54
 sal     luac        luac54
 sal     pad         proxy-auto-detect

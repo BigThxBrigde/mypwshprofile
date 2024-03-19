@@ -1,7 +1,7 @@
 
 # Banner only show once at startup
 $script:show_banner = $false
-$script:session = '' 
+$script:session = ''
 
 if ("$env:TERM_PROGRAM" -eq 'WezTerm') { $script:session = $env:WEZTERM_SESSION }
 elseif ("$env:TERM_PROGRAM" -eq '') { $script:session = $env:WT_SESSION }
