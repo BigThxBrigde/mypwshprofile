@@ -26,7 +26,7 @@ ls | while read f; do
     # echo "$title"
     # echo "$artist"
     # echo "Editing: $f with: $title -> $artist"
-    printf "Editing: %s ...\n" "$f" 
+    printf "Editing: %s ...\n" "$f"
     printf "Patched: %s with %s\n" "$title" "$artist"
     printf "\n"
     eyeD3 --encoding utf8 -t "$title" -a "$artist" "$f" >/dev/null
