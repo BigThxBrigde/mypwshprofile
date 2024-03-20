@@ -246,7 +246,11 @@ ins_left {
 
 -- Right componets
 ins_right {
-    'location',
+    -- 'location',
+    function()
+        local r, c = unpack(vim.api.nvim_win_get_cursor(0))
+        return string.format('Ln: %s Ch: %s', r, c)
+    end,
     color = {
         fg = palette.sapphire,
         gui = 'bold'
