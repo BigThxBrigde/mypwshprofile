@@ -3,7 +3,7 @@
 # set -x
 
 if [[ "$#" -ne 1 ]]; then
-    echo "Usage: $0 <proc_name>"
+    echo "Usage: $(basename $0) <proc_name>"
     exit -1
 fi
 
