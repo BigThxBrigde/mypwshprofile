@@ -122,25 +122,24 @@ source $ZSH/oh-my-zsh.sh
 
 # Manage neovim configuration
 
-# export PYTHON_HOST_PROG="/usr/bin/python2"
-# export PYTHON3_HOST_PROG="/usr/bin/python3"
+export PYTHON_HOST_PROG="/usr/bin/python2"
+export PYTHON3_HOST_PROG="/usr/bin/python3"
 
 alias mdp=markdown-preview
 alias eza="eza --all --icons -l"
-# alias xterm="xterm -fa 'Monospace' -fs 14"
 alias lg=lazygit
 alias te="emacs -nw"
 alias open=xdg-open
 alias nvi=neovide
-# alias vi=vim
 alias chrome='bash -c "/usr/bin/chrome &>/dev/null &"'
 alias dirr="eza --icons"
 alias tac="/opt/textadept/textadept-curses"
 alias steam="bash -c 'steam -no-cef-sandbox &>/dev/null &'"
 alias ff="bash -c '/usr/bin/firefox &>/dev/null &'"
 alias aq="bash -c 'xterm -e asciiquarium &'"
+alias zshconfig="vi $HOME/.zshrc"
+alias minecraft='bash -c "minecraft-launcher &> /dev/null &"'
 
-# alias vi="vim -u $HOME/.simplevim/init.lua"
 
 # To add pip into the PATH
 [[ -d $HOME/.local/bin ]] && export PATH=$HOME/.local/bin:$PATH
