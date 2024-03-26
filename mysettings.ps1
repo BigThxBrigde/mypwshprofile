@@ -392,8 +392,12 @@ function hexview {
 		  valuefrompipeline = $true)]
 	  [string][alias('f')]$file
   )
-
-  xxd "$file" | bat -l meminfo
+      if (-not (test-path "$file")) {
+          write-host "ERROR: file $file does not exist." -f red
+          return
+      }
+      $filename = split-path "$file" -leaf
+      xxd "$file" | vi -R -c "set ft=xxd | set tabline=$filename"
 }
 
 # https://github.com/julian-r/file-windows
