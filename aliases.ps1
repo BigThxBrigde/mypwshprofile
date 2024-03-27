@@ -8,7 +8,7 @@ sal     luac        luac54
 sal     pad         proxy-auto-detect
 sal     rmvscext    clean-vsc-extensions
 sal     mdp         markdown-preview
-sal     tac         textadept-curses
+sal     tat         textadept-curses
 sal     cal         get-calendar
 sal     kkp         halt
 sal     kkb         reboot
