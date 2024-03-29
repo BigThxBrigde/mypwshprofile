@@ -304,6 +304,10 @@ function which {
 		  valuefrompipeline = $true)]
 	  [string][alias('c')]$cmd
   )
+  if (-not $cmd) {
+      write-host "Usage: which <cmd>" -f green
+      return
+  }
 
   $cmdinfo = gcm $cmd -erroraction silentlycontinue
   if ($cmdinfo) {
@@ -319,6 +323,11 @@ function whereis {
 		  valuefrompipeline = $true)]
 	  [string][alias('c')]$cmd
   )
+
+  if (-not $cmd) {
+      write-host "Usage: whereis <cmd>" -f green
+      return
+  }
 
   $cmdinfo = gcm $cmd -erroraction silentlycontinue
   if ($cmdinfo) {
@@ -405,19 +414,19 @@ function desccmd {
   param(
 	  [parameter(position = 0,
 		  valuefrompipeline = $true)]
-	  [string][alias('n')]$cmdname,
+	  [string][alias('c')]$cmd,
       [switch][alias('r')]$nocolor
   )
 
-  if (-not $cmdname) {
-    write-host "ERROR: cmd name could not be empty!" -f red
+  if (-not $cmd) {
+    write-host "Usage: desccmd [-n] <cmd> [-r]" -f green 
     return
   }
 
 
   # Try to find external script first
 
-  $searchname = $cmdname
+  $searchname = $cmd
 
   $funcinfo = gcm -commandtype externalscript $searchname -erroraction silentlycontinue
 
@@ -455,7 +464,7 @@ function desccmd {
       return
   }
 
-  write-host "ERROR: No cmd [$cmdname] found or source not avaliable!" -f red
+  write-host "ERROR: No cmd [$cmd] found or source not avaliable!" -f red
 
 }
 
