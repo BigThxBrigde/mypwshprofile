@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -xe
+
+hmcl_jar="$(ls $HOME/.minecraft/*.jar | sort -V --reverse | head -n 1)"
+
+if [[ -n "$hmcl_jar" && -f "$hmcl_jar" ]]; then
+    java -jar "$hmcl_jar"
+else
+    echo 'No HMCL found'
+    exit -1
+fi
+
+# vim: set ft=sh :
