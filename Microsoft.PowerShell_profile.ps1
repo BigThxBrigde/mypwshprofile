@@ -56,7 +56,7 @@ $env:TM_SHR_FOLDER = "\\car-ch-1tool\Shared Folder"
 # `rustup` autocompletion
 $outbanner  = "$env:PSDOCHOME\outbanner.ps1"
 $aliases    = "$env:PSDOCHOME\aliases.ps1"
-$mysettings = "$env:PSDOCHOME\mysettings.ps1"
+$func       = "$env:PSDOCHOME\func.ps1"
 $autocompl  = "$env:PSDOCHOME\autocompl.ps1"
 $wm         = "$env:PSDOCHOME\wm.ps1"
 
@@ -80,6 +80,6 @@ $env:NODE_TLS_REJECT_UNAUTHORIZED = 0
 
 . $outbanner
 . $aliases
-. $mysettings
+. $func
 . $autocompl
 . $wm
