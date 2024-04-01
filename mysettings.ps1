@@ -34,12 +34,29 @@ function blk-txt([string]$txt) {
     echo "`u{001b}[5m$txt`u{001b}[0m"
 }
 
-function killall([string]$proc) {
+function killall() {
+    param(
+        [parameter(position = 0,
+		  valuefrompipeline = $true)]
+        [string][alias('p')]$proc,
+        [switch][alias('a')]$useadmin
+
+    )
     $proc_name = (split-path $proc -leafbase)
+
+    if (-not $proc_name) {
+        return
+    }
+
     ps | % {
         $name = $_.processname
         if ($name -like "*$proc_name*") {
-            & cmd /c "taskkill /f /im $name.exe 2>NUL"
+            if ($useadmin.ispresent) {
+                & sudo cmd /c "taskkill /f /im $name.exe 2>NUL"
+            }
+            else {
+                & cmd /c "taskkill /f /im $name.exe 2>NUL"
+            }
         }
     }
 }
