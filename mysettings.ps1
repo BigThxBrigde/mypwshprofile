@@ -35,11 +35,11 @@ function blk-txt([string]$txt) {
 }
 
 function killall([string]$proc) {
+    $proc_name = (split-path $proc -leafbase)
     ps | % {
         $name = $_.processname
-        if ($name -like "*$proc*") {
-            & cmd /c "taskkill /f /im $name.exe >NUL 2>&1"
-            & cmd /c "taskkill /f /im $name >NUL 2>&1"
+        if ($name -like "*$proc_name*") {
+            & cmd /c "taskkill /f /im $name.exe 2>NUL"
         }
     }
 }
