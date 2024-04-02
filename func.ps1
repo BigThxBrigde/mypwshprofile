@@ -34,7 +34,7 @@ function blk-txt([string]$txt) {
     echo "`u{001b}[5m$txt`u{001b}[0m"
 }
 
-function killall() {
+function killall {
     param(
         [parameter(position = 0,
 		  valuefrompipeline = $true)]
@@ -42,9 +42,16 @@ function killall() {
         [switch][alias('a')]$useadmin
 
     )
+
+    if (-not $proc) {
+        write-host "Usage: killall [-p] <proc> [-a|useadmin]" -f green
+        return
+    }
+
     $proc_name = (split-path $proc -leafbase)
 
     if (-not $proc_name) {
+        write-host "Usage: killall [-p] <proc> [-a|useadmin]" -f green
         return
     }
 
