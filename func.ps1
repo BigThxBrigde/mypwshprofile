@@ -37,7 +37,7 @@ function blk-txt([string]$txt) {
 function killall {
     param(
         [parameter(position = 0,
-		  valuefrompipeline = $true)]
+          valuefrompipeline = $true)]
         [string][alias('p')]$proc,
         [switch][alias('a')]$useadmin
 
@@ -324,9 +324,9 @@ function view {
 
 function which {
   param(
-	  [parameter(position = 0,
-		  valuefrompipeline = $true)]
-	  [string][alias('c')]$cmd
+    [parameter(position = 0,
+      valuefrompipeline = $true)]
+    [string][alias('c')]$cmd
   )
   if (-not $cmd) {
       write-host "Usage: which <cmd>" -f green
@@ -343,9 +343,9 @@ function which {
 
 function whereis {
   param(
-	  [parameter(position = 0,
-		  valuefrompipeline = $true)]
-	  [string][alias('c')]$cmd
+    [parameter(position = 0,
+      valuefrompipeline = $true)]
+    [string][alias('c')]$cmd
   )
 
   if (-not $cmd) {
@@ -396,7 +396,6 @@ function whereis {
             -and $cmdinfo.resolvedcommand.source }
           {
               "{0} {1} -> {2}" -f $cmdinfo.resolvedcommand.source,$cmdinfo.name,$cmdinfo.resolvedcommand.name
-
           }
           default { write-host "[$cmd] is a built-in cmdlet or alias!" }
       }
@@ -407,39 +406,40 @@ function whereis {
 
 function unzip {
   param(
-	  [parameter(position = 0,
-		  valuefrompipeline = $true)]
-	  [string][alias('p')]$file,
-      [switch][alias('f')]$force
-  )
-      if ($force.ispresent) {
-          7z x "$file" -y
-      } else {
-          7z x "$file"
-      }
+    [parameter(position = 0,
+      valuefrompipeline = $true)]
+    [string][alias('p')]$file,
+      [switch][alias('f')]$force)
+
+  if ($force.ispresent) {
+      7z x "$file" -y
+  } else {
+      7z x "$file"
+  }
 }
 
 function hexview {
   param(
-	  [parameter(position = 0,
-		  valuefrompipeline = $true)]
-	  [string][alias('f')]$file
+    [parameter(position = 0,
+      valuefrompipeline = $true)]
+    [string][alias('f')]$file
   )
-      if (-not (test-path "$file")) {
-          write-host "ERROR: file $file does not exist." -f red
-          return
-      }
-      $filename = split-path "$file" -leaf
-      xxd "$file" | vi -R -c "set ft=xxd | set tabline=$filename"
+
+  if (-not (test-path "$file")) {
+      write-host "ERROR: file $file does not exist." -f red
+      return
+  }
+  $filename = split-path "$file" -leaf
+  xxd "$file" | vi -R -c "set ft=xxd | set tabline=$filename"
 }
 
 # https://github.com/julian-r/file-windows
 function desccmd {
   param(
-	  [parameter(position = 0,
-		  valuefrompipeline = $true)]
-	  [string][alias('c')]$cmd,
-      [switch][alias('r')]$nocolor
+    [parameter(position = 0,
+      valuefrompipeline = $true)]
+    [string][alias('c')]$cmd,
+    [switch][alias('r')]$nocolor
   )
 
   if (-not $cmd) {
