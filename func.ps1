@@ -26,7 +26,7 @@ function reboot {
 }
 
 # Shutdown PC
-function halt {
+function poweroff {
     sudo shutdown -s -f -t 0
 }
 

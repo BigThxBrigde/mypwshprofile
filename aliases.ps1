@@ -10,7 +10,7 @@ sal     rmvscext    clean-vsc-extensions
 sal     mdp         markdown-preview
 sal     tat         textadept-curses
 sal     cal         get-calendar
-sal     kkp         halt
+sal     kkp         poweroff
 sal     kkb         reboot
 sal     ctm         conn-tm
 sal     kt          kill-trashes
