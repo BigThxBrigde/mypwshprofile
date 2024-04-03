@@ -1,0 +1,15 @@
+# [http]
+#   sslverify = false
+#   version = HTTP/1.1
+[url "https://mirror.ghproxy.com/https://github.com/"]
+    insteadof = https://github.com/
+# Holy shit GFW
+# [url "https://hub.nuaa.cf/"]
+#    insteadof = https://github.com/
+# [url "https://hub.yzuu.cf/"]
+#    insteadof = https://github.com/
+[user]
+	name = i77
+	email = jermaine007@qq.com
+[credential]
+	helper = store
