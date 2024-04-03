@@ -42,7 +42,7 @@ $env:NVIM_DATA = "$env:LOCALAPPDATA\nvim-data"
 
 # Settings for BAT
 # $env:BAT_THEME = 'Dracula'
-$env:BAT_THEME = 'OneHalfDark'
+$env:BAT_THEME = 'Catppuccin Macchiato'
 $env:BAT_STYLE = 'changes,rule,numbers'
 
 # cargo multiple downloading setting
