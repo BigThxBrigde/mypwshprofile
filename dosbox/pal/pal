@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+/usr/bin/dosbox -conf /home/jermaine/.pal/dosbox.pal.conf
+
+
+
+
+# vim: set ft=sh :
