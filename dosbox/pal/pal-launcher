@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+# PS4='$LINENO: '
+# set -xe
+
+CWD=$(dirname $(readlink "$0"))
+PAL_ZIP="$CWD/pal.zip"
+PAL_DIR="$CWD/c/pal"
+
+if [[ ! -d "$PAL_DIR" ]]; then
+
+    if [[ ! -f "$PAL_ZIP" ]]; then
+        echo 'No pal.zip found, launching abort'
+        exit -1
+    fi
+
+    echo 'First time to launch pal, installing...'
+    mkdir -p "$PAL_DIR"
+    unzip "$PAL_ZIP" -d "$PAL_DIR"
+fi
+
+/usr/bin/dosbox -conf $HOME/.pal/dosbox.pal.conf
