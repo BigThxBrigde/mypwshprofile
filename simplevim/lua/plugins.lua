@@ -1,7 +1,7 @@
 local plugins = {
     { 'terryma/vim-multiple-cursors' },
     { 'junegunn/vim-easy-align' },
-    { 'gcmt/wildfire.vim' },
+    -- { 'gcmt/wildfire.vim' },
     { "junegunn/fzf" },
     { "junegunn/fzf.vim" },
     {
