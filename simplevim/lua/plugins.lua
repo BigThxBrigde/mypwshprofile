@@ -21,16 +21,16 @@ local plugins = {
             ]])
         end
     },
-    {
-        "kylechui/nvim-surround",
-        version = "*", -- Use for stability; omit to use `main` branch for the latest features
-        -- event = "VeryLazy",
-        config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
-        end
-    },
+    -- {
+    --     "kylechui/nvim-surround",
+    --     version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    --     -- event = "VeryLazy",
+    --     config = function()
+    --         require("nvim-surround").setup({
+    --             -- Configuration here, or leave empty to use defaults
+    --         })
+    --     end
+    -- },
     {
 
         'nvim-telescope/telescope.nvim',
@@ -123,7 +123,8 @@ local plugins = {
             -- load the colorscheme here
             vim.cmd([[colorscheme catppuccin-macchiato]])
         end
-    }, -- I have a separate config.mappings file where I require which-key.
+    },
+    -- I have a separate config.mappings file where I require which-key.
     --{
     --    "joshdick/onedark.vim",
     --    priority = 1000, -- make sure to load this before all the other start plugins
@@ -165,7 +166,7 @@ local plugins = {
         config = function()
             require('vim_lsp').setup()
         end
-    }
+    },
 }
 
 return plugins
