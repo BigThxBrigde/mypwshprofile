@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -xe
+
+file=$1
+
+if [[ ! -f "$file" ]]; then
+    exit -1
+fi
+
+sudo sed -i 's#http://ppa.launchpad.net#https://launchpad.proxy.ustclug.org#g' "$file"
