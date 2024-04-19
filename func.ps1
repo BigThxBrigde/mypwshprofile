@@ -443,7 +443,7 @@ function desccmd {
   )
 
   if (-not $cmd) {
-    write-host "Usage: desccmd [-n] <cmd> [-r]" -f green 
+    write-host "Usage: desccmd [-n] <cmd> [-r]" -f green
     return
   }
 
@@ -489,6 +489,47 @@ function desccmd {
   }
 
   write-host "ERROR: No cmd [$cmd] found or source not avaliable!" -f red
+
+}
+
+function git-checkout {
+    param([switch][alias('a')]$all)
+
+    & git status | %{}
+
+    if ($lastexitcode -ne 0) { return }
+
+    $cmd = 'git branch --list'
+    if ($all.ispresent) {
+        $cmd += ' -a'
+    }
+    $fzf_opts = $env:FZF_DEFAULT_OPTS
+    try {
+
+        $env:FZF_DEFAULT_OPTS = @"
+          --color=spinner:#f4dbd6,hl:#ed8796
+          --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6
+          --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796
+          --height=60%
+          --layout=reverse
+"@
+
+        & cmd /c "$cmd" | fzf | % {
+            $branch = $_
+            if ($branch.startswith('*'))  { return }
+            elseif ($branch.contains('remotes/origin')) {
+                $newbranch    = $branch.replace('remotes/origin/', '').trim()
+                $remotebranch =  $branch.trim()
+                & git checkout -b "$newbranch" "$remotebranch"
+            }
+            else {
+                $newbranch = $branch.trim()
+                & git checkout "$newbranch"
+            }
+        }
+    } finally {
+       $env:FZF_DEFAULT_OPTS = $fzf_opts
+    }
 
 }
 
