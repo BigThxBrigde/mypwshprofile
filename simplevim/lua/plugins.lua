@@ -1,3 +1,5 @@
+local is_windows = require('vars').is_windows
+
 local plugins = {
     { 'terryma/vim-multiple-cursors' },
     { 'junegunn/vim-easy-align' },
@@ -159,7 +161,7 @@ local plugins = {
             "neovim/nvim-lspconfig",
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
-            'L3MON4D3/LuaSnip',
+            -- 'L3MON4D3/LuaSnip',
             'saadparwaiz1/cmp_luasnip',
             'onsails/lspkind.nvim'
         },
@@ -167,6 +169,18 @@ local plugins = {
             require('vim_lsp').setup()
         end
     },
+    {
+        'L3MON4D3/LuaSnip',
+        version = 'v2.*',
+        build = function(plugin)
+            if is_windows then return end
+            local exitcode = os.execute(string.format('make -C %s install_jsregexp -j$(nproc)', plugin.dir))
+            if exitcode ~= 0 then
+                print('Install jsregexp failed')
+            end
+        end
+
+    }
 }
 
 return plugins
