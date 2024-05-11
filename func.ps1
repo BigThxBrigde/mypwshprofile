@@ -84,6 +84,7 @@ function choco-autoclean {
     & sudo choco-cleaner.bat
 }
 
+
 # Try to switch the gitconfig
 # function switch-gitconfig {
 #   param(
@@ -244,6 +245,79 @@ function wc {
   if ($line) { (gc $input | measure -l).lines }
   elseif ($word) { (gc $input | measure -w).words }
   elseif ($char) { (gc $input | measure -c).characters }
+}
+
+# function script:winget-upgrade-fzf {
+#     $fzf_opts = $env:FZF_DEFAULT_OPTS
+#     # https://github.com/PowerShell/PowerShell/issues/18156
+#     $origencoding = [system.console]::outputencoding
+
+#     try {
+
+#         $env:FZF_DEFAULT_OPTS = @"
+#           --color=spinner:#f4dbd6,hl:#ed8796
+#           --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6
+#           --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796
+#           --height=60%
+#           --layout=reverse
+# "@
+#         [system.console]::outputencoding = [system.text.utf8encoding]::new()
+
+#         $can_add = $false
+
+#         & winget list --upgrade-available | % {
+#             $line = [string]$_
+
+#             if ($line.startswith('-----')) { $can_add = $true; return }
+#             if (-not $can_add) { return }
+#             $line
+#         } | select -skiplast 1 | & fzf --multi | % {
+
+#             $info = $_
+#             echo $info | format-table
+#             # $pkg_id = ($info -split ' ')[1]
+
+#             # if (-not $pkg_id) { return }
+
+#             # write-host "Upgrading $pkg_id ...`n" -f green
+
+#             # & winget upgrade $_
+
+#             # if ($lastexitcode -eq 0) {
+#             #     write-host "Upgrade $pkg_id successfully" -f green
+#             # } else {
+#             #     write-host "`nUpgrade $pkg_id failed`n" -f red
+#             # }
+#         }
+
+#     } finally {
+#        [system.console]::outputencoding = $origencoding
+#        $env:FZF_DEFAULT_OPTS = $fzf_opts
+#     }
+# }
+
+function winget-upgrade {
+    param(
+       [parameter(position = 0)]
+       [string[]][alias('p')]$packages=@()
+    )
+
+    if (-not $packages) {
+        write-host 'Usage: winget-upgrade [-p] <packages>'
+        return
+    }
+
+    $packages | % {
+        $package = $_
+        write-host "Upgrading $package ...`n" -f green
+        & winget upgrade $_
+        if ($lastexitcode -eq 0) {
+            write-host "Upgrade $package successfully" -f green
+        } else {
+            write-host "`nUpgrade $package failed`n" -f red
+        }
+    }
+
 }
 
 
