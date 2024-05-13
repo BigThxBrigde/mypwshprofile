@@ -247,63 +247,99 @@ function wc {
   elseif ($char) { (gc $input | measure -c).characters }
 }
 
-# function script:winget-upgrade-fzf {
-#     $fzf_opts = $env:FZF_DEFAULT_OPTS
-#     # https://github.com/PowerShell/PowerShell/issues/18156
-#     $origencoding = [system.console]::outputencoding
+$script:fzf_options = @"
+          --color=spinner:#f4dbd6,hl:#ed8796
+          --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6
+          --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796
+          --height=60%
+          --layout=reverse
+"@
 
-#     try {
 
-#         $env:FZF_DEFAULT_OPTS = @"
-#           --color=spinner:#f4dbd6,hl:#ed8796
-#           --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6
-#           --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796
-#           --height=60%
-#           --layout=reverse
-# "@
-#         [system.console]::outputencoding = [system.text.utf8encoding]::new()
+function script:winget-upgrade-fzf {
+    # https://github.com/PowerShell/PowerShell/issues/18156
+    $origencoding = [system.console]::outputencoding
+    $fzf_opts     = $env:FZF_DEFAULT_OPTS
 
-#         $can_add = $false
+    try {
 
-#         & winget list --upgrade-available | % {
-#             $line = [string]$_
+        $env:FZF_DEFAULT_OPTS            = $script:fzf_options
+        [system.console]::outputencoding = [system.text.utf8encoding]::new()
 
-#             if ($line.startswith('-----')) { $can_add = $true; return }
-#             if (-not $can_add) { return }
-#             $line
-#         } | select -skiplast 1 | & fzf --multi | % {
+        $can_add       = $false
+        $id_start_idx  = -1
+        $ver_start_idx = -1
 
-#             $info = $_
-#             echo $info | format-table
-#             # $pkg_id = ($info -split ' ')[1]
+        & winget list --upgrade-available | % {
+            $line = [string]$_
 
-#             # if (-not $pkg_id) { return }
+            # Name    Id     Version    Source
+            if ($line.contains('Name')`
+                -and $line.contains('Id')`
+                -and $line.contains('Version')`
+                -and $line.contains('Source')) { 
 
-#             # write-host "Upgrading $pkg_id ...`n" -f green
+                $id_start_idx  = $line.indexof('Id')
+                $ver_start_idx = $line.indexof('Version')
 
-#             # & winget upgrade $_
+                return 
+            }
 
-#             # if ($lastexitcode -eq 0) {
-#             #     write-host "Upgrade $pkg_id successfully" -f green
-#             # } else {
-#             #     write-host "`nUpgrade $pkg_id failed`n" -f red
-#             # }
-#         }
+            if ($line.startswith('-----')) {
+                $can_add = $true 
+                return
+            }
 
-#     } finally {
-#        [system.console]::outputencoding = $origencoding
-#        $env:FZF_DEFAULT_OPTS = $fzf_opts
-#     }
-# }
+            if (-not $can_add) { return }
+
+            $line
+
+        } | select -skiplast 1 | & fzf --multi | % {
+
+            if (($id_start_idx -eq -1)`
+                -or($ver_start_idex -eq -1)) {
+                return
+            }
+
+            $info = $_
+            $len  = $(($ver_start_idx - $id_start_idx))
+            $info = $info.substring($id_start_idx)
+            $info = $info.substring(0, $len)
+            $pkg  = $info.trimend(' ')
+
+            if (-not $pkg) { return }
+
+            write-host "Upgrading $pkg ...`n" -f green
+
+            & winget upgrade $pkg 
+
+            if ($lastexitcode -eq 0) {
+                write-host "Upgrade $pkg successfully" -f green
+            } else {
+                write-host "`nUpgrade $pkg failed`n" -f red
+            }
+        }
+
+    } finally {
+       [system.console]::outputencoding = $origencoding
+       $env:FZF_DEFAULT_OPTS            = $fzf_opts
+    }
+}
 
 function winget-upgrade {
     param(
        [parameter(position = 0)]
-       [string[]][alias('p')]$packages=@()
+       [string[]][alias('p')]$packages=@(),
+       [switch][alias('h')]$help
     )
 
+    if ($help.ispresent) {
+        write-host 'Usage: winget-upgrade [-p] [packages]' -f green
+        return
+    }
+
     if (-not $packages) {
-        write-host 'Usage: winget-upgrade [-p] <packages>'
+        winget-upgrade-fzf
         return
     }
 
@@ -580,14 +616,7 @@ function git-checkout {
     $fzf_opts = $env:FZF_DEFAULT_OPTS
     try {
 
-        $env:FZF_DEFAULT_OPTS = @"
-          --color=spinner:#f4dbd6,hl:#ed8796
-          --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6
-          --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796
-          --height=60%
-          --layout=reverse
-"@
-
+        $env:FZF_DEFAULT_OPTS = $script:fzf_options
         & cmd /c "$cmd" | fzf | % {
             $branch = $_
             if ($branch.startswith('*'))  { return }
