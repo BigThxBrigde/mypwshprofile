@@ -314,7 +314,7 @@ function script:winget-upgrade-fzf {
             & winget upgrade $pkg 
 
             if ($lastexitcode -eq 0) {
-                write-host "Upgrade $pkg successfully" -f green
+                write-host "`nUpgrade $pkg successfully`n" -f green
             } else {
                 write-host "`nUpgrade $pkg failed`n" -f red
             }
