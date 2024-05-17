@@ -30,9 +30,9 @@ function M.setup()
     if vim.g.neovide then
         -- put anything you want to happen only in neovide here
         vim.g.neovide_fullscreen       = false
-        vim.g.neovide_transparency     = 0.9
+        vim.g.neovide_transparency     = 0.95
         vim.g.neovide_floating_opacity = 0.9
-        vim.o.guifont                  = is_windows and 'Agave Nerd Font Mono:h12' or 'FiraCode NF:h10'
+        vim.o.guifont                  = is_windows and 'FiraCode Nerd Font Mono:h10' or 'FiraCode NF:h10'
     else
         vim.cmd(
             [[
