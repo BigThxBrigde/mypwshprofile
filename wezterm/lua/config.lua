@@ -83,7 +83,7 @@ local config_defaults = {
     command_palette_font_size                  = 10.0,
     command_palette_bg_color                   = "#1E1D2E",
     font_dirs                                  = font_dirs,
-    front_end                                  = 'WebGpu',
+    -- front_end                                  = 'WebGpu',
     default_cursor_style                       = 'BlinkingBlock',
     font                                       = wezterm.font_with_fallback {
         { family = 'Noto Sans Mono', weight = 'Bold' },
