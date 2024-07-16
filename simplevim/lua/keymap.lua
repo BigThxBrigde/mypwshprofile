@@ -166,7 +166,6 @@ end
 local visual_keys      = {
     {
         mode = { "v" },
-        { "<leader>m",  group = "Motions" },
         { "<leader>x",  group = "Extensions" },
         { "<leader>xa", "<Plug>(EasyAlign)", desc = "Align with delimeter" },
     },

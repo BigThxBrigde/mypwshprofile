@@ -20,55 +20,40 @@ local function notify_vsc_editor_action(action_id, ...)
     end
 end
 
+local norm_keys =
+{
+    { "<leader>l",  group = "Language Server" },
+    { "<leader>lf", call_vsc_editor_action('formatDocument'), desc = "Format Document" },
+    { "<leader>f",  group = "Files" },
+    { "<leader>fn", '<cmd>nohlsearch<cr>',                    desc = 'No highlight search' },
+    { "<leader>fs", '<cmd>w!<cr>',                            desc = 'Save current file' },
+    { "<leader>fS", '<cmd>wa!<cr>',                           desc = 'Save all files' },
+    { "<leader>fw", '<cmd>%s/\\s\\+$//e<cr>',                 desc = 'Trim Trailing Whitespace' },
+
+}
+
+local visual_keys =
+{
+    mode = { "v" },
+    { "<leader>l",  group = "Language Server" },
+    { "<leader>lf", call_vsc_editor_action('formatSelection'), desc = "Format Selection" },
+}
+
+local norm_visual_keys =
+{
+    mode = { 'v', 'n' },
+    { "<leader>lV", notify_vsc_editor_action('revealDefinitionAside'), desc = 'Goto Definition Aside' },
+    { "<leader>ld", notify_vsc_editor_action('revealDefinition'),      desc = 'Goto Definition' },
+    { "<leader>lD", notify_vsc_editor_action('revealDeclaration'),     desc = 'Goto Declaration' },
+    { "<leader>lv", notify_vsc_editor_action('showHover'),             desc = 'View Document' },
+
+}
+
 
 local key_defs = {
-    {
-        keys = {
-            l = {
-                name = 'Language Server',
-                f = { call_vsc_editor_action('formatDocument'), 'Format Document' },
-            },
-            f = {
-                name = 'Files',
-                n = { '<cmd>nohlsearch<cr>', 'No highlight search' },
-                s = { '<cmd>w!<cr>', 'Save current file' },
-                S = { '<cmd>wa!<cr>', 'Save all files' },
-                w = { '<cmd>%s/\\s\\+$//e<cr>', 'Trim Trailing Whitespace' }
-            },
-        },
-        opts = {
-            prefix = '<leader>',
-            mode   = 'n'
-        }
-    },
-    {
-        keys = {
-            name = 'Language Server',
-            l = {
-                f = { call_vsc_editor_action('formatSelection'), 'Format Selection' },
-            }
-        },
-        opts = {
-            prefix = '<leader>',
-            mode = 'v'
-        }
-    },
-    {
-
-        keys = {
-            name = 'Language Server',
-            l = {
-                V = { notify_vsc_editor_action('revealDefinitionAside'), 'Goto Definition Aside' },
-                d = { notify_vsc_editor_action('revealDefinition'), 'Goto Definition' },
-                D = { notify_vsc_editor_action('revealDeclaration'), 'Goto Declaration' },
-                v = { notify_vsc_editor_action('showHover'), 'View Document' }
-            }
-        },
-        opts = {
-            prefix = '<leader>',
-            mode = { 'v', 'n' }
-        }
-    }
+    norm_keys,
+    visual_keys,
+    norm_visual_keys
 }
 
 return key_defs
