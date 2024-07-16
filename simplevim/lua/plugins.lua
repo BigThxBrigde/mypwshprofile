@@ -138,6 +138,9 @@ local plugins = {
     -- With lazy the plugin will be automatically loaded when it is required somewhere
     {
         "folke/which-key.nvim",
+        dependencies = {
+            "echasnovski/mini.icons"
+        },
         config = function()
             require('vim_keys').setup()
         end

@@ -11,53 +11,6 @@ local show_lazygit      = function()
 end
 
 -- show term1 configuration
-local show_term1_config = function()
-    if is_windows then
-        local show_term_pwsh = function()
-            float_term({ 'pwsh', '--nologo' })
-        end
-        return {
-            func = show_term_pwsh,
-            desc = 'Launch terminal with pwsh',
-            key  = 'p',
-        }
-    end
-
-    local show_term_zsh = function()
-        float_term({ 'zsh' })
-    end
-    return {
-        func = show_term_zsh,
-        desc = 'Launch terminal with zsh',
-        key  = 'z',
-    }
-end
-
--- show term2 configuration
-local show_term2_config = function()
-    if is_windows then
-        local show_term_cmd = function()
-            float_term({ 'cmd' })
-        end
-        return {
-            func = show_term_cmd,
-            desc = 'Launch terminal with cmd',
-            key  = 'c',
-        }
-    end
-
-    local show_term_bash = function()
-        float_term({ 'bash' })
-    end
-    return {
-        func = show_term_bash,
-        desc = 'Launch terminal with bash',
-        key  = 'b',
-    }
-end
-
-local term1_config      = show_term1_config()
-local term2_config      = show_term2_config()
 
 -- not working correctly, without focus and hightlight
 --local show_lf
@@ -138,129 +91,110 @@ end
 --
 --  key map defines
 --
-local key_defs          = {
-    -- Leader keys normal mode
+
+local norm_keys         =
+{
+    { "<leader>b",  group = "Buffers" },
+    { "<leader>bd", "<cmd>bd!<cr>",                desc = "Close current buffer" },
+    { "<leader>bl", "<cmd>ls<cr>",                 desc = "List all buffers" },
+    { "<leader>bn", "<cmd>bn<cr>",                 desc = "Next buffer" },
+    { "<leader>bp", "<cmd>bp<cr>",                 desc = "Previous buffer" },
+    { "<leader>bs", telescope_builtin.buffers,     desc = "Find buffers" },
+    { "<leader>f",  group = "Files" },
+    { "<leader>fS", "<cmd>wa!<cr>",                desc = "Save all files" },
+    { "<leader>ff", telescope_builtin.find_files,  desc = "Find files" },
+    { "<leader>fg", show_lazygit,                  desc = "Show Lazygit" },
+    { "<leader>fn", "<cmd>nohlsearch<cr>",         desc = "No highlight search" },
+    { "<leader>fs", "<cmd>w!<cr>",                 desc = "Save current file" },
+    { "<leader>ft", "<cmd>Neotree toggle<cr>",     desc = "Toggle Neotree File Manager" },
+    { "<leader>fw", "<cmd>%s/\\s\\+$//e<cr>",      desc = "Trim Trailing Whitespace" },
+    { "<leader>m",  group = "Motions" },
+    { "<leader>mF", "<Plug>Sneak_S",               desc = "Find character backward" },
+    { "<leader>mT", "<Plug>Sneak_T",               desc = "Find till character backward" },
+    { "<leader>mf", "<Plug>Sneak_s",               desc = "Find character forward" },
+    { "<leader>mt", "<Plug>Sneak_t",               desc = "Find till character forward" },
+    { "<leader>q",  group = "Quit" },
+    { "<leader>qQ", "<cmd>qa!<cr>",                desc = "Quit vim" },
+    { "<leader>qq", "<cmd>q!<cr>",                 desc = "Quit current window" },
+    { "<leader>w",  group = "Windows" },
+    { "<leader>wh", "<cmd>wincmd h<cr>",           desc = "Focus left window" },
+    { "<leader>wj", "<cmd>wincmd j<cr>",           desc = "Focus down window" },
+    { "<leader>wk", "<cmd>wincmd k<cr>",           desc = "Focus up window" },
+    { "<leader>wl", "<cmd>wincmd l<cr>",           desc = "Focus right window" },
+    { "<leader>x",  group = "Extensions" },
+    { "<leader>xc", telescope_builtin.colorscheme, desc = "Color scheme" },
+    { "<leader>xd", "<cmd>Dashboard<cr>",          desc = "Show Dashboard" },
+    { "<leader>xg", telescope_builtin.live_grep,   desc = "Live grep" },
+    { "<leader>xh", telescope_builtin.help_tags,   desc = "Help tags" },
+    { "<leader>xm", "<cmd>Lazy<cr>",               desc = "Show Lazynvim Package Manager" },
+    { "<leader>xt", telescope_builtin.treesitter,  desc = "View treesitter" },
+    { "<leader>xx", telescope_builtin.commands,    desc = "Execute commands" },
+}
+
+local sph_desc          = 'Split horizontally with ' .. (is_windows and 'pwsh' or 'zsh')
+local spv_desc          = 'Split vertically with ' .. (is_windows and 'pwsh' or 'zsh')
+
+table.insert(norm_keys, { "<leader>t", group = "Terminal" })
+table.insert(norm_keys, { "<leader>th", show_hterm, desc = sph_desc })
+table.insert(norm_keys, { "<leader>tv", show_vterm, desc = spv_desc })
+
+
+if is_windows then
+    local show_term_pwsh = function()
+        float_term({ 'pwsh', '--nologo' })
+    end
+    local show_term_cmd = function()
+        float_term({ 'cmd' })
+    end
+    table.insert(norm_keys, { "<leader>tc", show_term_cmd, desc = "Launch terminal with cmd" })
+    table.insert(norm_keys, { "<leader>tp", show_term_pwsh, desc = "Launch terminal with pwsh" })
+else
+    local show_term_bash = function()
+        float_term({ 'bash' })
+    end
+    local show_term_zsh = function()
+        float_term({ 'zsh' })
+    end
+    table.insert(norm_keys, { "<leader>tz", show_term_zsh, desc = "Launch terminal with zsh" })
+    table.insert(norm_keys, { "<leader>tb", show_term_bash, desc = "Launch terminal with bash" })
+end
+
+local visual_keys      = {
     {
-        keys = {
-            t = {
-                name = 'Terminal',
-                [term1_config.key] = { term1_config.func, term1_config.desc },
-                [term2_config.key] = { term2_config.func, term2_config.desc },
-                h = { show_hterm, 'Split horizontally with ' .. (is_windows and 'pwsh' or 'zsh') },
-                v = { show_vterm, 'Split vertically with ' .. (is_windows and 'pwsh' or 'zsh') },
-            },
-            f = {
-                name = 'Files',
-                f = { telescope_builtin.find_files, 'Find files' },
-                n = { '<cmd>nohlsearch<cr>', 'No highlight search' },
-                s = { '<cmd>w!<cr>', 'Save current file' },
-                S = { '<cmd>wa!<cr>', 'Save all files' },
-                t = { '<cmd>Neotree toggle<cr>', 'Toggle Neotree File Manager' },
-                g = { show_lazygit, 'Show Lazygit' },
-                w = { '<cmd>%s/\\s\\+$//e<cr>', 'Trim Trailing Whitespace' }
-            },
-            x = {
-                name = 'Extensions',
-                d = { '<cmd>Dashboard<cr>', 'Show Dashboard' },
-                m = { '<cmd>Lazy<cr>', 'Show Lazynvim Package Manager' },
-                g = { telescope_builtin.live_grep, 'Live grep' },
-                h = { telescope_builtin.help_tags, 'Help tags' },
-                t = { telescope_builtin.treesitter, 'View treesitter' },
-                x = { telescope_builtin.commands, 'Execute commands' },
-                c = { telescope_builtin.colorscheme, 'Color scheme' }
-            },
-            b = {
-                name = 'Buffers',
-                s = { telescope_builtin.buffers, 'Find buffers' },
-                d = { '<cmd>bd!<cr>', 'Close current buffer' },
-                l = { '<cmd>ls<cr>', 'List all buffers' },
-                n = { '<cmd>bn<cr>', 'Next buffer' },
-                p = { '<cmd>bp<cr>', 'Previous buffer' },
-            },
-            w = {
-                name = 'Windows',
-                h = { '<cmd>wincmd h<cr>', 'Focus left window' },
-                l = { '<cmd>wincmd l<cr>', 'Focus right window' },
-                j = { '<cmd>wincmd j<cr>', 'Focus down window' },
-                k = { '<cmd>wincmd k<cr>', 'Focus up window' },
-            },
-            q = {
-                name = 'Quit',
-                q = { '<cmd>q!<cr>', 'Quit current window' },
-                Q = { '<cmd>qa!<cr>', 'Quit vim' },
-            },
-            m = {
-                name = 'Motions',
-                f = { '<Plug>Sneak_s', 'Find character forward' },
-                F = { '<Plug>Sneak_S', 'Find character backward' },
-                t = { '<Plug>Sneak_t', "Find till character forward" },
-                T = { '<Plug>Sneak_T', 'Find till character backward' },
-            }
-        },
-        opts = {
-            prefix = "<leader>"
-        }
-    },
-    -- Leader keys visual mode
-    {
-        keys = {
-            x = {
-                name = 'Extensions',
-                a = { '<Plug>(EasyAlign)', 'Align with delimeter' },
-            },
-            m = {
-                name = 'Motions',
-            }
-        },
-        opts = {
-            prefix = '<leader>',
-            mode   = 'v'
-        }
-    },
-    {
-        keys = {
-            c = {
-                name = 'Comments',
-                l = { '<Plug>NERDCommenterToggle', 'Toggle comments' },
-            },
-            l = {
-                name = 'Language Server',
-                q = { vim.diagnostic.setqflist, 'Diagnostic in Quick Fix' },
-                n = { vim.diagnostic.goto_next, 'Next Diagnostic' },
-                p = { vim.diagnostic.goto_prev, 'Previous Diagnostic' },
-                c = { vim.lsp.buf.code_action, 'Code Actions' },
-                d = { vim.lsp.buf.definition, 'Definition' },
-                r = { vim.lsp.buf.rename, 'Rename Symbol' },
-                R = { vim.lsp.buf.references, 'Find All References' },
-                f = { vim.lsp.buf.format, 'Format Document' },
-                s = { vim.lsp.buf.document_symbol, 'Document Symbols' },
-                i = { vim.lsp.buf.implementation, 'Go to implementation' },
-                v = { vim.lsp.buf.hover, 'View Document' },
-                S = { vim.lsp.buf.workspace_symbol, 'Workspace Symbols' },
-                I = { '<cmd>LspInfo<CR>', 'Show Language Server Info' }
-            },
-        },
-        opts = {
-            prefix = '<leader>',
-            mode   = { 'v', 'n' }
-        }
+        mode = { "v" },
+        { "<leader>m",  group = "Motions" },
+        { "<leader>x",  group = "Extensions" },
+        { "<leader>xa", "<Plug>(EasyAlign)", desc = "Align with delimeter" },
     },
 }
 
---if show_lf then
---    table.insert(key_defs,
---    {
---        keys = {
---            l = {
---                name = 'File System',
---                f = {show_lf, 'Show LF Manager'}
---            },
---        },
---        opts = {
---            prefix = "<leader>"
---        }
---    })
---end
+local norm_visual_keys = {
+    {
+        mode = { "n", "v" },
+        { "<leader>c",  group = "Comments" },
+        { "<leader>cl", "<Plug>NERDCommenterToggle",  desc = "Toggle comments" },
+        { "<leader>l",  group = "Language Server" },
+        { "<leader>lI", "<cmd>LspInfo<CR>",           desc = "Show Language Server Info" },
+        { "<leader>lq", vim.diagnostic.setqflist,     desc = 'Diagnostic in Quick Fix' },
+        { "<leader>ln", vim.diagnostic.goto_next,     desc = 'Next Diagnostic' },
+        { "<leader>lp", vim.diagnostic.goto_prev,     desc = 'Previous Diagnostic' },
+        { "<leader>lc", vim.lsp.buf.code_action,      desc = 'Code Actions' },
+        { "<leader>ld", vim.lsp.buf.definition,       desc = 'Definition' },
+        { "<leader>lr", vim.lsp.buf.rename,           desc = 'Rename Symbol' },
+        { "<leader>lR", vim.lsp.buf.references,       desc = 'Find All References' },
+        { "<leader>lf", vim.lsp.buf.format,           desc = 'Format Document' },
+        { "<leader>ls", vim.lsp.buf.document_symbol,  desc = 'Document Symbols' },
+        { "<leader>li", vim.lsp.buf.implementation,   desc = 'Go to implementation' },
+        { "<leader>lv", vim.lsp.buf.hover,            desc = 'View Document' },
+        { "<leader>lS", vim.lsp.buf.workspace_symbol, desc = 'Workspace Symbols' },
+    },
+}
+
+local key_defs         = {
+    norm_keys,
+    visual_keys,
+    norm_visual_keys
+}
 
 
 return key_defs
