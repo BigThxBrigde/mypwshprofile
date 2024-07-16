@@ -92,6 +92,7 @@ end
 --  key map defines
 --
 
+-- keys with normal mode
 local norm_keys         =
 {
     { "<leader>b",  group = "Buffers" },
@@ -138,6 +139,8 @@ table.insert(norm_keys, { "<leader>t", group = "Terminal" })
 table.insert(norm_keys, { "<leader>th", show_hterm, desc = sph_desc })
 table.insert(norm_keys, { "<leader>tv", show_vterm, desc = spv_desc })
 
+-- add terminal shell cmd, pwsh on windows
+-- and bash, zsh on linux
 
 if is_windows then
     local show_term_pwsh = function()
@@ -159,6 +162,7 @@ else
     table.insert(norm_keys, { "<leader>tb", show_term_bash, desc = "Launch terminal with bash" })
 end
 
+-- visual mode keys
 local visual_keys      = {
     {
         mode = { "v" },
@@ -168,6 +172,7 @@ local visual_keys      = {
     },
 }
 
+-- normal and visual mode keys
 local norm_visual_keys = {
     {
         mode = { "n", "v" },
@@ -190,6 +195,7 @@ local norm_visual_keys = {
     },
 }
 
+-- all key maps definition
 local key_defs         = {
     norm_keys,
     visual_keys,
