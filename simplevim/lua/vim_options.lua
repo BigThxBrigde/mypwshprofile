@@ -23,6 +23,7 @@ function M.setup()
     vim.o.wrap           = false
     vim.o.splitbelow     = true
     vim.o.splitright     = true
+    vim.o.swapfile       = false
 
     -- Disable intro here
     vim.opt.shortmess:append({ I = true })
@@ -40,7 +41,7 @@ function M.setup()
         ]])
     end
 
-    if  is_windows then
+    if is_windows then
         vim.cmd([[
 		let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
 		let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
