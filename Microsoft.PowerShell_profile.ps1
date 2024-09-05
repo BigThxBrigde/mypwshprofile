@@ -50,7 +50,7 @@ $env:CARGO_HTTP_CHECK_REVOKE = "false"
 # Goproxy settings
 #
 $env:GOPROXY       = 'https://goproxy.cn'
-$env:TM_SHR_FOLDER = "\\car-ch-1tool\Shared Folder"
+$env:TM_SHR_FOLDER = "\\chi-pc-0019\Shared Folder"
 
 
 # `rustup` autocompletion
