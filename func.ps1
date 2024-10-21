@@ -636,6 +636,16 @@ function git-checkout {
 
 }
 
+$script:daily_md = "$HOME\daily.md"
+
+function edit-daily {
+    vi $script:daily_md
+}
+
+function view-daily {
+    view $script:daily_md
+}
+
 
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
