@@ -14,7 +14,7 @@ if ($env:current_session -ne $script:session`
 }
 
 
-if($script:show_banner) {
+if ($script:show_banner) {
   $banner = "
                                                                                            `
 ▄▄▄▄▄ ▄▄▄· ▄▄▌  ▄ •▄     ▪  .▄▄ ·      ▄▄·  ▄ .▄▄▄▄ . ▄▄▄·  ▄▄▄·                           `
