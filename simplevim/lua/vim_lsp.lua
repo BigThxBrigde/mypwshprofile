@@ -19,7 +19,7 @@ return {
             'clangd',
             'pylsp',
             'gopls',
-            'tsserver',
+            'ts_ls',
             'rust_analyzer',
             'lua_ls'
         }
