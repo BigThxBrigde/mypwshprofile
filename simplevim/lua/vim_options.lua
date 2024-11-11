@@ -33,7 +33,7 @@ function M.setup()
         vim.g.neovide_fullscreen       = false
         vim.g.neovide_transparency     = 0.95
         vim.g.neovide_floating_opacity = 0.9
-        vim.o.guifont                  = is_windows and 'FiraCode Nerd Font Mono:h11' or 'FiraCode NF:h10'
+        vim.o.guifont                  = is_windows and 'Cascadia Code NF:h10' or 'FiraCode NF:h10'
     else
         vim.cmd(
             [[
