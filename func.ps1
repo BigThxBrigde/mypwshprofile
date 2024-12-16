@@ -34,6 +34,46 @@ function blk-txt([string]$txt) {
     echo "`u{001b}[5m$txt`u{001b}[0m"
 }
 
+$script:symbols=@(
+    "`u{e900}",
+    "`u{e901}",
+    "`u{e902}",
+    "`u{e903}",
+    "`u{e904}",
+    "`u{e905}",
+    "`u{e906}",
+    "`u{e907}",
+    "`u{e908}",
+    "`u{e909}",
+    "`u{e90a}",
+    "`u{e90b}",
+    "`u{e90c}",
+    "`u{e90d}",
+    "`u{e90e}",
+    "`u{e90f}")
+
+
+# https://en.wikipedia.org/wiki/ANSI_escape_code
+function ikun {
+    $cnt = 0;
+    try {
+        # hide cursor
+        echo "`u{001b}[?25l"
+        while ($true) {
+            clear-host
+            $idx = $cnt % 16
+            # echo "`u{001b}[2k"
+            # echo "`u{001b}[2j"
+            echo $script:symbols[$idx]
+            sleep 0.15
+            $cnt = $cnt + 1
+        }
+    }
+    finally {
+        echo "`u{001b}[?25h"
+    }
+}
+
 function killall {
     param(
         [parameter(position = 0,
