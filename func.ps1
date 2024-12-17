@@ -57,14 +57,14 @@ $script:symbols=@(
 function ikun {
     $cnt = 0;
     try {
+        clear-host
         # hide cursor
         echo "`u{001b}[?25l"
         while ($true) {
-            clear-host
             $idx = $cnt % 16
-            # echo "`u{001b}[2k"
             # echo "`u{001b}[2j"
             echo $script:symbols[$idx]
+            echo "`u{001b}[0f"
             sleep 0.15
             $cnt = $cnt + 1
         }
