@@ -52,6 +52,33 @@ $script:symbols=@(
     "`u{e90e}",
     "`u{e90f}")
 
+function term-color-test {
+    $i = 0
+    while ($i -lt 256) {
+        write-host ("`u{001b}[48;5;{0}m{1,3}`u{001b}[0m " -f $i, $i) -nonewline
+
+        $has_linefeed = ($i -eq 15)`
+             -or (($i -gt 15) -and ($i -le 231) -and ($($i - 15) % 18 -eq 0))`
+             -or (($i -gt 231) -and ($($i - 231) % 12 -eq 0))
+
+        $has_gap = ($i -gt 15) -and ($i -le 231) -and ($($i - 15) % 18 -eq 0)
+
+        $has_extra_linefeed = ($i -eq 15) -or ($i -eq 123) -or ($i -eq 231)
+
+        if ($has_linefeed) {
+            if ($has_gap) {
+                write-host " " -nonewline
+            }
+            write-host ""
+        }
+
+        if ($has_extra_linefeed) {
+            write-host ""
+        }
+
+        $(++$i)
+    }
+}
 
 # https://en.wikipedia.org/wiki/ANSI_escape_code
 function ikun {
@@ -59,18 +86,18 @@ function ikun {
     try {
         clear-host
         # hide cursor
-        echo "`u{001b}[?25l"
+        write-host "`u{001b}[?25l" -nonewline
         while ($true) {
             $idx = $cnt % 16
             # echo "`u{001b}[2j"
-            echo $script:symbols[$idx]
-            echo "`u{001b}[0f"
+            write-host $script:symbols[$idx] -nonewline
+            write-host "`u{001b}[0f" -nonewline
             sleep 0.15
             $cnt = $cnt + 1
         }
     }
     finally {
-        echo "`u{001b}[?25h"
+        write-host "`u{001b}[?25h" -nonewline
     }
 }
 
@@ -317,16 +344,16 @@ function script:winget-upgrade-fzf {
             if ($line.contains('Name')`
                 -and $line.contains('Id')`
                 -and $line.contains('Version')`
-                -and $line.contains('Source')) { 
+                -and $line.contains('Source')) {
 
                 $id_start_idx  = $line.indexof('Id')
                 $ver_start_idx = $line.indexof('Version')
 
-                return 
+                return
             }
 
             if ($line.startswith('-----')) {
-                $can_add = $true 
+                $can_add = $true
                 return
             }
 
@@ -351,7 +378,7 @@ function script:winget-upgrade-fzf {
 
             write-host "Upgrading $pkg ...`n" -f green
 
-            & winget upgrade $pkg 
+            & winget upgrade $pkg
 
             if ($lastexitcode -eq 0) {
                 write-host "`nUpgrade $pkg successfully`n" -f green
