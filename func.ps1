@@ -52,6 +52,28 @@ $script:symbols=@(
     "`u{e90e}",
     "`u{e90f}")
 
+
+# https://en.wikipedia.org/wiki/ANSI_escape_code
+function ikun {
+    $cnt = 0;
+    try {
+        clear-host
+        # hide cursor
+        write-host "`u{001b}[?25l" -nonewline
+        while ($true) {
+            $idx = $cnt % 16
+            # echo "`u{001b}[2j"
+            write-host $script:symbols[$idx] -nonewline
+            write-host "`u{001b}[0f" -nonewline
+            sleep 0.15
+            $cnt = $cnt + 1
+        }
+    }
+    finally {
+        write-host "`u{001b}[?25h" -nonewline
+    }
+}
+
 function term-color-test {
     $i = 0
     while ($i -lt 256) {
@@ -77,27 +99,6 @@ function term-color-test {
         }
 
         $(++$i)
-    }
-}
-
-# https://en.wikipedia.org/wiki/ANSI_escape_code
-function ikun {
-    $cnt = 0;
-    try {
-        clear-host
-        # hide cursor
-        write-host "`u{001b}[?25l" -nonewline
-        while ($true) {
-            $idx = $cnt % 16
-            # echo "`u{001b}[2j"
-            write-host $script:symbols[$idx] -nonewline
-            write-host "`u{001b}[0f" -nonewline
-            sleep 0.15
-            $cnt = $cnt + 1
-        }
-    }
-    finally {
-        write-host "`u{001b}[?25h" -nonewline
     }
 }
 
