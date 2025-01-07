@@ -7,6 +7,8 @@ set -e
 CWD=$(dirname $(readlink "$0"))
 PAL_ZIP="$CWD/pal.zip"
 PAL_DIR="$CWD/c/pal"
+PAL_SRC_CONFIG="$CWD/dosbox.pal.conf"
+PAL_CONFIG_DIR="$HOME/.pal"
 
 if [[ ! -d "$PAL_DIR" ]]; then
 
@@ -15,9 +17,17 @@ if [[ ! -d "$PAL_DIR" ]]; then
         exit -1
     fi
 
+    if [[ ! -d "$PAL_CONFIG_DIR" ]]; then
+
+        echo "No $PAL_CONFIG_DIR"
+        mkdir -p "$PAL_CONFIG_DIR"
+        cp -vf "$PAL_SRC_CONFIG" "$PAL_CONFIG_DIR/dosbox.pal.conf"
+    fi
+
+
     echo 'First time to launch pal, installing...'
     mkdir -p "$PAL_DIR"
     unzip "$PAL_ZIP" -d "$PAL_DIR"
 fi
 
-/usr/bin/dosbox -conf $HOME/.pal/dosbox.pal.conf
+/usr/bin/dosbox -conf "$PAL_CONFIG_DIR/dosbox.pal.conf"
