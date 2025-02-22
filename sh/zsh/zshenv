@@ -17,6 +17,7 @@ export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 
 export PYTHON_HOST_PROG="/usr/bin/python2"
 export PYTHON3_HOST_PROG="/usr/bin/python3"
+export DOOMGITCONFIG=$HOME/.gitconfig
 
 
 # Add nvm managerment

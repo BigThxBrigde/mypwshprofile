@@ -1,7 +1,7 @@
 # [http]
 #   sslverify = false
 #   version = HTTP/1.1
-[url "https://mirror.ghproxy.com/https://github.com/"]
+[url "https://ghfast.top/https://github.com/"]
     insteadof = https://github.com/
 # Holy shit GFW
 # [url "https://hub.nuaa.cf/"]
