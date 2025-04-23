@@ -21,10 +21,8 @@ $env:PSDOCHOME = "$env:DOCUMENTS" + "\PowerShell"
 $env:SIMPLEVIM = "$env:PSDOCHOME" + "\simplevim"
 $env:PATH      = $env:PATH + ";$env:DOCUMENTS\PowerShell\Scripts"
 $env:PATH      = $env:PATH + ";$env:USERPROFILE\.local\bin"
-$env:PATH      = $env:PATH + ";D:\Application\textadept"
 $env:PATH      = $env:PATH + ";C:\Program Files\7-Zip"
 $env:PATH      = $env:PATH + ";D:\lua\lua-5.4.2_Win64"
-$env:PATH      = $env:PATH + ";D:\Program Files\Meld"
 # https://emacs.stackexchange.com/questions/8269/how-do-i-set-up-my-emacs-d-folder-on-windows
 $env:HOME      = $env:USERPROFILE
 # Python encoding setting, otherwise pip would not work correctly.
