@@ -230,7 +230,7 @@ function jump {
   }
 }
 
-function edit {
+function live-edit {
   $live_searching     = $true
   $script:exclude_dir = @()
 
