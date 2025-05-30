@@ -1,28 +1,69 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-# trap INT
-# find $HOME/Music -type f -name "*.mp3" | shuf | while read f; do ffplay -nodisp -hide_banner "$@" -autoexit -- "$f"; done
+# Enable strict error handling
+set -euo pipefail
 
-# cvlc $HOME/Documents/fav_music.m3u8 --random --verbose 0 --no-metadata-network-access "$@"
-
-mnt-win
-
-if [ $? -ne 0 ]; then
-    echo "mnt-win failed"
+# Mount Windows drive
+if ! mnt-win; then
+    echo "Error: mnt-win mount operation failed" >&2
     exit 1
 fi
 
+# Clear screen and save original prompt (with PS1 fallback)
 clear
-
-OLD_PS1="$PS1"
+OLD_PS1="${PS1-}"  # Use parameter expansion to handle unset PS1
 PS1=""
 
-PLAY_LIST='/tmp/playlist'
-MUSIC_DIR='/media/jermaine/win_drv/Music'
+# Define constants and file paths
+readonly PLAY_LIST='/tmp/playlist'
+readonly MUSIC_DIR='/media/jermaine/win_drv/Music'
 
-trap "rm -f ${PLAY_LIST};PS1=$OLD_PS1;umnt-win;clear"  QUIT EXIT INT
+# Setup exit trap (ensure resource cleanup)
+cleanup() {
+    # Prevent multiple cleanup executions
+    if [[ -n "${CLEANUP_COMPLETED:-}" ]]; then
+        return
+    fi
+    CLEANUP_COMPLETED=1
+    
+    echo -e "\nCleaning up resources..."
+    
+    # Remove playlist file
+    rm -f "${PLAY_LIST}" >/dev/null 2>&1 || true
+    
+    # Restore original prompt if it was set
+    if [[ -n "${OLD_PS1+x}" ]]; then
+        PS1="$OLD_PS1"
+    fi
+    
+    # Unmount Windows drive
+    if ! umnt-win; then
+        echo "Warning: Unmount operation failed, please check manually" >&2
+    fi
+    
+    clear
+}
 
-clear
+# Register cleanup for all exit scenarios
+trap cleanup EXIT TERM INT QUIT HUP ABRT
 
-find "$MUSIC_DIR" -type f -name "*.mp3" | shuf > ${PLAY_LIST}
-mpg123 -o pulse,alsa -z --long-tag -v -@ ${PLAY_LIST}
+# Create randomized playlist
+if ! find "${MUSIC_DIR}" -type f -name "*.mp3" >/dev/null; then
+    echo "Error: No MP3 files found" >&2
+    exit 2
+fi
+
+if ! find "${MUSIC_DIR}" -type f -name "*.mp3" | shuf > "${PLAY_LIST}"; then
+    echo "Error: Failed to create playlist" >&2
+    exit 3
+fi
+
+# Validate playlist content
+if [[ ! -s "${PLAY_LIST}" ]]; then
+    echo "Error: Playlist is empty" >&2
+    exit 4
+fi
+
+# Play music with error handling
+echo "Starting music playback... (Press Ctrl+C to stop)"
+mpg123 -o pulse,alsa -z --long-tag -v -@ "${PLAY_LIST}"
