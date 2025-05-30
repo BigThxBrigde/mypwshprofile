@@ -1,0 +1,28 @@
+#!/bin/env bash
+
+# trap INT
+# find $HOME/Music -type f -name "*.mp3" | shuf | while read f; do ffplay -nodisp -hide_banner "$@" -autoexit -- "$f"; done
+
+# cvlc $HOME/Documents/fav_music.m3u8 --random --verbose 0 --no-metadata-network-access "$@"
+
+mnt-win
+
+if [ $? -ne 0 ]; then
+    echo "mnt-win failed"
+    exit 1
+fi
+
+clear
+
+OLD_PS1="$PS1"
+PS1=""
+
+PLAY_LIST='/tmp/playlist'
+MUSIC_DIR='/media/jermaine/win_drv/Music'
+
+trap "rm -f ${PLAY_LIST};PS1=$OLD_PS1;umnt-win;clear"  QUIT EXIT INT
+
+clear
+
+find "$MUSIC_DIR" -type f -name "*.mp3" | shuf > ${PLAY_LIST}
+mpg123 -o pulse,alsa -z --long-tag -v -@ ${PLAY_LIST}
