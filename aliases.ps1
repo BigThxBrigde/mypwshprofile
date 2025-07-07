@@ -15,3 +15,4 @@ sal     kt          kill-trashes
 sal     python3     'D:\Program Files\python38\python.exe'
 sal     grep        rg
 sal     omp         oh-my-posh
+sal     ta          textadept-curses
